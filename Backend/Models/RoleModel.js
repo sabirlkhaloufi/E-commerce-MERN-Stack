@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes} = require('sequelize');
-const sequelize = require('./index.js');
-const Roles = sequelize.define('Roles', {
+const db = require('../Config/configDb')
+const Roles = db.define('Roles', {
     // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,

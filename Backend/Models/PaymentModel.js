@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes} = require('sequelize');
-const sequelize = require('./index.js');
-const Payments = sequelize.define('Payments', {
+const db = require('../Config/configDb');
+const Payments = db.define('Payments', {
     // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,

@@ -30,7 +30,7 @@ const CodePromo = db.define('codepromo', {
     produit_id: {
         type: Sequelize.INTEGER,
         references: {
-        model: 'produit', // 'Actors' would also work
+        model: 'Produits', // 'Actors' would also work
         key: 'id'
         }
     },
