@@ -1,8 +1,21 @@
 const Role = require('../Models/RoleModel')
 
+//roles for this application
+const Roles = ["client","manager"];
+
 // create default roles
 const CreateRoles = ()=>{
-    Role.bulkCreate({role:"client"},{role:"manager"})
+    Roles.forEach(role => {
+        createR = async()=>{
+            const findRole = await Role.findOne({where: {role:role}});
+            if(!findRole){
+                await Role.create({role:role})
+            }
+        }
+        createR();
+        
+    });
+    
 }
 
 module.exports = CreateRoles;
