@@ -1,7 +1,13 @@
 require("dotenv").config()
 const express = require("express")
 const app = express()
-const dbConnection = require("./Config/configDb");
+// require('./Models/index');
+
+// require RoleController for create default roles automatique
+const CreateRoles = require('./Controllers/RoleController')
+CreateRoles();
+
+
 
 port = process.env.PORT || 5000;
 

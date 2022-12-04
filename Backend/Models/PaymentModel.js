@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes} = require('sequelize');
-const sequelize = require('./index.js');
-const Payments = sequelize.define('Payments', {
+const db = require('../Config/configDb');
+const Cammandes = require('./CommandeModel');
+const Payments = db.define('payments', {
     // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,
@@ -8,19 +9,21 @@ const Payments = sequelize.define('Payments', {
         autoIncrement: true,
         primaryKey: true
     },
-    IdCommande: {
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-          model: 'Commandes',
-          key: 'id'
-        }
-    }
+    // IdCommande: {
+    //     type: Sequelize.DataTypes.INTEGER,
+    //     references: {
+    //       model: 'commandes',
+    //       key: 'id'
+    //     }
+    // }
   }, {
     
   });
 
-  Payments
-.sync()
+  Cammandes.hasMany(Payments);
+  Payments.belongsTo(Cammandes);
+
+  Payments.sync()
 
 module.exports = Payments;
 
