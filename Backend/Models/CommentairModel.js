@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes} = require('sequelize');
 const db = require('../Config/configDb');
-const Commentairs = db.define('Commentairs', {
+const Produits = require('./ProduitModel');
+const Commentairs = db.define('commentairs', {
     // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,
@@ -9,19 +10,23 @@ const Commentairs = db.define('Commentairs', {
         primaryKey: true
     },
     commentair: {
-      type:  Sequelize.Sequelize.DataTypes.STRING,
+      type:  DataTypes.STRING,
       allowNull: false
     },
-    Idproduit: {
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-          model: 'Produits',
-          key: 'id'
-        }
-    }
+    // Idproduit: {
+    //     type: Sequelize.DataTypes.INTEGER,
+    //     references: {
+    //       model: 'produits',
+    //       key: 'id'
+    //     }
+    // }
   }, {
     
   });
+
+
+  Produits.hasMany(Commentairs);
+  Commentairs.belongsTo(Produits);
 
   Commentairs.sync()
 

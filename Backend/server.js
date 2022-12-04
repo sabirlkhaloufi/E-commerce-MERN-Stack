@@ -3,7 +3,6 @@ const express = require("express")
 const app = express()
 
 // require RoleController for create default roles automatique
-const Role = require('./Controllers/RoleController')
 require('./Models/index');
 port = process.env.PORT || 5000;
 

@@ -1,44 +1,54 @@
 
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes} = require('sequelize');
 const db = require('../Config/ConfigDb');
+const Produits = require('./ProduitModel');
+const Users = require('./UsersModel');
 
 const CodePromo = db.define('codepromo', {
     id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     code: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
-    user_id: {
-        type: Sequelize.INTEGER,
-        references: {
-        model: 'users', // 'Actors' would also work
-        key: 'id'
-        }
-    },
+    // user_id: {
+    //     type: DataTypes.INTEGER,
+    //     references: {
+    //     model: 'users', // 'Actors' would also work
+    //     key: 'id'
+    //     }
+    // },
     perproduit:{
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     peruser:{
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
-    produit_id: {
-        type: Sequelize.INTEGER,
-        references: {
-        model: 'Produits', // 'Actors' would also work
-        key: 'id'
-        }
-    },
+    // produit_id: {
+    //     type: DataTypes.INTEGER,
+    //     references: {
+    //     model: 'produits', // 'Actors' would also work
+    //     key: 'id'
+    //     }
+    // },
     quantite:{
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false
     }
 
 });
+
+Produits.hasMany(CodePromo);
+CodePromo.belongsTo(Produits);
+
+Users.hasMany(CodePromo);
+CodePromo.belongsTo(Users);
+
+CodePromo.sync()
 
 module.exports = CodePromo;

@@ -1,9 +1,13 @@
-const catalogue = require('./CatalogueModel')
-const promotion = require('./CodePromoModel')
-const Commandes = require('./CommandeModel')
-const commentair = require('./CommentairModel')
-const PaymentModel = require('./PaymentModel')
+const Categorie = require('./CategorieModel')
 const Produits = require('./ProduitModel')
-const roles = require('./RoleModel')
-const users = require('./UsersModel')
-const Role = require('./CategorieModel')
+const Catalogue = require('./CatalogueModel')
+const Roles = require('./RoleModel')
+const Users = require('./UsersModel')
+const Cammandes = require('./CommandeModel')
+const Commentairs = require('./CommentairModel')
+const Payments = require('./PaymentModel')
+const CodePromo = require('./CodePromoModel')
+
+
+
+

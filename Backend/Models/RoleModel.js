@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes} = require('sequelize');
 const db = require('../Config/configDb')
-const Roles = db.define('Roles', {
+const Roles = db.define('roles', {
     // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,
@@ -9,7 +9,7 @@ const Roles = db.define('Roles', {
         primaryKey: true
     },
     role: {
-      type:  Sequelize.Sequelize.DataTypes.STRING,
+      type:  DataTypes.STRING,
       allowNull: false
     }
   }, {

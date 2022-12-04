@@ -1,6 +1,8 @@
 const { Sequelize, DataTypes} = require('sequelize');
 const db = require('../Config/configDb');
-const Cammandes = db.define('Cammandes', {
+const Produits = require('./ProduitModel');
+const Users = require('./UsersModel');
+const Cammandes = db.define('cammandes', {
     // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,
@@ -9,36 +11,43 @@ const Cammandes = db.define('Cammandes', {
         primaryKey: true
     },
     quantite: {
-      type:  Sequelize.Sequelize.DataTypes.STRING,
+      type:  DataTypes.STRING,
       allowNull: false
     },
     priceTotal: {
-      type: Sequelize.DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     code: {
-        type: Sequelize.DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     status: {
-        type: Sequelize.DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
     },
-    Idproduit: {
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-          model: 'Produits',
-          key: 'id'
-        }
-    },
-    Iduser: {
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-          model: 'Users',
-          key: 'id'
-        }
-    }
+    // Idproduit: {
+    //     type: Sequelize.DataTypes.INTEGER,
+    //     references: {
+    //       model: 'produits',
+    //       key: 'id'
+    //     }
+    // },
+    // Iduser: {
+    //     type: Sequelize.DataTypes.INTEGER,
+    //     references: {
+    //       model: 'users',
+    //       key: 'id'
+    //     }
+    // }
     
   });
+
+  Produits.hasMany(Cammandes);
+  Cammandes.belongsTo(Produits);
+
+  Users.hasMany(Cammandes);
+  Cammandes.belongsTo(Users);
 
   Cammandes.sync()
 

@@ -1,21 +1,23 @@
 
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes} = require('sequelize');
 const db = require('../Config/ConfigDb');
 
 const Catalogue = db.define('catalogue', {
     id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     name: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     image: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     }
 });
+
+Catalogue.sync()
 
 module.exports = Catalogue;
