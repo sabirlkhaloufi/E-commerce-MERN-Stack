@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes} = require('sequelize');
-const sequelize = require('./index.js');
-const Users = sequelize.define('Users', {
+const db = require('../Config/configDb');
+const Roles = require('./RoleModel');
+const Users = db.define('users', {
     // Model attributes are defined here
     id: {
         type: DataTypes.INTEGER,
@@ -9,39 +10,43 @@ const Users = sequelize.define('Users', {
         primaryKey: true
     },
     name: {
-      type:  Sequelize.Sequelize.DataTypes.STRING,
+      type:  DataTypes.STRING,
       allowNull: false
     },
     email: {
-      type: Sequelize.DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     password: {
-        type: Sequelize.DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     adresse: {
-        type: Sequelize.DataTypes.STRING
+        type: DataTypes.STRING
     },
     phone: {
-        type: Sequelize.DataTypes.STRING
+        type: DataTypes.STRING
     },
     verified: {
-        type: Sequelize.DataTypes.STRING
+        type: DataTypes.STRING
     },
     token: {
-        type: Sequelize.DataTypes.STRING
+        type: DataTypes.STRING
     },
-    Idrole: {
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-          model: 'Roles',
-          key: 'id'
-        }
-    }
+    // Idrole: {
+    //     type: DataTypes.INTEGER,
+    //     references: {
+    //       model: 'roles',
+    //       key: 'id'
+    //     }
+    // }
   }, {
     
   });
+
+
+  Roles.hasMany(Users);
+  Users.belongsTo(Roles);
 
   Users.sync()
 

@@ -1,44 +1,49 @@
 
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes} = require('sequelize');
 const db = require('../Config/ConfigDb');
+const Categorie = require('./CategorieModel');
 
-const Categorie = db.define('categorie', {
+const Produits = db.define('produits', {
     id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     title: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     description: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     price: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     quantite: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     promotion: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     image: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
-    categore_id: {
-        type: Sequelize.INTEGER,
-        references: {
-        model: 'categore', // 'Actors' would also work
-        key: 'id'
-        }
-    },
+    // categore_id: {
+    //     type: DataTypes.INTEGER,
+    //     references: {
+    //     model: 'categore', // 'Actors' would also work
+    //     key: 'id'
+    //     }
+    // },
 });
 
-module.exports = Categorie;
+Categorie.hasMany(Produits);
+Produits.belongsTo(Categorie);
+
+Produits.sync()
+module.exports = Produits;
