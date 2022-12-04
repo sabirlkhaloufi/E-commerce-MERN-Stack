@@ -9,7 +9,7 @@ function ForgotPassword() {
     const [email, setEmail] = useState('')
     const [message,setMessage] = useState(false);
   
-    async function registerUser(event) {
+    async function registerEmail(event) {
       event.preventDefault()
       const API_URL = "http://localhost:8081/api/auth/Forgotpassword"
       const user = email
@@ -28,7 +28,7 @@ function ForgotPassword() {
     }
     
       return (
-        <form className="auth-inner" onSubmit={registerUser}>
+        <form className="auth-inner" onSubmit={registerEmail}>
           <h3>Forgot password</h3>
           {message && <div className='text-danger alert alert-danger mt-5 w-100 py-1 text-center border border-2 border-danger'> {message}</div>}
           <div className="mb-3">
