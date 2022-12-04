@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-
 import { useState } from 'react'
 import Submit from '../components/form/Submit';
 import '../style/index.css'
@@ -28,6 +27,7 @@ function ForgotPassword() {
     }
     
       return (
+        <div className="dev-parant-form-forgotpassword" >
         <form className="auth-inner" onSubmit={registerEmail}>
           <h3>Forgot password</h3>
           {message && <div className='text-danger alert alert-danger mt-5 w-100 py-1 text-center border border-2 border-danger'> {message}</div>}
@@ -38,6 +38,7 @@ function ForgotPassword() {
           <Submit/>
           
         </form>
+        </div>
       )
 }
 
