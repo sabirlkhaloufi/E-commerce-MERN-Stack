@@ -5,6 +5,8 @@ import ForgotPassword from "./auth/ForgotPassword";
 import Home from "./pages/Home";
 import NotFoundPage from "./pages/NotFoundPage";
 import Register from "./auth/Register"
+import ResetPassword from "./auth/ResetPassword";
+
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         {/* public routes */}
           <Route exact path="/" element={<Home/>} />
           <Route exact path="/forget" element={<ForgotPassword/>} /> 
+          <Route exact path="/reset" element={<ResetPassword/>} /> 
+
           <Route exact path="/register" element={<Register/>} />
 
           

@@ -10,14 +10,15 @@ function ForgotPassword() {
   
     async function registerEmail(event) {
       event.preventDefault()
-      const API_URL = "http://localhost:8081/api/auth/Forgotpassword"
-      const user = email
+      const API_URL = "http://localhost:4000/api/auth/ForgetPassword"
+      const user ={email}
       console.log(user)
     await axios.post(API_URL, user)
 
-
         .then(res => {
             console.log("virefier email")
+
+            // alert('virefier email')
         })
         .catch(err => {
           console.log(err.response.data);
@@ -44,12 +45,3 @@ function ForgotPassword() {
 
 export default ForgotPassword
 
-// import React from 'react'
-
-// function ForgotPassword() {
-//   return (
-//     <div>ForgetPassword</div>
-//   )
-// }
-
-// export default ForgotPassword
