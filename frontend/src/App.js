@@ -2,7 +2,6 @@ import react from "react";
 import Home from "./pages/Home";
 import NotFoundPage from "./pages/NotFoundPage";
 import {   Routes, Route } from "react-router-dom";
-import "./assets/scss/style.scss";
 
 function App() {
 
