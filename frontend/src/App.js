@@ -1,5 +1,6 @@
 import react from "react";
 import Home from "./pages/Home";
+import ProductDetail from "./components/productDetail/ProductDetail";
 import NotFoundPage from "./pages/NotFoundPage";
 import {Routes, Route} from "react-router-dom";
 import Header from "./components/header/Header";
@@ -13,6 +14,7 @@ function App() {
         <Routes>
         {/* public routes */}
           <Route exact path="/" element={<Home/>} />
+          <Route exact path="/productDetail" element={<ProductDetail/>} />
 
           {/* <Route exact path="/logout" element={<Home/>} />
           <Route exact path="/login-register" element={<LoginRegister/>} >
