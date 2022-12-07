@@ -61,17 +61,7 @@ import React from 'react'
                   <div className="product-content">
                     <p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing. Sed lectus. </p>
                   </div>{/* End .product-content */}
-                  <div className="details-filter-row details-row-size">
-                    <label>Color:</label>
-                    <div className="product-nav product-nav-thumbs">
-                      <a href="#" className="active">
-                        <img src="assets/images/products/single/1-thumb.jpg" alt="product desc" />
-                      </a>
-                      <a href="#">
-                        <img src="assets/images/products/single/2-thumb.jpg" alt="product desc" />
-                      </a>
-                    </div>{/* End .product-nav */}
-                  </div>{/* End .details-filter-row */}
+                 
                   <div className="details-filter-row details-row-size">
                     <label htmlFor="size">Size:</label>
                     <div className="select-custom">
@@ -83,35 +73,20 @@ import React from 'react'
                         <option value="xl">Extra Large</option>
                       </select>
                     </div>{/* End .select-custom */}
-                    <a href="#" className="size-guide"><i className="icon-th-list" />size guide</a>
+                   
                   </div>{/* End .details-filter-row */}
                   <div className="details-filter-row details-row-size">
                     <label htmlFor="qty">Qty:</label>
                     <div class="product-details-quantity">
                      <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required />
-                        </div>
+                                        </div>
                   </div>{/* End .details-filter-row */}
                   <div className="product-details-action">
                     <a href="#" className="btn-product btn-cart"><span>add to cart</span></a>
-                    <div className="details-action-wrapper">
-                      <a href="#" className="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                      <a href="#" className="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
-                    </div>{/* End .details-action-wrapper */}
+                  
                   </div>{/* End .product-details-action */}
                   <div className="product-details-footer">
-                    <div className="product-cat">
-                      <span>Category:</span>
-                      <a href="#">Women</a>,
-                      <a href="#">Dresses</a>,
-                      <a href="#">Yellow</a>
-                    </div>{/* End .product-cat */}
-                    <div className="social-icons social-icons-sm">
-                      <span className="social-label">Share:</span>
-                      <a href="#" className="social-icon" title="Facebook" target="_blank"><i className="icon-facebook-f" /></a>
-                      <a href="#" className="social-icon" title="Twitter" target="_blank"><i className="icon-twitter" /></a>
-                      <a href="#" className="social-icon" title="Instagram" target="_blank"><i className="icon-instagram" /></a>
-                      <a href="#" className="social-icon" title="Pinterest" target="_blank"><i className="icon-pinterest" /></a>
-                    </div>
+                 
                   </div>{/* End .product-details-footer */}
                 </div>{/* End .product-details */}
               </div>{/* End .col-md-6 */}
@@ -124,7 +99,7 @@ import React from 'react'
               </li>
               
               <li className="nav-item">
-                <a className="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews (2)</a>
+                <a className="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews </a>
               </li>
             </ul>
             <div className="tab-content">
@@ -148,7 +123,7 @@ import React from 'react'
               </div>{/* .End .tab-pane */}
               <div className="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
                 <div className="reviews">
-                  <h3>Reviews (2)</h3>
+                  <h3>Reviews</h3>
                   <div className="review">
                     <div className="row no-gutters">
                       <div className="col-auto">
@@ -198,7 +173,7 @@ import React from 'react'
                 </div>{/* End .reviews */}
               </div>{/* .End .tab-pane */}
             </div>{/* End .tab-content */}
-          </div>End .product-details-tab
+          </div>
          
         
         </div>{/* End .container */}
