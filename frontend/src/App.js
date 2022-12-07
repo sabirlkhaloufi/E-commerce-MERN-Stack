@@ -4,10 +4,9 @@ import NotFoundPage from "./pages/NotFoundPage";
 import {Routes, Route} from "react-router-dom";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
+import NavMobile from "./components/header/NavMobile";
 
 function App() {
-
- 
   return ( 
     <>
       <Header/>
@@ -30,6 +29,7 @@ function App() {
           {/* unfound */}
           <Route exact path="*" element={<NotFoundPage/>} />
         </Routes>
+        <NavMobile/>
         <Footer/>
     // </> 
   ); 

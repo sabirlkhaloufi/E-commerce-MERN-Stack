@@ -5,20 +5,6 @@ function TopProducts() {
     <div className="container">
         <div className="heading heading-center mb-3">
           <h2 className="title">Top Selling Products</h2>{/* End .title */}
-          <ul className="nav nav-pills nav-border-anim justify-content-center" role="tablist">
-            <li className="nav-item">
-              <a className="nav-link active" id="top-all-link" data-toggle="tab" href="#top-all-tab" role="tab" aria-controls="top-all-tab" aria-selected="true">All</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" id="top-fur-link" data-toggle="tab" href="#top-fur-tab" role="tab" aria-controls="top-fur-tab" aria-selected="false">Furniture</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" id="top-decor-link" data-toggle="tab" href="#top-decor-tab" role="tab" aria-controls="top-decor-tab" aria-selected="false">Decoration</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" id="top-light-link" data-toggle="tab" href="#top-light-tab" role="tab" aria-controls="top-light-tab" aria-selected="false">Lighting</a>
-            </li>
-          </ul>
         </div>{/* End .heading */}
         <div className="tab-content">
           <div className="tab-pane p-0 fade show active" id="top-all-tab" role="tabpanel" aria-labelledby="top-all-link">

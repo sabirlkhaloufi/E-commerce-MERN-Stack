@@ -124,7 +124,7 @@ function Header() {
           <div className="header-left">
             <div className="dropdown category-dropdown">
               <a href="#" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
-                Browse Categories
+                Browse Categoes
               </a>
               <div className="dropdown-menu">
                 <nav className="side-nav">
@@ -150,68 +150,6 @@ function Header() {
                 </li>
                 <li>
                   <a href="product.html" className="sf-with-ul">Product</a>
-                </li>
-                <li>
-                  <a href="#" className="sf-with-ul">Pages</a>
-                </li>
-                <li>
-                  <a href="blog.html" className="sf-with-ul">Blog</a>
-                  <ul>
-                    <li><a href="blog.html">Classic</a></li>
-                    <li><a href="blog-listing.html">Listing</a></li>
-                    <li>
-                      <a href="#">Grid</a>
-                      <ul>
-                        <li><a href="blog-grid-2cols.html">Grid 2 columns</a></li>
-                        <li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>
-                        <li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>
-                        <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="#">Masonry</a>
-                      <ul>
-                        <li><a href="blog-masonry-2cols.html">Masonry 2 columns</a></li>
-                        <li><a href="blog-masonry-3cols.html">Masonry 3 columns</a></li>
-                        <li><a href="blog-masonry-4cols.html">Masonry 4 columns</a></li>
-                        <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="#">Mask</a>
-                      <ul>
-                        <li><a href="blog-mask-grid.html">Blog mask grid</a></li>
-                        <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="#">Single Post</a>
-                      <ul>
-                        <li><a href="single.html">Default with sidebar</a></li>
-                        <li><a href="single-fullwidth.html">Fullwidth no sidebar</a></li>
-                        <li><a href="single-fullwidth-sidebar.html">Fullwidth with sidebar</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="elements-list.html" className="sf-with-ul">Elements</a>
-                  <ul>
-                    <li><a href="elements-products.html">Products</a></li>
-                    <li><a href="elements-typography.html">Typography</a></li>
-                    <li><a href="elements-titles.html">Titles</a></li>
-                    <li><a href="elements-banners.html">Banners</a></li>
-                    <li><a href="elements-product-category.html">Product Category</a></li>
-                    <li><a href="elements-video-banners.html">Video Banners</a></li>
-                    <li><a href="elements-buttons.html">Buttons</a></li>
-                    <li><a href="elements-accordions.html">Accordions</a></li>
-                    <li><a href="elements-tabs.html">Tabs</a></li>
-                    <li><a href="elements-testimonials.html">Testimonials</a></li>
-                    <li><a href="elements-blog-posts.html">Blog Posts</a></li>
-                    <li><a href="elements-portfolio.html">Portfolio</a></li>
-                    <li><a href="elements-cta.html">Call to Action</a></li>
-                    <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
-                  </ul>
                 </li>
               </ul>{/* End .menu */}
             </nav>{/* End .main-nav */}
