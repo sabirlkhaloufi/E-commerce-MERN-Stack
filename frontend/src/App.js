@@ -5,6 +5,8 @@ import {Routes, Route} from "react-router-dom";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import NavMobile from "./components/header/NavMobile";
+import ShopProduit from "./pages/shop/ShopProduit";
+
 
 function App() {
   return ( 
@@ -13,6 +15,8 @@ function App() {
         <Routes>
         {/* public routes */}
           <Route exact path="/" element={<Home/>} />
+           <Route exact path="/shop" element={<ShopProduit/>} />
+
 
           {/* <Route exact path="/logout" element={<Home/>} />
           <Route exact path="/login-register" element={<LoginRegister/>} >
