@@ -82,8 +82,11 @@ import React from 'react'
                                         </div>
                   </div>{/* End .details-filter-row */}
                   <div className="product-details-action">
-                    <a href="#" className="btn-product btn-cart"><span>add to cart</span></a>
-                  
+                  <a href="category.html" className="btn btn-primary ">
+                <span>Add to cart</span>
+                <i className="icon-long-arrow-right" />
+              </a>
+                 
                   </div>{/* End .product-details-action */}
                   <div className="product-details-footer">
                  
