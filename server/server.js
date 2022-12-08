@@ -1,6 +1,7 @@
 require('dotenv').config();
 const colors = require('colors');
 const router = require('./Routes/AuthRoute');
+const routerProduit = require('./Routes/ProduitsRoute');
 const role = require('./Routes/userRoute');
 
 // require categorie router
@@ -28,6 +29,7 @@ app.use(cors());
 app.use('/api/categories', categorie);
 app.use('/api/auth', router);
 app.use('/api/user', role);
+app.use('/api/produit', routerProduit);
 
 
 
