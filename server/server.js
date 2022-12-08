@@ -1,6 +1,7 @@
 require('dotenv').config();
 const colors = require('colors');
 const router = require('./Routes/AuthRoute');
+const routerProduit = require('./Routes/ProduitsRoute');
 const role = require('./Routes/userRoute');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -23,6 +24,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(cors());  
 app.use('/api/auth', router);
 app.use('/api/user', role);
+app.use('/api/produit', routerProduit);
 
 
 
