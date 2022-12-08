@@ -29,10 +29,10 @@ const Produits = db.define('produits', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    image: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
+    // image: {
+    //     type: DataTypes.STRING,
+    //     allowNull: false
+    // },
     // categore_id: {
     //     type: DataTypes.INTEGER,
     //     references: {
@@ -45,5 +45,5 @@ const Produits = db.define('produits', {
 Categorie.hasMany(Produits);
 Produits.belongsTo(Categorie);
 
-Produits.sync()
+// Produits.sync({ force: true })
 module.exports = Produits;
