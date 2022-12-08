@@ -1,4 +1,9 @@
 import React from 'react'
+import { Link } from "react-router-dom";
+import ShopProduit from '../../pages/shop/ShopProduit';
+import Home from '../../pages/Home'
+
+  
 
 function Header() {
   return (
@@ -143,10 +148,14 @@ function Header() {
             <nav className="main-nav">
               <ul className="menu sf-arrows">
                 <li className="megamenu-container active">
-                  <a href="index.html" className="sf-with-ul">Home</a>
+                  {/* <a href="index.html" className="sf-with-ul">Home</a> */}
+                  <Link to="/" element={Home} className="sf-with-ul">Home</Link>
+
                 </li>
                 <li>
-                  <a href="category.html" className="sf-with-ul">Shop</a>
+                  {/* <a href="category.html" className="sf-with-ul">Shop</a> */}
+                  {/* <LINK></LINK> */}
+                  <Link to="/shop" element={ShopProduit} className="sf-with-ul">Shop</Link>
                 </li>
                 <li>
                   <a href="product.html" className="sf-with-ul">Product</a>
