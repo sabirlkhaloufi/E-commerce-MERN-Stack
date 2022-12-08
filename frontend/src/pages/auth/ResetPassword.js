@@ -62,7 +62,7 @@ export default function ResetPassword() {
 
   if (sent) {
     setTimeout(() => {
-      navigate("/login-register");
+      navigate("/login-register"); 
     }, 10000);
   }
 
