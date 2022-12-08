@@ -24,10 +24,13 @@ function App() {
         <Routes>
         {/* public routes */}
           <Route exact path="/" element={<Home/>} />
+
            <Route exact path="/shop" element={<ShopProduit/>} />
           <Route exact path="/login-register" element={<LoginRegister/>} />
           <Route exact path="/forget-password" element={<ForgetPassword/>} />
           <Route exact path="/productDetail" element={<ProductDetail/>} />
+
+
 
           <Route exact path="/logout" element={<Home/>} />
           {/* <Route exact path="/login-register" element={<LoginRegister/>} > */}
