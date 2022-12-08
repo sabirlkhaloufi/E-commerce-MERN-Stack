@@ -14,17 +14,16 @@ import './assets/css/skins/skin-demo-2.css';
 import './assets/css/demos/demo-2.css';
 
 
-
-
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from "react-router-dom";
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     
     <BrowserRouter >
        <App />
     </BrowserRouter >
-  // </React.StrictMode>
+  </React.StrictMode>
+
 );
