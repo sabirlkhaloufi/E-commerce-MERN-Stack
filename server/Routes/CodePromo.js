@@ -5,7 +5,7 @@ const {CreatPromoCode,UpdatePromoCode} = require('../Controllers/CodePromoContro
 
  
 router.post('/creatPromoCode',CreatPromoCode)
-router.post('/updatePromoCode',UpdatePromoCod)
+router.post('/updatePromoCode',UpdatePromoCode)
 
 
 // router.post('api/auth/login',Login)
