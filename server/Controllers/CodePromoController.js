@@ -3,7 +3,9 @@ const db = require('../Models/CodePromoModel');
 const asyncHandler = require('express-async-handler');
 
 
-
+// method : post
+// url : /api/codePromo/creatPromoCode
+// access : private
 
 const CreatPromoCode = asyncHandler(async (req, res) => {
     // console.log("hello api")
@@ -24,6 +26,10 @@ const CreatPromoCode = asyncHandler(async (req, res) => {
     console.log("yessssssssss")
 })
 
+// method : post
+// url : /api/codePromo/DeletePromoCode
+// access : private
+
 const UpdatePromoCode = asyncHandler(async (req, res) => {
     const { old_code_promo, new_code_promo, new_pourcentage_promo, new_date_expiration } = req.body;
     if (!old_code_promo || !new_code_promo || !new_pourcentage_promo || !new_date_expiration) {
@@ -43,6 +49,11 @@ const UpdatePromoCode = asyncHandler(async (req, res) => {
     );
   
 })
+
+// method : post
+// url : /api/codePromo/deletePromoCode
+// access : private
+
 const DeletePromoCode = asyncHandler(async (req, res) => {
     const { code_promo } = req.body;
     if (!code_promo) {
