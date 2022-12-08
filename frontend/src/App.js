@@ -1,20 +1,22 @@
 import react from "react";
 import Home from "./pages/Home";
+import ProductDetail from "./components/productDetail/ProductDetail";
 import NotFoundPage from "./pages/NotFoundPage";
-import {   Routes, Route } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import LoginRegister from "./pages/auth/LoginRegister";
 import ForgetPassword from "./pages/auth/ForgetPassword";
 import ConfirmEmail from "./pages/auth/ConfirmEmail";
 import ResetPassword from "./pages/auth/ResetPassword";
-
+import {Routes, Route} from "react-router-dom";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
+import NavMobile from "./components/header/NavMobile";
 
 function App() {
-
- 
   return ( 
-    // <Layout>
+    <>
+      <Header/>
         <Routes>
         {/* public routes */}
           <Route exact path="/" element={<Home/>} />
@@ -37,7 +39,9 @@ function App() {
           {/* unfound */}
           <Route exact path="*" element={<NotFoundPage/>} />
         </Routes>
-    // </Layout> 
+        <NavMobile/>
+        <Footer/>
+     </> 
   ); 
      
      
