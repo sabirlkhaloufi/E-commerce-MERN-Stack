@@ -17,5 +17,5 @@ const Categorie = db.define('categorie', {
     }
 });
 
-Categorie.sync()
+// Categorie.sync()
 module.exports = Categorie;
