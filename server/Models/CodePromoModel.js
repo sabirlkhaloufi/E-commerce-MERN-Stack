@@ -49,6 +49,6 @@ CodePromo.belongsTo(Produits);
 Users.hasMany(CodePromo);
 CodePromo.belongsTo(Users);
 
-CodePromo.sync()
+// CodePromo.sync()
 
 module.exports = CodePromo;

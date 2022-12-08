@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes} = require('sequelize');
-const db = require('../Config/configDb');
+const db = require('../Config/ConfigDb');
 const Roles = require('./RoleModel');
 
 const Users = db.define('users', {
@@ -49,7 +49,7 @@ const Users = db.define('users', {
   Roles.hasMany(Users);
   Users.belongsTo(Roles);
 
-  Users.sync()
+//   Users.sync()
 
 module.exports = Users;
 

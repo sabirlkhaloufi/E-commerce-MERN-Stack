@@ -45,5 +45,5 @@ const Produits = db.define('produits', {
 Categorie.hasMany(Produits);
 Produits.belongsTo(Categorie);
 
-Produits.sync()
+// Produits.sync()
 module.exports = Produits;
