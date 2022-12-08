@@ -7,19 +7,21 @@ const asyncHandler = require('express-async-handler');
 
 const CreatPromoCode = asyncHandler(async (req, res) => {
     // console.log("hello api")
+    let randomstring = Math.random().toString(36).slice(-8);
     const { code_promo, pourcentage_promo, date_expiration } = req.body;
     if (!code_promo || !pourcentage_promo || !date_expiration) {
         res.status(400).send('Please fill all fields.')
     }
 
     const data = {
-        code_promo: code_promo,
+        code_promo: randomstring,
         pourcentage_promo: pourcentage_promo,
         date_expiration: date_expiration,
     }
 
     await db.create(data)
-    // console.log("yessssssssss")
+  
+    console.log("yessssssssss")
 })
 
 const UpdatePromoCode = asyncHandler(async (req, res) => {
@@ -39,7 +41,7 @@ const UpdatePromoCode = asyncHandler(async (req, res) => {
         }
        
     );
-    console.log("yessssssssss")
+  
 })
 const DeletePromoCode = asyncHandler(async (req, res) => {
     const { code_promo } = req.body;
@@ -47,9 +49,10 @@ const DeletePromoCode = asyncHandler(async (req, res) => {
         res.status(400).send('Needs PromoCode to delete it.')
     }
 
-    await CodePromosModel.destroy({
+    await db.destroy({
         where: { code_promo: code_promo },
     });
+    // console.log("yessssssssss")
 })
 module.exports = {
     CreatPromoCode,

@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const {CreatPromoCode} = require('../Controllers/CodePromoController');
+const {CreatPromoCode,UpdatePromoCode,DeletePromoCode} = require('../Controllers/CodePromoController');
 
 
  
 router.post('/creatPromoCode',CreatPromoCode)
-router.post('/UpdatePromoCode',UpdatePromoCode)
+router.post('/updatePromoCode',UpdatePromoCode)
+router.post('/deletePromoCode',DeletePromoCode)
 
 
 // router.post('api/auth/login',Login)
