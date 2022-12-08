@@ -1,6 +1,7 @@
 
 const db = require('../Models/CodePromoModel');
 const asyncHandler = require('express-async-handler');
+let randomstring = Math.random().toString(36).slice(-8);
 
 
 // method : post
@@ -9,7 +10,7 @@ const asyncHandler = require('express-async-handler');
 
 const CreatPromoCode = asyncHandler(async (req, res) => {
     // console.log("hello api")
-    let randomstring = Math.random().toString(36).slice(-8);
+   
     const { code_promo, pourcentage_promo, date_expiration } = req.body;
     if (!code_promo || !pourcentage_promo || !date_expiration) {
         res.status(400).send('Please fill all fields.')
@@ -23,48 +24,54 @@ const CreatPromoCode = asyncHandler(async (req, res) => {
 
     await db.create(data)
   
-    console.log("yessssssssss")
+    // console.log("yessssssssss")
 })
 
 // method : post
-// url : /api/codePromo/DeletePromoCode
+// url : /api/codePromo/updatePromoCode
 // access : private
 
 const UpdatePromoCode = asyncHandler(async (req, res) => {
-    const { old_code_promo, new_code_promo, new_pourcentage_promo, new_date_expiration } = req.body;
+     const { old_code_promo, new_code_promo, new_pourcentage_promo, new_date_expiration } = req.body;
     if (!old_code_promo || !new_code_promo || !new_pourcentage_promo || !new_date_expiration) {
         res.status(400).send('Please fill all fields.')
     }
-    
+  
+   try{
     await db.update(
+
         {
-            code_promo: new_code_promo,
+            code_promo: new_code_promo.randomstring,
             pourcentage_promo: new_pourcentage_promo,
             date_expiration: new_date_expiration,
         },
         {
             where: { code_promo: old_code_promo },
-        }
-       
-    );
-  
+        })
+
+    }catch (error) {
+        res.status(400).send('not update')
+}
+   
+
 })
 
 // method : post
-// url : /api/codePromo/deletePromoCode
+// url : /api/codePromo/deletePromoCode/:id
 // access : private
 
-const DeletePromoCode = asyncHandler(async (req, res) => {
-    const { code_promo } = req.body;
-    if (!code_promo) {
-        res.status(400).send('Needs PromoCode to delete it.')
-    }
 
-    await db.destroy({
-        where: { code_promo: code_promo },
-    });
-    // console.log("yessssssssss")
+const DeletePromoCode = asyncHandler( async(req,res)=>{
+    const id =  req.params.id;
+    try {
+        const deletePromoCode = await db.destroy({where:{id}})
+        res.status(200).send({message:"delete code_Promo success"})
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
+    }
 })
+
 module.exports = {
     CreatPromoCode,
     UpdatePromoCode,
