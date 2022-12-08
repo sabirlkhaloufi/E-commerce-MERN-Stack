@@ -57,5 +57,5 @@ const DeletePromoCode = asyncHandler(async (req, res) => {
 module.exports = {
     CreatPromoCode,
     UpdatePromoCode,
-    DeletePromoCode
+    DeletePromoCod
 }
