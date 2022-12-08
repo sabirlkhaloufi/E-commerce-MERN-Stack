@@ -19,7 +19,7 @@ const CreatPromoCode = asyncHandler(async (req, res) => {
     }
 
     await db.create(data)
-    console.log("yessssssssss")
+    // console.log("yessssssssss")
 })
 
 const UpdatePromoCode = asyncHandler(async (req, res) => {
@@ -28,7 +28,7 @@ const UpdatePromoCode = asyncHandler(async (req, res) => {
         res.status(400).send('Please fill all fields.')
     }
     
-    await CodePromosModel.update(
+    await db.update(
         {
             code_promo: new_code_promo,
             pourcentage_promo: new_pourcentage_promo,
@@ -37,10 +37,22 @@ const UpdatePromoCode = asyncHandler(async (req, res) => {
         {
             where: { code_promo: old_code_promo },
         }
+       
     );
+    console.log("yessssssssss")
 })
+const DeletePromoCode = asyncHandler(async (req, res) => {
+    const { code_promo } = req.body;
+    if (!code_promo) {
+        res.status(400).send('Needs PromoCode to delete it.')
+    }
 
+    await CodePromosModel.destroy({
+        where: { code_promo: code_promo },
+    });
+})
 module.exports = {
     CreatPromoCode,
-    UpdatePromoCode
+    UpdatePromoCode,
+    DeletePromoCode
 }
