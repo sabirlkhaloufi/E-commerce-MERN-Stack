@@ -1,7 +1,7 @@
 
 const db = require('../Models/CodePromoModel');
 const asyncHandler = require('express-async-handler');
-let randomstring = Math.random().toString(36).slice(-8);
+// let randomstring = Math.random().toString(36).slice(-8);
 
 
 // method : post
@@ -9,6 +9,11 @@ let randomstring = Math.random().toString(36).slice(-8);
 // access : private
 
 const CreatPromoCode = asyncHandler(async (req, res) => {
+    const caracters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    let hashCode = "";
+    for (let i = 0; i < 25; i++) {
+        hashCode += caracters[Math.floor(Math.random() * caracters.length)];
+    }
     // console.log("hello api")
    
     const { code_promo, pourcentage_promo, date_expiration } = req.body;
@@ -16,15 +21,21 @@ const CreatPromoCode = asyncHandler(async (req, res) => {
         res.status(400).send('Please fill all fields.')
     }
 
+try{
+    
     const data = {
-        code_promo: randomstring,
+        code_promo: hashCode,
         pourcentage_promo: pourcentage_promo,
         date_expiration: date_expiration,
-    }
 
+    }
     await db.create(data)
+    res.status(200).send({message:"creat code Promo success"})
+ }catch (error) {
+        res.status(400).send('not creat Code promo')
+}
   
-    // console.log("yessssssssss")
+  
 })
 
 // method : post
