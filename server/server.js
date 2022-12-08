@@ -6,7 +6,7 @@ const role = require('./Routes/userRoute');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-const db = require('./Models/index')
+// const db = require('./Models/index')
 
 // const router = require('./Routes/authRoute')
 
@@ -15,7 +15,7 @@ const {errorHandler} = require('./Middlewares/errorMiddleware');
 const connectDB = require('./Config/ConfigDb');
 const app = express();
 // const db = require('./config/Db');
-// const db = require('./Config/Db');
+const sequelize = require('./Config/ConfigDb');
 // connectDB();
 app.use(cookieParser());
 // use cors

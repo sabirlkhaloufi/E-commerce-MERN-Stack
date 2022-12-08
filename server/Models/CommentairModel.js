@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes} = require('sequelize');
-const db = require('../Config/configDb');
+const db = require('../Config/ConfigDb');
 const Produits = require('./ProduitModel');
 const Commentairs = db.define('commentairs', {
     // Model attributes are defined here
@@ -28,7 +28,7 @@ const Commentairs = db.define('commentairs', {
   Produits.hasMany(Commentairs);
   Commentairs.belongsTo(Produits);
 
-  Commentairs.sync()
+  // Commentairs.sync()
 
 module.exports = Commentairs;
 
