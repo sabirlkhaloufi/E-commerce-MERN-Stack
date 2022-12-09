@@ -1,20 +1,39 @@
 const asyncHandler = require('express-async-handler');
 const ProduitSchema = require('../Models/ProduitModel');
 
+// const fileUpload = require('express-fileupload');
+const path = require('path')
+
+const multer = require('multer')
+const storage = multer.diskStorage({
+    destination:(req,file,cd) =>{
+        cd(null,'images')
+    },
+    filename: (req,file,cd) =>{
+        console.log(file)
+        cd(null, Date.now() +path.extname(file.originalname))
+    }
+})
+const upload = multer({storage:storage})
+console.log(upload)
+
+
 // method : post
 // url : /api/produit
 // access : public
 // add produit
 const addProduit = asyncHandler(async (req, res) => {
-    const {title, description, price, oldprice, quantite, promotion } = req.body
+    const {image, title, description, price, oldprice, quantite, promotion } = req.body
+    // console.log(req.files.image);
 
-    // if(!title || !description || !price|| !quantite || !promotion){
+    // if(!image || !title || !description || !price|| !oldprice|| !quantite || !promotion){
     //     res.status(400)
     //     throw new Error("Please add a text field")
     // } 
     try{
     // function create newproduit
         await ProduitSchema.create({
+        image,
         title,
         description,
         price,
@@ -22,7 +41,8 @@ const addProduit = asyncHandler(async (req, res) => {
         quantite,
         promotion,
     })
-    res.status(200).send('update produit success')
+    console.log(req.files)
+    res.status(200).send('Add produit success')
     }catch(error){
         res.status(400)
         throw new Error(error)
