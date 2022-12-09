@@ -43,8 +43,8 @@ try{
 // access : private
 
 const UpdatePromoCode = asyncHandler(async (req, res) => {
-     const { old_code_promo, new_code_promo, new_pourcentage_promo, new_date_expiration } = req.body;
-    if (!old_code_promo || !new_code_promo || !new_pourcentage_promo || !new_date_expiration) {
+     const {  new_code_promo, new_pourcentage_promo, new_date_expiration } = req.body;
+    if (!new_code_promo || !new_pourcentage_promo || !new_date_expiration) {
         res.status(400).send('Please fill all fields.')
     }
   
@@ -52,13 +52,14 @@ const UpdatePromoCode = asyncHandler(async (req, res) => {
     await db.update(
 
         {
-            code_promo: new_code_promo.randomstring,
+            code_promo: new_code_promo,
             pourcentage_promo: new_pourcentage_promo,
             date_expiration: new_date_expiration,
         },
         {
-            where: { code_promo: old_code_promo },
+            where: {where:{id}},
         })
+        res.status(400).send('Update code Promo success')
 
     }catch (error) {
         res.status(400).send('not update')
