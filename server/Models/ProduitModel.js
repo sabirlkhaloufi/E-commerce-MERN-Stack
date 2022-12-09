@@ -21,6 +21,10 @@ const Produits = db.define('produits', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+     oldprice: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     quantite: {
         type: DataTypes.INTEGER,
         allowNull: false
