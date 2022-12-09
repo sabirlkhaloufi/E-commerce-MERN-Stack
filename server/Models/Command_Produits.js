@@ -2,7 +2,7 @@
 const { Sequelize, DataTypes} = require('sequelize');
 const db = require('../Config/ConfigDb');
 const Produits = require('./ProduitModel');
-const Users = require('./UsersModel');
+const commands = require("./CommandeModel")
 
 const Command_Produits = db.define('commandProduits', {
     id: {
@@ -13,11 +13,11 @@ const Command_Produits = db.define('commandProduits', {
    
 });
 
-Command_Produits.hasMany(CodePromo);
-CodePromo.belongsTo(Command_Produits);
+Produits.hasMany(Command_Produits);
+Command_Produits.belongsTo(Produits);
 
-// Users.hasMany(CodePromo);
-// CodePromo.belongsTo(Users);
+commands.hasMany(Command_Produits);
+Command_Produits.belongsTo(commands);
 
 // CodePromo.sync()
 
