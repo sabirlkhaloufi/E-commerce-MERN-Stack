@@ -7,11 +7,7 @@ const Categorie = db.define('categorie', {
         primaryKey: true,
         autoIncrement: true
     },
-    title: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    image: {
+    categorie: {
         type: DataTypes.STRING,
         allowNull: false
     }

@@ -26,20 +26,7 @@ const Cammandes = db.define('cammandes', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    // Idproduit: {
-    //     type: Sequelize.DataTypes.INTEGER,
-    //     references: {
-    //       model: 'produits',
-    //       key: 'id'
-    //     }
-    // },
-    // Iduser: {
-    //     type: Sequelize.DataTypes.INTEGER,
-    //     references: {
-    //       model: 'users',
-    //       key: 'id'
-    //     }
-    // }
+    
     
   });
 
