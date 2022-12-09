@@ -1,6 +1,6 @@
 
 const db = require('../Models/CommandeModel');
-// const commande = require('../Models/Command_Produits');
+const commande = require('../Models/Command_Produits');
 
 const asyncHandler = require('express-async-handler');
 
