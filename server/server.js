@@ -4,6 +4,8 @@ const router = require('./Routes/AuthRoute');
 const routerProduit = require('./Routes/ProduitsRoute');
 const role = require('./Routes/userRoute');
 const CodePromo = require('./Routes/CodePromo');
+const commandes = require('./Routes/CommandeRoute');
+const commandes = require('./Routes/CommandeRoute');
 
 // require categorie router
 const categorie = require('./Routes/CategorieRoute');
@@ -31,6 +33,7 @@ app.use('/api/categories', categorie);
 app.use('/api/auth', router);
 app.use('/api/user', role);
 app.use('/api/codePromo', CodePromo);
+app.use('/api/commands', commandes);
 app.use('/api/produit', routerProduit);
 
 

@@ -5,10 +5,7 @@ const {CreatPromoCode,UpdatePromoCode,DeletePromoCode} = require('../Controllers
 
  
 router.post('/creatPromoCode',CreatPromoCode)
-router.post('/updatePromoCode',UpdatePromoCode)
-router.post('/deletePromoCode',DeletePromoCode)
-
-
-// router.post('api/auth/login',Login)
+router.put('/updatePromoCode',UpdatePromoCode)
+router.delete('/deletePromoCode/:id',DeletePromoCode)
 
 module.exports = router 
