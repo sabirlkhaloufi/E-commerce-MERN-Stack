@@ -9,10 +9,10 @@ const Produits = db.define('produits', {
         primaryKey: true,
         autoIncrement: true
     },
-    image: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
+    // image: {
+    //     type: DataTypes.STRING,
+    //     allowNull: false
+    // },
     title: {
         type: DataTypes.STRING,
         allowNull: false
@@ -38,18 +38,12 @@ const Produits = db.define('produits', {
         allowNull: false
     },
     
-    // categore_id: {
-    //     type: DataTypes.INTEGER,
-    //     references: {
-    //     model: 'categore', // 'Actors' would also work
-    //     key: 'id'
-    //     }
-    // },
+   
 });
 
 Categorie.hasMany(Produits);
 Produits.belongsTo(Categorie);
 
-Produits.sync({ force: true })
+// Produits.sync({ force: true })
 // Produits.sync()
 module.exports = Produits;
