@@ -35,7 +35,7 @@ project E-commerce with technology :
 
 | Method | Api     | Description                |
 | :-------- | :------- | :------------------------- |
-| `POST` | `/api/Categories/add` | **addCategories**|
-| `PUT` | `/api/Categories/update/:id` | **updateCategories**|
-| `DELETE` | `/api/Categories/delete/:id` | **deleteCategories**|
-| `GET` | `/api/Categories/getAll` | **GetAllCategories**|
+| `POST` | `/api/codePromo/creatPromoCode` | **CreatPromoCode**|
+| `PUT` | `/api/codePromo/updatePromoCode` | **UpdatePromoCode**|
+| `DELETE` | `/api/codePromo/deletePromoCode/:id` | **DeletePromoCode**|
+

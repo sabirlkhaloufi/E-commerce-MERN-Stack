@@ -10,10 +10,7 @@ const asyncHandler = require('express-async-handler');
 
 const CreatPromoCode = asyncHandler(async (req, res) => {
     const caracters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    let hashCode = "";
-    for (let i = 0; i < 25; i++) {
-        hashCode += caracters[Math.floor(Math.random() * caracters.length)];
-    }
+   
     // console.log("hello api")
    
     const { code_promo, pourcentage_promo, date_expiration } = req.body;
@@ -43,8 +40,8 @@ try{
 // access : private
 
 const UpdatePromoCode = asyncHandler(async (req, res) => {
-     const {  new_code_promo, new_pourcentage_promo, new_date_expiration } = req.body;
-    if (!new_code_promo || !new_pourcentage_promo || !new_date_expiration) {
+     const { old_code_promo, new_code_promo, new_pourcentage_promo, new_date_expiration } = req.body;
+    if (!old_code_promo || !new_code_promo || !new_pourcentage_promo || !new_date_expiration) {
         res.status(400).send('Please fill all fields.')
     }
   
@@ -57,9 +54,9 @@ const UpdatePromoCode = asyncHandler(async (req, res) => {
             date_expiration: new_date_expiration,
         },
         {
-            where: {where:{id}},
+            where: { code_promo: old_code_promo },
         })
-        res.status(400).send('Update code Promo success')
+        res.status(400).send('creat code Promo success')
 
     }catch (error) {
         res.status(400).send('not update')
