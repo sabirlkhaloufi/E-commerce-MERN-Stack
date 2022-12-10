@@ -10,7 +10,10 @@ const asyncHandler = require('express-async-handler');
 
 const CreatPromoCode = asyncHandler(async (req, res) => {
     const caracters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-   
+    let hashCode = "";
+    for (let i = 0; i < 25; i++) {
+        hashCode += caracters[Math.floor(Math.random() * caracters.length)];
+    }
     // console.log("hello api")
    
     const { code_promo, pourcentage_promo, date_expiration } = req.body;

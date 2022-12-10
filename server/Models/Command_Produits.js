@@ -8,7 +8,7 @@ const Command_Produits = db.define('commandProduits', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        // autoIncrement: true
+        autoIncrement: true
     },
    
 });
