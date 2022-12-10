@@ -3,8 +3,6 @@ const router = express.Router();
 const {addProduit, updateProduit,deleteProduit,getOneProduit,getAllProduit} = require('../Controllers/ProduitsController');
 
 
-
-
 router.post('/add',addProduit)
 router.put('/update/:id',updateProduit)
 router.delete('/delete/:id',deleteProduit)
