@@ -67,18 +67,30 @@ const CreatCommande = asyncHandler(async (req, res) => {
    
    })
 
+   const DeleteCommande = asyncHandler( async(req,res)=>{
+    const id =  req.params.id;
+    try {
+        const deleteCommandes = await db.destroy({where:{id}})
+        res.status(200).send({message:"delete code_Promo success"})
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
+    }
+})
+
+   const GetAllCommands = asyncHandler( async(req,res)=>{
+    try {
+        const allCommands = await Commande.findAll()
+        res.status(200).send(allCommands)
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
+    }
+})
 
 
-    const DeleteCommande = asyncHandler( async(req,res)=>{
-        const id =  req.params.id;
-        try {
-            const deleteCommandes = await db.destroy({where:{id}})
-            res.status(200).send({message:"delete code_Promo success"})
-        } catch (error) {
-            res.status(400)
-            throw new Error(error)
-        }
-    })
+
+    
 
 
 
@@ -87,6 +99,7 @@ const CreatCommande = asyncHandler(async (req, res) => {
 module.exports = {
     CreatCommande,
     DeleteCommande,
-    UpdateCommandes
+    UpdateCommandes,
+    GetAllCommands
     
 }
