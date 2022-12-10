@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const {CreatCommande} = require('../Controllers/CommandeController');
+const {CreatCommande,DeleteCommande} = require('../Controllers/CommandeController');
 
 
  
 router.post('/creatCommande',CreatCommande)
+router.delete('/deleteCommande',DeleteCommande)
 
 
 module.exports = router 
