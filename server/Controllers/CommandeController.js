@@ -14,15 +14,12 @@ const asyncHandler = require('express-async-handler');
             if (!quantite || !priceTotal || !code || !status ) {
                 res.status(400).send('Please fill all fields.')
             }
-        
         try{
-            
             const data = {
                 quantite: quantite,
                 priceTotal: priceTotal,
                 code: code,
                 status:status
-        
             }
             await db.create(data)
             res.status(200).send({message:"creat commandes success"})
@@ -40,7 +37,6 @@ const asyncHandler = require('express-async-handler');
        if (!old_code || !NewPriceTotal || !NewCode || !NewStatus) {
            res.status(400).send('Please fill all fields.')
        }
-     
         try{
             await db.update(
         
@@ -54,7 +50,6 @@ const asyncHandler = require('express-async-handler');
                     where: { code:old_code},
                 })
                 res.status(400).send('Ubdate commands success')
-   
         }catch (error) {
            res.status(400).send('not update commandes')
         }
@@ -87,8 +82,9 @@ const asyncHandler = require('express-async-handler');
             throw new Error(error)
         }
    })
-   
+
 module.exports = {
+
     CreatCommande,
     DeleteCommande,
     UpdateCommandes,
