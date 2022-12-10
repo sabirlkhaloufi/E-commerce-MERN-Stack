@@ -7,7 +7,7 @@ const {CreatCommande,DeleteCommande,UpdateCommandes,GetAllCommands} = require('.
 router.post('/creatCommande',CreatCommande)
 router.put('/updateCommandes',UpdateCommandes)
 router.delete('/deleteCommande/:id',DeleteCommande)
-router.get('/deleteCommande/:id',DeleteCommande)
+router.get('/getAllCommands',GetAllCommands)
 
 
 module.exports = router 
