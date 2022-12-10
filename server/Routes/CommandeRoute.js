@@ -5,7 +5,7 @@ const {CreatCommande,DeleteCommande,UpdateCommandes} = require('../Controllers/C
 
  
 router.post('/creatCommande',CreatCommande)
-router.put('/updateCommandes/:id',UpdateCommandes)
+router.put('/updateCommandes',UpdateCommandes)
 router.delete('/deleteCommande/:id',DeleteCommande)
 
 

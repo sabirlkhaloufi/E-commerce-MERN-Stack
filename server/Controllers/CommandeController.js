@@ -38,22 +38,36 @@ const CreatCommande = asyncHandler(async (req, res) => {
       
       
     })
-    const UpdateCommandes = asyncHandler( async(req,res)=>{
-        const id =  req.params.id;
-        const {cammandes} = req.body;
-        if(cammandes){
-            try {
-                const newCategorie = await Commande.update({cammandes},{where:{id}})
-                res.status(200).send({message:"update commands success"})
-            } catch (error) {
-                res.status(400)
-                throw new Error(error)
-            }
-        }else{
-            res.status(400)
-            throw new Error("Please add a text field")
-        }
-    })
+
+    
+    const UpdateCommandes = asyncHandler(async (req, res) => {
+        const {old_code, NewQuantite, NewPriceTotal, NewCode, NewStatus } = req.body;
+       if (!old_code || !NewPriceTotal || !NewCode || !NewStatus) {
+           res.status(400).send('Please fill all fields.')
+       }
+     
+      try{
+       await db.update(
+   
+           {
+            quantite: NewQuantite,
+            priceTotal: NewPriceTotal,
+            code: NewCode,
+            status: NewStatus,
+           },
+           {
+               where: { code:old_code},
+           })
+           res.status(400).send('Ubdate commands success')
+   
+       }catch (error) {
+           res.status(400).send('not update commandes')
+   }
+      
+   
+   })
+
+
 
     const DeleteCommande = asyncHandler( async(req,res)=>{
         const id =  req.params.id;
