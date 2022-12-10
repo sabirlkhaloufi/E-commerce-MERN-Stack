@@ -3,11 +3,15 @@ const colors = require('colors');
 const router = require('./Routes/AuthRoute');
 const routerProduit = require('./Routes/ProduitsRoute');
 const role = require('./Routes/userRoute');
+const CodePromo = require('./Routes/CodePromo');
+const commandes = require('./Routes/CommandeRoute');
+const commandes = require('./Routes/CommandeRoute');
 
 // require categorie router
 const categorie = require('./Routes/CategorieRoute');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+
 
 // const db = require('./Models/index')
 
@@ -17,6 +21,10 @@ const express = require('express');
 const {errorHandler} = require('./Middlewares/errorMiddleware');
 const connectDB = require('./Config/ConfigDb');
 const app = express();
+
+const fileUpload = require('express-fileupload')
+
+app.use(fileUpload());
 // const db = require('./config/Db');
 const sequelize = require('./Config/ConfigDb');
 // connectDB();
@@ -29,6 +37,8 @@ app.use(cors());
 app.use('/api/categories', categorie);
 app.use('/api/auth', router);
 app.use('/api/user', role);
+app.use('/api/codePromo', CodePromo);
+app.use('/api/commands', commandes);
 app.use('/api/produit', routerProduit);
 
 
