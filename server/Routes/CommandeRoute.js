@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {CreatCommande,DeleteCommande} = require('../Controllers/CommandeController');
+const {CreatCommande,DeleteCommande,UpdateCommandes} = require('../Controllers/CommandeController');
 
 
  

@@ -1,6 +1,6 @@
 
 const db = require('../Models/CommandeModel');
-const commande = require('../Models/Command_Produits');
+const Commande = require('../Models/Command_Produits');
 
 const asyncHandler = require('express-async-handler');
 
@@ -39,7 +39,20 @@ const CreatCommande = asyncHandler(async (req, res) => {
       
     })
     const UpdateCommandes = asyncHandler( async(req,res)=>{
-       
+        const id =  req.params.id;
+        const {cammandes} = req.body;
+        if(cammandes){
+            try {
+                const newCategorie = await Commande.update({cammandes},{where:{id}})
+                res.status(200).send({message:"update commands success"})
+            } catch (error) {
+                res.status(400)
+                throw new Error(error)
+            }
+        }else{
+            res.status(400)
+            throw new Error("Please add a text field")
+        }
     })
 
     const DeleteCommande = asyncHandler( async(req,res)=>{
