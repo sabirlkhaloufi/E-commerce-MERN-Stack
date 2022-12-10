@@ -38,6 +38,32 @@ const CreatCommande = asyncHandler(async (req, res) => {
       
       
     })
+    const UpdatePromoCode = asyncHandler(async (req, res) => {
+//         const { old_code_promo, new_code_promo, new_pourcentage_promo, new_date_expiration } = req.body;
+//        if (!old_code_promo || !new_code_promo || !new_pourcentage_promo || !new_date_expiration) {
+//            res.status(400).send('Please fill all fields.')
+//        }
+     
+//       try{
+//        await db.update(
+   
+//            {
+//                code_promo: new_code_promo,
+//                pourcentage_promo: new_pourcentage_promo,
+//                date_expiration: new_date_expiration,
+//            },
+//            {
+//                where: { code_promo: old_code_promo },
+//            })
+//            res.status(400).send('creat code Promo success')
+   
+//        }catch (error) {
+//            res.status(400).send('not update')
+//    }
+      
+   
+   })
+
     const DeleteCommande = asyncHandler( async(req,res)=>{
         const id =  req.params.id;
         try {

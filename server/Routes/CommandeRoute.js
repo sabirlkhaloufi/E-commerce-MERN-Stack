@@ -5,7 +5,7 @@ const {CreatCommande,DeleteCommande} = require('../Controllers/CommandeControlle
 
  
 router.post('/creatCommande',CreatCommande)
-router.delete('/deleteCommande',DeleteCommande)
+router.delete('/deleteCommande/:id',DeleteCommande)
 
 
 module.exports = router 
