@@ -11,6 +11,7 @@ const categorie = require('./Routes/CategorieRoute');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+
 // const db = require('./Models/index')
 
 // const router = require('./Routes/authRoute')
@@ -19,6 +20,10 @@ const express = require('express');
 const {errorHandler} = require('./Middlewares/errorMiddleware');
 const connectDB = require('./Config/ConfigDb');
 const app = express();
+
+const fileUpload = require('express-fileupload')
+
+app.use(fileUpload());
 // const db = require('./config/Db');
 const sequelize = require('./Config/ConfigDb');
 // connectDB();
