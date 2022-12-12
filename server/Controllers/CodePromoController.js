@@ -10,7 +10,10 @@ const asyncHandler = require('express-async-handler');
 
 const CreatPromoCode = asyncHandler(async (req, res) => {
     const caracters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-   
+    let hashCode = "";
+    for (let i = 0; i < 25; i++) {
+        hashCode += caracters[Math.floor(Math.random() * caracters.length)];
+    }
     // console.log("hello api")
    
     const { code_promo, pourcentage_promo, date_expiration } = req.body;
@@ -31,8 +34,7 @@ try{
  }catch (error) {
         res.status(400).send('not creat Code promo')
 }
-  
-  
+
 })
 
 // method : post
@@ -56,13 +58,11 @@ const UpdatePromoCode = asyncHandler(async (req, res) => {
         {
             where: { code_promo: old_code_promo },
         })
-        res.status(400).send('creat code Promo success')
+        res.status(400).send('Update code Promo success')
 
     }catch (error) {
         res.status(400).send('not update')
-}
-   
-
+    }
 })
 
 // method : post

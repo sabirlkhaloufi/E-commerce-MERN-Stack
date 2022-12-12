@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes} = require('sequelize');
 const db = require('../Config/ConfigDb');
-const Produits = require('./ProduitModel');
 const Users = require('./UsersModel');
 const Cammandes = db.define('cammandes', {
     // Model attributes are defined here
@@ -30,8 +29,6 @@ const Cammandes = db.define('cammandes', {
     
   });
 
-  Produits.hasMany(Cammandes);
-  Cammandes.belongsTo(Produits);
 
   Users.hasMany(Cammandes);
   Cammandes.belongsTo(Users);
