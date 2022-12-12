@@ -29,9 +29,6 @@ const CodePromo = db.define('codepromo', {
 Produits.hasMany(CodePromo);
 CodePromo.belongsTo(Produits);
 
-// Users.hasMany(CodePromo);
-// CodePromo.belongsTo(Users);
-
 // CodePromo.sync()
 
 module.exports = CodePromo;

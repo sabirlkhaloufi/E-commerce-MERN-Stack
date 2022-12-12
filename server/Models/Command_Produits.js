@@ -21,4 +21,4 @@ Command_Produits.belongsTo(commands);
 
 // CodePromo.sync()
 
-module.exports = CodePromo;
+module.exports = Command_Produits;
