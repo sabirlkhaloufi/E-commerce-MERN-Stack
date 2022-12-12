@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes} = require('sequelize');
 const db = require('../Config/configDb');
 const Produits = require('./ProduitModel');
+const User = require('./UsersModel');
 const Commentairs = db.define('commentairs', {
     // Model attributes are defined here
     id: {
@@ -9,10 +10,12 @@ const Commentairs = db.define('commentairs', {
         autoIncrement: true,
         primaryKey: true
     },
-    commentair: {
+   
+    content: {
       type:  DataTypes.STRING,
       allowNull: false
     },
+
     // Idproduit: {
     //     type: Sequelize.DataTypes.INTEGER,
     //     references: {
@@ -27,6 +30,9 @@ const Commentairs = db.define('commentairs', {
 
   Produits.hasMany(Commentairs);
   Commentairs.belongsTo(Produits);
+
+  User.hasMany(Commentairs);
+  Commentairs.belongsTo(User);
 
   Commentairs.sync()
 

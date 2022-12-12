@@ -12,13 +12,17 @@ import {Routes, Route} from "react-router-dom";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import NavMobile from "./components/header/NavMobile";
+import Dash from "./admin/Dash";
 
 function App() {
   return ( 
     <>
+  
+        
       <Header/>
         <Routes>
         {/* public routes */}
+          <Route exact path="/dashboard" element={<Dash/>} />
           <Route exact path="/" element={<Home/>} />
           <Route exact path="/login-register" element={<LoginRegister/>} />
           <Route exact path="/forget-password" element={<ForgetPassword/>} />
@@ -41,6 +45,7 @@ function App() {
         </Routes>
         <NavMobile/>
         <Footer/>
+        
      </> 
   ); 
      
