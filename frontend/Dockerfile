@@ -1,9 +1,7 @@
-#here we're specifying the version of node
-#we can use the :latest tag as well.
 FROM node:16
 
 #here we're defining the working directory
-WORKDIR /app
+WORKDIR /frontend
 
 #copying our dependencies to the container
 COPY ./package.json ./
@@ -17,7 +15,7 @@ RUN npm install
 COPY . .
 
 #exposing the port so we can access it further
-EXPOSE 8000
+EXPOSE 3000
 
 #starting the server
-CMD ["node", "server.js"]
+CMD ["npm", "start"]

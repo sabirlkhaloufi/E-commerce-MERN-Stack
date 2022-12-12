@@ -33,7 +33,7 @@ function Header() {
               <i className="icon-bars" />
             </button>
             <a href="index.html" className="logo">
-              <img src="assets/images/demos/demo-2/logo.png" alt="Molla Logo" width={105} height={25} />
+              <img src="./assets/images/demos/demo-2/logo.png" alt="Molla Logo" width={105} height={25} />
             </a>
           </div>{/* End .header-left */}
           <div className="header-center">

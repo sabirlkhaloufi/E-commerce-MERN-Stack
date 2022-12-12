@@ -16,6 +16,8 @@ import Footer from "./components/footer/Footer";
 import NavMobile from "./components/header/NavMobile";
 import ShopProduit from "./pages/shop/ShopProduit";
 
+import Dashboard from './pages/Dashboard/dashborad'
+
 
 function App() {
   return ( 
@@ -32,6 +34,7 @@ function App() {
 
 
 
+          <Route exact path="/dashboard" element={<Dashboard/>} />
           <Route exact path="/logout" element={<Home/>} />
           {/* <Route exact path="/login-register" element={<LoginRegister/>} > */}
             {/* <Route exact path="register" element={<Register/>} /> */}
