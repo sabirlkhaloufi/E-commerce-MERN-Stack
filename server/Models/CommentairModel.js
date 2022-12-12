@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes} = require('sequelize');
-const db = require('../Config/configDb');
+const db = require('../Config/ConfigDb');
 const Produits = require('./ProduitModel');
 const User = require('./UsersModel');
 const Commentairs = db.define('commentairs', {
@@ -9,7 +9,7 @@ const Commentairs = db.define('commentairs', {
         allowNull:false,
         autoIncrement: true,
         primaryKey: true
-    },
+    }, 
    
     content: {
       type:  DataTypes.STRING,
@@ -35,6 +35,7 @@ const Commentairs = db.define('commentairs', {
   Commentairs.belongsTo(User);
 
   Commentairs.sync()
+  // Commentairs.sync()
 
 module.exports = Commentairs;
 

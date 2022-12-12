@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes} = require('sequelize');
-const db = require('../Config/configDb');
-const Produits = require('./ProduitModel');
+const db = require('../Config/ConfigDb');
 const Users = require('./UsersModel');
 const Cammandes = db.define('cammandes', {
     // Model attributes are defined here
@@ -26,30 +25,15 @@ const Cammandes = db.define('cammandes', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    // Idproduit: {
-    //     type: Sequelize.DataTypes.INTEGER,
-    //     references: {
-    //       model: 'produits',
-    //       key: 'id'
-    //     }
-    // },
-    // Iduser: {
-    //     type: Sequelize.DataTypes.INTEGER,
-    //     references: {
-    //       model: 'users',
-    //       key: 'id'
-    //     }
-    // }
+    
     
   });
 
-  Produits.hasMany(Cammandes);
-  Cammandes.belongsTo(Produits);
 
   Users.hasMany(Cammandes);
   Cammandes.belongsTo(Users);
 
-  Cammandes.sync()
+  // Cammandes.sync()
 
 module.exports = Cammandes;
 

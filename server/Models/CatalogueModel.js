@@ -18,6 +18,6 @@ const Catalogue = db.define('catalogue', {
     }
 });
 
-Catalogue.sync()
+// Catalogue.sync()
 
 module.exports = Catalogue;

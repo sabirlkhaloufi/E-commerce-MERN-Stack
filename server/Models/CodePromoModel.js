@@ -10,34 +10,17 @@ const CodePromo = db.define('codepromo', {
         primaryKey: true,
         autoIncrement: true
     },
-    code: {
+    code_promo: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    // user_id: {
-    //     type: DataTypes.INTEGER,
-    //     references: {
-    //     model: 'users', // 'Actors' would also work
-    //     key: 'id'
-    //     }
-    // },
-    perproduit:{
+    pourcentage_promo:{
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    peruser:{
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    // produit_id: {
-    //     type: DataTypes.INTEGER,
-    //     references: {
-    //     model: 'produits', // 'Actors' would also work
-    //     key: 'id'
-    //     }
-    // },
-    quantite:{
-        type: DataTypes.INTEGER,
+   
+    date_expiration:{
+        type: DataTypes.DATE,
         allowNull: false
     }
 
@@ -46,9 +29,6 @@ const CodePromo = db.define('codepromo', {
 Produits.hasMany(CodePromo);
 CodePromo.belongsTo(Produits);
 
-Users.hasMany(CodePromo);
-CodePromo.belongsTo(Users);
-
-CodePromo.sync()
+// CodePromo.sync()
 
 module.exports = CodePromo;

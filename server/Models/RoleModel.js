@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes} = require('sequelize');
-const db = require('../Config/configDb')
+const db = require('../Config/ConfigDb')
 const Roles = db.define('roles', {
     // Model attributes are defined here
     id: {
@@ -16,7 +16,7 @@ const Roles = db.define('roles', {
     
   });
 
-  Roles.sync()
+  // Roles.sync()
 
 module.exports = Roles;
 
