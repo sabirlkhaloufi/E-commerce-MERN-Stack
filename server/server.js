@@ -5,7 +5,7 @@ const routerProduit = require('./Routes/ProduitsRoute');
 const role = require('./Routes/userRoute');
 const CodePromo = require('./Routes/CodePromo');
 const commandes = require('./Routes/CommandeRoute');
-const commandes = require('./Routes/CommandeRoute');
+// const commandes = require('./Routes/CommandeRoute');
 
 // require categorie router
 const categorie = require('./Routes/CategorieRoute');
