@@ -14,6 +14,7 @@ import {Routes, Route} from "react-router-dom";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import NavMobile from "./components/header/NavMobile";
+import Dash from "./admin/Dash";
 import ShopProduit from "./pages/shop/ShopProduit";
 
 import Dashboard from './pages/Dashboard/dashborad'
@@ -22,9 +23,12 @@ import Dashboard from './pages/Dashboard/dashborad'
 function App() {
   return ( 
     <>
+  
+        
       <Header/>
         <Routes>
         {/* public routes */}
+          <Route exact path="/dashboard" element={<Dash/>} />
           <Route exact path="/" element={<Home/>} />
 
            <Route exact path="/shop" element={<ShopProduit/>} />
@@ -53,6 +57,7 @@ function App() {
         </Routes>
         <NavMobile/>
         <Footer/>
+        
      </> 
   ); 
      
