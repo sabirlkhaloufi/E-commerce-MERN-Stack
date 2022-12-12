@@ -73,6 +73,7 @@ const asyncHandler = require('express-async-handler');
 // method : get
 // url : /api/commande/getAllCommands
 // access : private
+
    const GetAllCommands = asyncHandler( async(req,res)=>{
         try {
             const allCommands = await Commande.findAll()
