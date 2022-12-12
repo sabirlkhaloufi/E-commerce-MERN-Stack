@@ -1,26 +1,13 @@
 const asyncHandler = require('express-async-handler');
 const ProduitSchema = require('../Models/ProduitModel');
 
-const express = require('express');
-const fs = require('fs')
-
-
 // method : post
 // url : /api/produit
 // access : public
 // add produit
 const addProduit = asyncHandler(async (req, res) => {
 
-    // function uploade les images 
-    console.log(Object.keys(req.files))
-    Object.keys(req.files).map( key => 
-        fs.writeFile(`./images/${req.files[key].name}`, req.files[key].data, ()=>{
-            console.log(`${req.files[key].name} written Successfully`);
-        })
-    )
-    
-    
-    const {  title, description, price, oldprice, quantite, promotion,categoreId } = req.body
+    const { image,title, description, price, oldprice, quantite, promotion,categoreId } = req.body
     // console.log(title)
     // console.log(req.files.image);
 
@@ -30,11 +17,18 @@ const addProduit = asyncHandler(async (req, res) => {
     //     throw new Error("Please add a text field")
     // }
 
+        const img = [];
+        req.files.forEach((filePath) => {
+        const path = filePath.path.split("\\")
+        const imgPath = "/" + path[1] + "/" + path[2];
+        img.push(imgPath);
+        });
+        console.log(img)
+    
     try{
     // function create newproduit
         await ProduitSchema.create({
-        // image :`${req.files[key].name}`,
-        
+        image:img,
         title,
         description,
         price,
@@ -50,7 +44,6 @@ const addProduit = asyncHandler(async (req, res) => {
         throw new Error(error)
     }
 })
-
 
 // method : put
 // url : /api/produit

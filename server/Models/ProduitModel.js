@@ -1,5 +1,5 @@
 
-const { Sequelize, DataTypes} = require('sequelize');
+const { Sequelize, DataTypes, ARRAY} = require('sequelize');
 const db = require('../Config/ConfigDb');
 const Categorie = require('./CategorieModel');
 
@@ -9,10 +9,10 @@ const Produits = db.define('produits', {
         primaryKey: true,
         autoIncrement: true
     },
-    // image: {
-    //     type: DataTypes.STRING,
-    //     allowNull: false
-    // },
+    image: {
+        type: ARRAY(DataTypes.STRING),
+        allowNull: false
+    },
     title: {
         type: DataTypes.STRING,
         allowNull: false
