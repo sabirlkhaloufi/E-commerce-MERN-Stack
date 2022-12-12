@@ -1,6 +1,19 @@
 version: "3"
 services:
-  react-app:
+  db:
+    image: postgres
+    restart: always
+    ports:
+     - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: ecommerce
+      POSTGRES_PASSWORD: postgres
+    volumes:
+     - pgdata:/data/postgres
+    networks:
+     - ecommerce-mern
+  frontend:
     #here we've to specify the location of our Makefile
     build: ./frontend/
     stdin_open: true
@@ -9,37 +22,36 @@ services:
     ports: 
       - "3000:3000"
     networks:
-      - mern-app
+      - ecommerce-mern
     volumes:
-      - ./server/:/usr/src/app
-      - /usr/src/app/node_modules
-  api-server:
+      - ./frontend/:/frontend
+      - /app/node_modules
+  server:
     #here we've to specify the location of our Makefile
     build: ./server/
     ports:
     #here we're mapping the exposed port i.e, 5000 to our machine port 5000.
     # so that we can test the application on our port 5000.
-      - "8000:8000"
+      - "4000:8000"
     networks:
-      - mern-app
+      - ecommerce-mern
     volumes:
-      - ./server/:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./server/:/app
+      - /app/node_modules
     depends_on:
-      - mongo
-  mongo:
-    #instead of build tag we're using image tag because we're using the official image of MongoDB
-    #this will pull the official image from the docker hub.
-    image: mongo:latest
+      - db
+  
+  adminer:
+    image: adminer
+    restart: always
     ports:
-      - "27017:27017"
-    networks:
-      - mern-app
-    volumes:
-      - mongo-data:/data/db
+      - 8080:8080
+    networks: 
+     - ecommerce-mern
 networks:
-  mern-app:
+  ecommerce-mern:
     driver: bridge
 volumes:
   mongo-data:
     driver: local
+  pgdata: {}
