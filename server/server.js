@@ -3,8 +3,9 @@ const colors = require('colors');
 const router = require('./Routes/AuthRoute');
 const routerProduit = require('./Routes/ProduitsRoute');
 const role = require('./Routes/userRoute');
-const CodePromo = require('./Routes/CodePromo');
-const commandes = require('./Routes/CommandeRoute');    
+const comments = require('./Routes/CommentRoute');
+const CodePromo = require('./Routes/CodePromoRoute');
+const Commande = require('./Routes/CommandeRoute');
 
 // require categorie router
 const categorie = require('./Routes/CategorieRoute');
@@ -35,9 +36,10 @@ app.use(cors());
 
 app.use('/api/categories', categorie);
 app.use('/api/auth', router);
+app.use('/api/comments', comments);
 app.use('/api/user', role);
 app.use('/api/codePromo', CodePromo);
-app.use('/api/commands', commandes);
+app.use('/api/commande', Commande);
 app.use('/api/produit', routerProduit);
 
 app.use(express.static('public'))
@@ -56,4 +58,9 @@ app.listen(port, (err) => {
 });
 
 
+
+
 module.exports = app;
+
+
+

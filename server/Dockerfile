@@ -1,9 +1,9 @@
 #here we're specifying the version of node
 #we can use the :latest tag as well.
-FROM node:18-slim
+FROM node:16
 
 #here we're defining the working directory
-WORKDIR /user/src/app
+WORKDIR /app
 
 #copying our dependencies to the container
 COPY ./package.json ./

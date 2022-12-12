@@ -39,3 +39,12 @@ project E-commerce with technology :
 | `PUT` | `/api/codePromo/updatePromoCode` | **UpdatePromoCode**|
 | `DELETE` | `/api/codePromo/deletePromoCode/:id` | **DeletePromoCode**|
 
+### commande
+
+| Method | Api     | Description                |
+| :-------- | :------- | :------------------------- |
+| `POST` | `/api/commande/creatCommande` | **CreatCommande**|
+| `PUT` | `/api/commande/updateCommandes` | **UpdateCommandes**|
+| `DELETE` | `/api/commande/deleteCommande/:id` | **DeleteCommande**|
+| `GET` | `/api/commande/getAllCommands` | **GetAllCommands**|
+

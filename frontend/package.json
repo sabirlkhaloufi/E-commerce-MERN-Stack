@@ -12,6 +12,7 @@
     "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
     "react": "^18.2.0",
+    "react-admin": "^4.6.0",
     "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
     "react-form-input-validation": "^2.1.0",
