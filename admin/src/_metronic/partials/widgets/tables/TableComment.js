@@ -1,12 +1,36 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import { useState , useEffect } from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
+import axios from 'axios'
+import { string } from 'yup/lib/locale'
 
-type Props = {
-  className: string
-}
+// type Props = {
+//   className: string
+// }
 
-const TableComment: React.FC<Props> = ({className}) => {
+const TableComment= ({className}) => {
+  const [comments, setComments] = useState([])
+  const [loading, setLoading] = useState(false)
+  // const [comment, setComment] = React.useState([])
+  // const [isEdit, setIsEdit] = React.useState(false)
+  // const [isDelete, setIsDelete] = React.useState(false)
+  // const [isAdd, setIsAdd] = React.useState(false)
+
+  const getComments = async () => {
+    const res = await axios.get('http://localhost:8000/api/comments')
+    setComments(res.data)
+    setLoading(true)
+  }
+
+  useEffect(() => {
+    getComments()
+  }, [])
+  console.log(comments)
+
+
+
+  // 
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -17,10 +41,13 @@ const TableComment: React.FC<Props> = ({className}) => {
         </h3>
         <div className='card-toolbar'>
         <div className='card-toolbar'>
-          <a href='#' className='btn btn-sm btn-light-primary'>
+          <button className='btn btn-sm btn-light-primary'
+           data-bs-toggle="modal"
+           data-bs-target="#kt_modal_1"
+           >
             <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
             New Comment
-          </a>
+          </button>
         </div>
           {/* begin::Menu */}
           <button
@@ -32,6 +59,74 @@ const TableComment: React.FC<Props> = ({className}) => {
           >
             <KTSVG path='/media/icons/duotune/general/gen024.svg' className='svg-icon-2' />
           </button>
+
+          {/* form add */}
+          <div className="modal fade" tabIndex={-1} id="kt_modal_1">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Modal title</h5>
+                  <div
+                    className="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <KTSVG
+                      path="/media/icons/duotune/arrows/arr061.svg"
+                      className="svg-icon svg-icon-2x"
+                    />
+                  </div>
+                </div>
+                <div className="modal-body">
+                  <form className="form">
+                  <div className="mb-10">
+                      <label className="form-label">Content</label>
+                      <input
+                        type="text"
+                        name=' content'
+                        className="form-control"
+                        placeholder="bla bla bla"
+                      />
+                      </div>
+                      <div className="mb-10">
+                      <label className="form-label">Produit Related </label>
+                      <select className="form-select" aria-label="Select example">
+                        <option>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+
+                     
+                      <div className="mb-10">
+                      <label className="form-label">User Related </label>
+                      <select className="form-select form-select-solid" aria-label="Select example">
+                        <option>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+                  </form>
+                 
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-light"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="button" className="btn btn-primary">
+                    Save changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* begin::Menu 2 */}
           <div
             className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold w-200px'
@@ -144,7 +239,9 @@ const TableComment: React.FC<Props> = ({className}) => {
             {/* end::Table head */}
             {/* begin::Table body */}
             <tbody>
-              <tr>
+              { comments.map((item  ) => (
+                <tr key={item.id}>
+
                 <td>
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-50px me-5'>
@@ -158,10 +255,10 @@ const TableComment: React.FC<Props> = ({className}) => {
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-dark fw-bold text-hover-primary mb-1 fs-6'>
-                        Brad Simmons
+                        {item.id}
                       </a>
                       <span className='text-muted fw-semibold text-muted d-block fs-7'>
-                        HTML, JS, ReactJS
+                       {item.content}
                       </span>
                     </div>
                   </div>
@@ -223,7 +320,10 @@ const TableComment: React.FC<Props> = ({className}) => {
                   </a>
                 </td>
               </tr>
-              <tr>
+              ))}
+
+
+              {/* <tr>
                 <td>
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-50px me-5'>
@@ -532,7 +632,7 @@ const TableComment: React.FC<Props> = ({className}) => {
                     Edit
                   </a>
                 </td>
-              </tr>
+              </tr> */}
             </tbody>
             {/* end::Table body */}
           </table>
