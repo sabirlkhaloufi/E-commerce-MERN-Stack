@@ -119,7 +119,9 @@ const getAllProduit = asyncHandler(async (req, res) => {
 
     try{
         const AllProduit = await ProduitSchema.findAll()
-        res.status(200).send({AllProduit})
+        res
+        .status(200).send({AllProduit})
+        .console.log({AllProduit})
     } catch (error) {
         res.status(400)
         throw new Error(error)
