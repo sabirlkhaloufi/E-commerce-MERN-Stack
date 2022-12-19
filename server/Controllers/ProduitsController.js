@@ -7,7 +7,7 @@ const ProduitSchema = require('../Models/ProduitModel');
 // add produit
 const addProduit = asyncHandler(async (req, res) => {
 
-    const { image,title, description, price, oldprice, quantite, promotion,categoreId } = req.body
+    const { image,title, description, price, oldprice, quantite, promotion,categorieId } = req.body
     // console.log(title)
     // console.log(req.files.image);
 
@@ -15,7 +15,9 @@ const addProduit = asyncHandler(async (req, res) => {
     // if(!image || !title || !description || !price|| !oldprice|| !quantite || !promotion){
     //     res.status(400)
     //     throw new Error("Please add a text field")
+
     // }
+// console.log(categorieId);
 
         const img = [];
         req.files.forEach((filePath) => {
@@ -35,7 +37,7 @@ const addProduit = asyncHandler(async (req, res) => {
         oldprice,
         quantite,
         promotion,
-        categoreId
+        categorieId
     })
     
     res.status(200).send('Add produit success')
@@ -119,7 +121,9 @@ const getAllProduit = asyncHandler(async (req, res) => {
 
     try{
         const AllProduit = await ProduitSchema.findAll()
-        res.status(200).send({AllProduit})
+        res
+        .status(200).send({AllProduit})
+        .console.log({AllProduit})
     } catch (error) {
         res.status(400)
         throw new Error(error)
