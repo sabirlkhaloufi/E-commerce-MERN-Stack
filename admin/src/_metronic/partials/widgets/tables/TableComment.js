@@ -28,17 +28,28 @@ const TableComment= ({className}) => {
   const [error, setError] = useState(null)
   const [image, setImage] = useState([])
   const [content, setContent] = useState("")
+  const [update , setUpdate] = useState("")
+
+
+  const deleteComment = async (id) => {
+    console.log(id)
+    await axios.delete(`http://localhost:8000/api/comments/${id}`)
+    setUpdate("delete")
+
+
+  }
 
 
   const getComments = async () => {
     const res = await axios.get('http://localhost:8000/api/comments')
     setComments(res.data)
+    setUpdate("selectall")
     setLoading(true)
   }
 
   useEffect(() => {
     getComments()
-  }, [])
+  }, [ update ])
 
   const handleAdd = async (e) => {
     e.preventDefault()
@@ -508,9 +519,9 @@ const TableComment= ({className}) => {
             <thead>
               <tr className='fw-bold text-muted bg-light'>
                 <th className='ps-4 min-w-300px rounded-start'>Agent</th>
-                <th className='min-w-125px'>Earnings</th>
+                {/* <th className='min-w-125px'>Earnings</th>
                 <th className='min-w-125px'>Comission</th>
-                <th className='min-w-200px'>Company</th>
+                <th className='min-w-200px'>Company</th> */}
                 <th className='min-w-150px'>Rating</th>
                 <th className='min-w-200px text-end rounded-end'></th>
               </tr>
@@ -542,7 +553,7 @@ const TableComment= ({className}) => {
                     </div>
                   </div>
                 </td>
-                <td>
+                {/* <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'>
                     $8,000,000
                   </a>
@@ -561,7 +572,7 @@ const TableComment= ({className}) => {
                   <span className='text-muted fw-semibold text-muted d-block fs-7'>
                     Web, UI/UX Design
                   </span>
-                </td>
+                </td> */}
                 <td>
                   <div className='rating'>
                     <div className='rating-label me-2 checked'>
@@ -586,19 +597,19 @@ const TableComment= ({className}) => {
                 </td>
                 <td className='text-end'>
                   <a
-                    href='#'
+                    href='#' onClick={() => deleteComment(item.id)}
                     className='btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2'
                   >
-                    View
+                    delete comment
                   </a>
-                  <button
+                  {/* <button
                     // href='#'
                     className='btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4'
                     data-bs-toggle="modal"
                     data-bs-target={"#editcomment"}
                   >
                     Edit
-                  </button>
+                  </button> */}
                 </td>
               </tr>
               ))}

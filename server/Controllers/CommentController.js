@@ -50,10 +50,7 @@ const create = (req, res) => {
 	)
 	.catch((err) => {
 		console.log("Error: " + err);
-	}
-
-
-	);
+	});
 	
 };
 
@@ -96,6 +93,7 @@ const update = (req, res) => {
 
 // Delete CRUD Detail by Id
 const Delete = (req, res) => {
+	console.log("req" , req.params.id)
 	// get one comments
 	Comment.destroy({
 		where: {
