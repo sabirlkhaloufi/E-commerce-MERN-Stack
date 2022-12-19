@@ -1,11 +1,28 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link } from "react-router-dom";
 import ShopProduit from '../../pages/shop/ShopProduit';
 import Home from '../../pages/Home'
+import axios from 'axios';
 
   
 
 function Header() {
+
+  const [categories, setCategories] = useState([])
+
+  const getCategories = async()=>{
+    axios.get("http://localhost:8000/api/categories/getall").then((Response)=>{
+      setCategories(Response.data);
+      console.log(Response.data);
+    }).catch((error)=>{
+      console.log(error);
+    })
+  }
+
+  useEffect(() => {
+    getCategories();
+  }, [])
+
   return (
     <header className="header header-2 header-intro-clearance">
       <div className="header-top">

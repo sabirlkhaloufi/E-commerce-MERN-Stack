@@ -114,7 +114,7 @@ const getOneProduit = asyncHandler(async (req, res) => {
 
 
 // method : get
-// url : /api/produit
+// url : /api/produit/getall
 // access : public
 // get all produit
 const getAllProduit = asyncHandler(async (req, res) => {
@@ -131,4 +131,24 @@ const getAllProduit = asyncHandler(async (req, res) => {
     
 })
 
-module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit}
+
+
+// method : get
+// url : /api/produit/getallPromo
+// access : public
+// get all produit
+const getPromoProduct = asyncHandler(async (req, res) => {
+
+    try{
+        const AllProduit = await ProduitSchema.findAll({where: {promotion:true}})
+        res
+        .status(200).send({AllProduit})
+        .console.log({AllProduit})
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
+    }
+    
+})
+
+module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct}
