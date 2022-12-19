@@ -151,10 +151,12 @@ function Header() {
               <div className="dropdown-menu">
                 <nav className="side-nav">
                   <ul className="menu-vertical sf-arrows">
-                    <li className="item-lead"><a href="#">Daily offers</a></li>
-                    <li className="item-lead"><a href="#">Gift Ideas</a></li>
-                    <li><a href="#">Beds</a></li>
-                    <li><a href="#">Lighting</a></li>
+
+                    {categories.map((categorie)=>{
+                      return(
+                        <li  className="item-lead"><Link to={"/categorie/"+categorie.id}>{categorie.categorie}</Link></li>
+                      )
+                    })}
                     
                   </ul>{/* End .menu-vertical */}
                 </nav>{/* End .side-nav */}
