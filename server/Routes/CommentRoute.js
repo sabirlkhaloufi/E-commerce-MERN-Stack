@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const {index , create , show , update , Delete} = require('../Controllers/CommentController');
+const {index , create , show , update , Delete ,uploadImage} = require('../Controllers/CommentController');
+const upload = require('../Middlewares/CommentImgMiddleware');
+const CommentValidation = require('../Middlewares/CommentValidation');
 // const {protect} = require('../Middlewares/authMiddleware');
 
 
  
 router.get("/", index);
-router.post("/", create);
+router.post("/upload",  upload.single("image"), uploadImage);
+router.post("/" , CommentValidation ,create);
 router.get("/:id", show);
 router.patch("/:id", update);
 router.delete("/:id", Delete);
