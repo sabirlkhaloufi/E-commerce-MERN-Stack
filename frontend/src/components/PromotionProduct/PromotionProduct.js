@@ -1,10 +1,25 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 
 function PromotionProduct() {
+
+  const [promoProduct, setPromoProduct] = useState([])
+
+  const getAllProducts = async()=>{
+    axios.get("http://localhost:8000/api/produit/getallPromo").then((Response)=>{
+      setPromoProduct(Response.data.AllProduit);
+      console.log(Response.data.AllProduit);
+    }).catch((error)=>{
+      console.log(error);
+    })
+  }
+
+  useEffect(() => {
+    getAllProducts();
+  }, [])
+
   return (
     <div>
-      
-
       <div className="container">
           <ul className="nav nav-pills nav-border-anim nav-big justify-content-center mb-3" role="tablist">
             <li className="nav-item">
@@ -194,7 +209,7 @@ function PromotionProduct() {
                   </div>{/* End .product-price */}
                 </div>{/* End .product-body */}
                 <div className="product-action">
-                  <a href="#" className="btn-product btn-cart"><span>add to cart</span></a>
+                  <a href="#" className="btn-product btn-cart" ><span>add to cart</span></a>
                 </div>{/* End .product-action */}
               </div>{/* End .product */}
             </div>{/* End .owl-carousel */}

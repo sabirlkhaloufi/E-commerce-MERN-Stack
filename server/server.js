@@ -43,6 +43,8 @@ app.use('/api/commande', Commande);
 app.use('/api/produit', routerProduit);
 
 app.use(express.static('public'))
+app.use(express.static('uploads'))
+app.use(express.static('tmp'))
 
 
 
@@ -51,7 +53,7 @@ app.use(errorHandler)
 const port = process.env.PORT || 8081;
 app.listen(port, (err) => {
     if (!err) {
-        console.log(`Listening on port ${port} is connected`)
+        console.log(`Listening on port ${port} is connected`.brightYellow)
     } else {
         console.log(err)
     }
