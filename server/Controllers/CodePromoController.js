@@ -1,7 +1,22 @@
 
-const db = require('../Models/CodePromoModel');
+const codepromo = require('../Models/CodePromoModel');
 const asyncHandler = require('express-async-handler');
 // let randomstring = Math.random().toString(36).slice(-8);
+
+
+// method : get
+// url : /api/codePromo/getAllCodePromo
+// access : private
+
+const GetAllCodePromo = asyncHandler( async(req,res)=>{
+        try {
+            const allcodePromo = await codepromo.findAll()
+            res.status(200).send(allcodePromo)
+        } catch (error) {
+            res.status(400)
+            throw new Error(error)
+        }
+ })
 
 
 // method : post
@@ -9,16 +24,13 @@ const asyncHandler = require('express-async-handler');
 // access : private
 
 const CreatPromoCode = asyncHandler(async (req, res) => {
-    const caracters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    let hashCode = "";
-    for (let i = 0; i < 25; i++) {
-        hashCode += caracters[Math.floor(Math.random() * caracters.length)];
-    }
+    let hashCode = Math.random().toString(36).slice(-8)
+   
     // console.log("hello api")
    
     const { code_promo, pourcentage_promo, date_expiration } = req.body;
     if (!code_promo || !pourcentage_promo || !date_expiration) {
-        res.status(400).send('Please fill all fields.')
+        res.status(400).json('Please fill all fields.')
     }
 
 try{
@@ -29,60 +41,33 @@ try{
         date_expiration: date_expiration,
 
     }
-    await db.create(data)
-    res.status(200).send({message:"creat code Promo success"})
+    await codepromo.create(data)
+    return  res.status(200).json({message:"creat code Promo success"})
  }catch (error) {
-        res.status(400).send('not creat Code promo')
+    return  res.status(400).json('not creat Code promo')
 }
 
-})
-
-// method : post
-// url : /api/codePromo/updatePromoCode
-// access : private
-
-const UpdatePromoCode = asyncHandler(async (req, res) => {
-     const { old_code_promo, new_code_promo, new_pourcentage_promo, new_date_expiration } = req.body;
-    if (!old_code_promo || !new_code_promo || !new_pourcentage_promo || !new_date_expiration) {
-        res.status(400).send('Please fill all fields.')
-    }
-  
-   try{
-    await db.update(
-
-        {
-            code_promo: new_code_promo,
-            pourcentage_promo: new_pourcentage_promo,
-            date_expiration: new_date_expiration,
-        },
-        {
-            where: { code_promo: old_code_promo },
-        })
-        res.status(400).send('Update code Promo success')
-
-    }catch (error) {
-        res.status(400).send('not update')
-    }
 })
 
 // method : post
 // url : /api/codePromo/deletePromoCode/:id
 // access : private
 
-
 const DeletePromoCode = asyncHandler( async(req,res)=>{
     const id =  req.params.id;
     try {
-        const deletePromoCode = await db.destroy({where:{id}})
-        res.status(200).send({message:"delete code_Promo success"})
+        const deletePromoCode = await codepromo.destroy({where:{id}})
+        return  res.status(200).json({message:"delete code_Promo success"})
+        
     } catch (error) {
-        res.status(400)
-        throw new Error(error)
+        return  res.status(400).json({message:"Not delet code promo"})
+       
+      
     }
 })
 
 module.exports = {
+    GetAllCodePromo,
     CreatPromoCode,
-    UpdatePromoCode,
     DeletePromoCode
 }
