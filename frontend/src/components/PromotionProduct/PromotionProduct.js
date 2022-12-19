@@ -1,16 +1,15 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 
 function PromotionProduct() {
-// add to cart in local storage
 
+  const [promoProduct, setPromoProduct] = useState([])
 
 
  
 
   return (
     <div>
-      
-
       <div className="container">
           <ul className="nav nav-pills nav-border-anim nav-big justify-content-center mb-3" role="tablist">
             <li className="nav-item">

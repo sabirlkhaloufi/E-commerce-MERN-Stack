@@ -34,7 +34,7 @@ const Produits = db.define('produits', {
         allowNull: false
     },
     promotion: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BOOLEAN,
         allowNull: false
     },
     
