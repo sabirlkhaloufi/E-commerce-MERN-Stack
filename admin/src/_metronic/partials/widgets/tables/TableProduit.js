@@ -52,44 +52,59 @@ const TableProduit= ({className}) => {
     getAllCategorie()
   } , []);
   
+
+
+
   // console.log( getproduits)
+  // start function register add produit --------------------------------
+  const [ image, setImage ] = useState('');
   const [ title, setTitle ] = useState('');
   const [ description, setDescription ] = useState('');
   const [ price, setPrice ] = useState('');
   const [ oldprice, setOldprice ] = useState('');
   const [ quantite, setQuantite ] = useState('');
   const [ promotion, setPromotion ] = useState('');
-  const [ students, setStudents ] = useState([]);
+  const [ categorie, setCategorie ] = useState('');
+
+  
 
 
 
   const handleAdd = (e) => {
     e.preventDefault()
     const formData = new FormData(e.target);
+    formData.append('image',image);
     formData.get('title');
     formData.get('description');
     formData.get('price');
     formData.get('oldprice');
     formData.get('quantite');
     formData.get('promotion');
-    formData.append('image');
-    if( !title || !description || !price || !oldprice || !quantite || !promotion ) {
-    return( alert("fill in alll details"))
-    }
+    formData.get('categorie');
+
+    console.log("form data" ,formData)
+    console.log('categorie',categorie)
+    // if( !image || !title || !description || !price || !oldprice || !quantite || !promotion || !categorie ) {
+    // return( alert("fill in alll details"))
+    // }
+   
     let config = {
     method: "post",
     url: "http://localhost:8000/api/produit/add",
     headers: {
        "content-type": "application/json",
        "content-type": "multipart/form-data"
+       
     },
     data: formData,
+    
 };
 axios(config)
             .then((res) => {
-                setStudents([...res.data.reverse()])
-                // setLoading( false )
+                // setStudents([...res.data.reverse()])
+                // // setLoading( false )
                 console.log(res.send('create produit is valid'))
+                
             })
             .catch((error) => {
                 console.log( error.response )
@@ -99,7 +114,7 @@ axios(config)
     }
 
 
-// start function register add produit --------------------------------
+
   
       
    
@@ -169,7 +184,7 @@ axios(config)
                       <img   src="https://icons.iconarchive.com/icons/dtafalonso/android-lollipop/128/Downloads-icon.png"/>
                     </label>
 
-                    <input id="file-input" type="file" accept=".png, .jpg, .jpeg" name="image"  />
+                    <input id="file-input" type="file" accept=".png, .jpg, .jpeg" name="image" value={image} onChange={(e) => setImage(e.target.value)}  />
                     </div>
 
                   <div className="mb-10">
@@ -193,9 +208,10 @@ axios(config)
                     
                       <label className="form-label">Categorie</label>
                         
-                      <select className="form-select" aria-label="Select example">
+                      <select className="form-select" name='categorie' value={categorie}  onChange={(e) => setCategorie(e.target.value) } aria-label="Select example">
                             { getcategories.map((item  ) => (
-                        <option value={item.id} key={item.id}>{item.categorie}</option>
+                        <option value={item.id}  key={item.id}>{item.categorie}</option>
+                      
                         ))}
                       </select>
                       </div> 
