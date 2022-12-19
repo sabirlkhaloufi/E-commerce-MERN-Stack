@@ -1,9 +1,15 @@
 const Comment = require("../Models/CommentairModel");
+const colors = require('colors');
+const multer = require('multer');
+const path = require('path');
+const { v4: uuidv4 } = require('uuid');
+// local storage
+const localStorage = require('localStorage');
 
 
 // Display All CRUD Data
 const index = (req, res) => {
-	console.log("Commentaire");
+	console.log("Commentaire".america.bold);
 	// get all comments
 	Comment.findAll()
 	.then((comments) => {
@@ -18,39 +24,50 @@ const index = (req, res) => {
 
 };
 
+const uploadImage = (req, res) => {
+	console.log("req" , req.file)
+	localStorage.setItem('imageName', req.file.filename);
+	console.log("localStorage" , localStorage.getItem('imageName').cyan.bold)
+	res.status(200).json(req.file.filename);
+}
+
 // Create New CRUD
 const create = (req, res) => {
-	console.log("Commentaire");
-	// get all comments
+	console.log("req" , req.body)
+	
+	const content = req.body.content;
+	// console.log("image" , image)
+
 	Comment.create({
-		content: req.body.content,
-		produitId: req.body.Idproduit ,
-		userId: req.body.Iduser
+		content: content,
+		image: localStorage.getItem('imageName'),
+		// produitId: "1" ,
+		// userId: "1"
 	})
 	.then((comments) => {
-		res.json(comments);
+		res.status(200).json(comments);
 	}
 	)
 	.catch((err) => {
 		console.log("Error: " + err);
 	}
+
+
 	);
 	
 };
 
 // Show a particular CRUD Detail by Id
 const show = (req, res) => {
-	// get one comments
 	Comment.findByPk(req.params.id)
 	.then((comments) => {
 		res.json(comments);
-	}
+	  }
 	)
 	.catch((err) => {
 		console.log("Error: " + err);
-	}
+	  }
 	);
-	
 };
 
 // Update CRUD Detail by Id
@@ -102,4 +119,5 @@ module.exports = {
 	create,
 	update,
 	Delete,
+	uploadImage
 };

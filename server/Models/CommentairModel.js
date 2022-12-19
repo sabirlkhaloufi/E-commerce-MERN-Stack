@@ -13,7 +13,19 @@ const Commentairs = db.define('commentairs', {
    
     content: {
       type:  DataTypes.STRING,
-      allowNull: false
+      allowNull: true
+    },
+    image: {
+      type:  DataTypes.STRING,
+      allowNull: true
+    },
+    produitId: {
+      type:  DataTypes.INTEGER,
+      allowNull: true
+    },
+    userId: {
+      type:  DataTypes.INTEGER,
+      allowNull: true
     },
 
     // Idproduit: {
@@ -27,16 +39,21 @@ const Commentairs = db.define('commentairs', {
     
   });
 
-
-  Produits.hasMany(Commentairs);
+  // Produits.hasMany(Commentairs);
   Commentairs.belongsTo(Produits);
-
-  User.hasMany(Commentairs);
   Commentairs.belongsTo(User);
 
-  Commentairs.sync()
+
+  // Produits.hasMany(Commentairs);
+  // Commentairs.belongsTo(Produits);
+
+  // User.hasMany(Commentairs);
+  // Commentairs.belongsTo(User);
+
+  // Commentairs.sync()   
+  // Commentairs.sync({ force: true })
   // Commentairs.sync()
 
-module.exports = Commentairs;
+module.exports = Commentairs; 
 
 
