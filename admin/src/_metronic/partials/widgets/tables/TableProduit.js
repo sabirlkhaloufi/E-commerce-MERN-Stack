@@ -2,9 +2,7 @@
 import { useState , useEffect } from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import axios from 'axios';
-// import { send } from 'process';
-// import { useParams } from "react-router-dom"
-// import { string } from 'yup/lib/locale'
+
 const element = document.querySelector('#delete-request .status');
 
 
@@ -15,6 +13,7 @@ const TableProduit= ({className}) => {
   const [getcategories, setcategories] = useState([])
   const [loading, setLoading] = useState(false)
 
+  
   // start function get all categorie
   const getAllCategorie = async ()=> {
     const  categories = await axios.get(
@@ -24,36 +23,40 @@ const TableProduit= ({className}) => {
     setcategories(categories.data)
     setLoading(true)
   }
-  useEffect(() => {
-    getAllCategorie()
-  } , []);
-  console.log(getcategories)
+ 
+  // console.log(getcategories)
   // end function get all categorie
 
 
   // delet poduit
   const deletproduit = async (id) =>{
-    // const id = useParams()
     // console.log(id)
     await  axios.delete(`http://localhost:8000/api/produit/delete/${id}`)
-    .then(() => element.innerHTML = 'Delete successful');
+    .then((response)=>{
+      console.log(response.data);
+      getAllproduits();
+    }).catch((error)=>{
+      console.log(error);
+    })
   }
 
 // get all produits 
  const getAllproduits = async ()=> {
-    const  {data}  = await axios.get(
+    const  {data} = await axios.get(
       'http://localhost:8000/api/produit/getall'
-    );
-    setProduits(data.AllProduit)
-    setLoading(true)
+    ).then(({data})=>{
+      setProduits(data.AllProduit)
+      console.log(data.AllProduit);
+    }).catch((error)=>{
+      console.log(error);
+    })
   }
+
   useEffect(() => {
     getAllproduits()
     getAllCategorie()
   } , []);
   
-
-
 
   // console.log( getproduits)
   // start function register add produit --------------------------------
@@ -66,60 +69,45 @@ const TableProduit= ({className}) => {
   const [ promotion, setPromotion ] = useState('');
   const [ categorie, setCategorie ] = useState('');
 
-  
-
-
-
   const handleAdd = (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target);
-    formData.append('image',image);
-    formData.get('title');
-    formData.get('description');
-    formData.get('price');
-    formData.get('oldprice');
-    formData.get('quantite');
-    formData.get('promotion');
-    formData.get('categorie');
+        e.preventDefault()
+        const formData = new FormData(e.target);
+        formData.append('image',image);
+        formData.get('title');
+        formData.get('description');
+        formData.get('price');
+        formData.get('oldprice');
+        formData.get('quantite');
+        formData.get('promotion');
+        formData.get('categorie');
 
-    console.log("form data" ,formData)
-    console.log('categorie',categorie)
-    // if( !image || !title || !description || !price || !oldprice || !quantite || !promotion || !categorie ) {
-    // return( alert("fill in alll details"))
-    // }
-   
-    let config = {
-    method: "post",
-    url: "http://localhost:8000/api/produit/add",
-    headers: {
-       "content-type": "application/json",
-       "content-type": "multipart/form-data"
-       
-    },
-    data: formData,
-    
-};
-axios(config)
-            .then((res) => {
-                // setStudents([...res.data.reverse()])
-                // // setLoading( false )
-                console.log(res.send('create produit is valid'))
-                
-            })
-            .catch((error) => {
-                console.log( error.response )
-            })
+        console.log("form data" ,formData)
+        console.log('categorie',categorie)
+        // if( !image || !title || !description || !price || !oldprice || !quantite || !promotion || !categorie ) {
+        // return( alert("fill in alll details"))
+        // }
+      
+        let config = {
+        method: "post",
+        url: "http://localhost:8000/api/produit/add",
+        headers: {
+          "content-type": "application/json",
+          "content-type": "multipart/form-data"
+        },
+        data: formData,
         
-        
+      };
+      axios(config)
+                .then((res) => {
+                  getAllproduits();
+                    console.log(('create produit is valid'))
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            
     }
 
-
-
-  
-      
-   
-
-      
   // end function register add produit --------------------------------
   
   return (
@@ -131,13 +119,7 @@ axios(config)
           <span className='text-muted mt-1 fw-semibold fs-7'>Over 500 new products</span>
         </h3>
         <div className='card-toolbar'>
-          {/* <a href='#' className='btn btn-sm btn-light-primary'>
-            <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-            New Produit
-          </a> */}
-
-
-
+          
 <div className='card-toolbar'>
           <button className='btn btn-sm btn-light-primary'
            data-bs-toggle="modal"
@@ -215,25 +197,26 @@ axios(config)
                         ))}
                       </select>
                       </div> 
-                      <div className="d-grid">
-                        <button type="submit" className="btn btn-primary"> Submit </button>
-                      </div>
-                  </form>
-                  {/* end form add produit */}
-                
-                </div>
-                <div className="modal-footer">
+                      
+                      <div className="modal-footer ">
                   <button
+                  
                     type="button"
                     className="btn btn-light"
+                    
                     data-bs-dismiss="modal"
                   >
                     Close
                   </button>
-                  <button type="button" className="btn btn-primary">
+                  <button  type="submit" data-bs-dismiss="modal" className="btn btn-primary" >
                     Save changes
                   </button>
                 </div>
+                  </form>
+                  {/* end form add produit */}
+                
+                </div>
+                
               </div>
             </div>
           </div>
@@ -338,7 +321,7 @@ axios(config)
                     <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
                   </a>
 
-                  <a href={'' } onClick={() => deletproduit(item.id)}className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'>
+                  <a onClick={() => deletproduit(item.id)} className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'>
                     {/* <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' /> */}
                     <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
 
