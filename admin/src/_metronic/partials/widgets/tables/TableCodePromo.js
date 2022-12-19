@@ -5,32 +5,9 @@ import { useState , useEffect } from 'react'
 import {useParams } from 'react-router-dom';
 import {KTSVG} from '../../../helpers'
 
-import {Formik, Field, Form, ErrorMessage} from 'formik';
-import * as Yup from 'yup';
+
 import "bootstrap/dist/css/bootstrap.css";
 
-
-const validationSchema = Yup.object().shape({
-    code_promo: Yup.string()
-        .min(5, "trop petit")
-        .max(8, "trop long!")
-        .required("This field is required"),
-        pourcentage_promo: Yup.string()
-        .min(5,"trop petit")
-        .max(8,"trop long!")
-        .required("This field is required"),
-        date_expiration: Yup.string()
-        .date_expiration("date invalide")
-        .required("This field is required"),
-
-    acceptTerms: Yup.bool().oneOf([true], "Accepter les conditions est obligatoire"),
-});
-const initialValues = {
-    code_promo: "",
-    pourcentage_promo: "",
-    date_expiration: "",
-    acceptTerms: false,
-};
 
 const handleSubmit = (values) => {
   console.log(values)
@@ -136,67 +113,27 @@ New Code Promo
         </div>
       </div>
       <div className="modal-body">
-      <Formik
-initialValues={initialValues}
-validationSchema={validationSchema}
-onSubmit={(values) =>handleSubmit(values)}
->
-{({ resetForm }) => (
-    <Form>
+     
         <div className="form-group mb-3">
             <label htmlFor="code_promo">
             code_promo:
             </label>
-            <Field
-                type="text"
-                id="code_promo"
-                name="code_promo" value={code_promo} onChange={(e) => setCodePromo(e.target.value)} 
-                className="form-control"
-            />
-            <ErrorMessage
-                name="code_promo"
-                component="small"
-                className="text-danger"
-            />
         </div>
         <div className="form-group mb-3">
             <label htmlFor="pourcentage_promo">
             pourcentage_promo:
             </label>
-            <Field
-                type="Nember"
-                id="pourcentage_promo"
-                name="pourcentage_promo"
-                className="form-control"
-            />
-            <ErrorMessage
-                name="pourcentage_promo"
-                component="small"
-                className="text-danger"
-            />
+           
+           
         </div>
         <div className="form-group mb-3">
             <label htmlFor="date_expiration">
             date_expiration:
             </label>
-            <Field
-                type="date"
-                id="date_expiration"
-                name="date_expiration"
-                className="form-control"
-            />
-            <ErrorMessage
-                name="date_expiration"
-                component="small"
-                className="text-danger"
-            />
+          
         </div>
         <div className="form-group form-check mb-5">
-            <Field
-                name="acceptTerms"
-                type="checkbox"
-                className="form-check-input"
-            />
+          
             <label
                 htmlFor="acceptTerms"
                 className="form-check-label"
@@ -204,11 +141,7 @@ onSubmit={(values) =>handleSubmit(values)}
                 J'ai lu et j'accepte
                 les conditions
             </label>
-            <ErrorMessage
-                name="acceptTerms"
-                component="small"
-                className="text-danger d-block"
-            />
+         
         </div>
         <div className="form-group d-flex justify-content-end gap-3">
             <button
@@ -221,15 +154,14 @@ onSubmit={(values) =>handleSubmit(values)}
             </button>
             <button
                 type="button"
-                onClick={resetForm}
+               
                 className="btn btn-danger"
             >
                 Close
             </button>
         </div>
-    </Form>
-)}
-</Formik>
+ 
+
       </div>
     
     </div>
