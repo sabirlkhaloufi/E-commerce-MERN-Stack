@@ -2,6 +2,7 @@
 import { useState , useEffect } from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import axios from 'axios';
+// import { send } from 'process';
 // import { useParams } from "react-router-dom"
 // import { string } from 'yup/lib/locale'
 const element = document.querySelector('#delete-request .status');
@@ -52,6 +53,59 @@ const TableProduit= ({className}) => {
   } , []);
   
   // console.log( getproduits)
+  const [ title, setTitle ] = useState('');
+  const [ description, setDescription ] = useState('');
+  const [ price, setPrice ] = useState('');
+  const [ oldprice, setOldprice ] = useState('');
+  const [ quantite, setQuantite ] = useState('');
+  const [ promotion, setPromotion ] = useState('');
+  const [ students, setStudents ] = useState([]);
+
+
+
+  const handleAdd = (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target);
+    formData.get('title');
+    formData.get('description');
+    formData.get('price');
+    formData.get('oldprice');
+    formData.get('quantite');
+    formData.get('promotion');
+    formData.append('image');
+    if( !title || !description || !price || !oldprice || !quantite || !promotion ) {
+    return( alert("fill in alll details"))
+    }
+    let config = {
+    method: "post",
+    url: "http://localhost:8000/api/produit/add",
+    headers: {
+       "content-type": "application/json",
+       "content-type": "multipart/form-data"
+    },
+    data: formData,
+};
+axios(config)
+            .then((res) => {
+                setStudents([...res.data.reverse()])
+                // setLoading( false )
+                console.log(res.send('create produit is valid'))
+            })
+            .catch((error) => {
+                console.log( error.response )
+            })
+        
+        
+    }
+
+
+// start function register add produit --------------------------------
+  
+      
+   
+
+      
+  // end function register add produit --------------------------------
   
   return (
     <div className={`card ${className}`}>
@@ -107,43 +161,47 @@ const TableProduit= ({className}) => {
                   </div>
                 </div>
                 <div className="modal-body">
+
                   {/* start form add produit */}
-                  <form className="form">
+                  <form className="form" onSubmit={handleAdd} method="post" encType='multipart/form-data'>
                   <div className="image-upload">
-                    <label for="file-input">
+                    <label htmlFor="file-input">
                       <img   src="https://icons.iconarchive.com/icons/dtafalonso/android-lollipop/128/Downloads-icon.png"/>
                     </label>
 
-                    <input id="file-input" type="file" />
+                    <input id="file-input" type="file" accept=".png, .jpg, .jpeg" name="image"  />
                     </div>
 
                   <div className="mb-10">
                       <label className="form-label">Title</label>
-                      <input type="text" name=' title' className="form-control" placeholder="title" />
+                      <input type="text" name='title'  className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="title" />
 
                       <label className="form-label">Description</label>
-                      <input type="text" name=' description' className="form-control" placeholder="description" />
+                      <input type="text" name='description' className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="description" />
 
                       <label className="form-label">Price</label>
-                      <input type="text" name=' price' className="form-control" placeholder="price" />
+                      <input type="text" name='price' className="form-control" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="price" />
 
                       <label className="form-label">OldPrice</label>
-                      <input type="text" name=' oldprice' className="form-control" placeholder="oldprice" />
+                      <input type="text" name='oldprice' className="form-control" value={oldprice} onChange={(e) => setOldprice(e.target.value)} placeholder="oldprice" />
 
                       <label className="form-label">Quantite</label>
-                      <input type="text" name=' quantite' className="form-control" placeholder="quantite" />
+                      <input type="text" name='quantite' className="form-control"  value={quantite} onChange={(e) => setQuantite(e.target.value)} placeholder="quantite" />
 
                       <label className="form-label">Promotion</label>
-                      <input type="text" name=' promotion' className="form-control" placeholder="promotion" />
+                      <input type="text" name='promotion' className="form-control"  value={promotion} onChange={(e) => setPromotion(e.target.value)} placeholder="promotion" />
                     
                       <label className="form-label">Categorie</label>
                         
                       <select className="form-select" aria-label="Select example">
                             { getcategories.map((item  ) => (
-                        <option value={item.id}>{item.categorie}</option>
+                        <option value={item.id} key={item.id}>{item.categorie}</option>
                         ))}
                       </select>
                       </div> 
+                      <div className="d-grid">
+                        <button type="submit" className="btn btn-primary"> Submit </button>
+                      </div>
                   </form>
                   {/* end form add produit */}
                 
