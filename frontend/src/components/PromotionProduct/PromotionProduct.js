@@ -4,6 +4,7 @@ function PromotionProduct() {
 // add to cart in local storage
 
 
+
  
 
   return (
