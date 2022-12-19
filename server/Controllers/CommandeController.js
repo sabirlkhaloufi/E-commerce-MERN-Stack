@@ -9,6 +9,7 @@ const asyncHandler = require('express-async-handler');
 // access : private
 
     const CreatCommande = asyncHandler(async (req, res) => {
+       const codeCommands = Math.random().toString(36).slice(-8);
             // console.log("hello api")
             const { quantite, priceTotal, code,status } = req.body;
             if (!quantite || !priceTotal || !code || !status ) {
@@ -18,7 +19,7 @@ const asyncHandler = require('express-async-handler');
             const data = {
                 quantite: quantite,
                 priceTotal: priceTotal,
-                code: code,
+                code: codeCommands,
                 status:status
             }
             await db.create(data)
@@ -27,33 +28,6 @@ const asyncHandler = require('express-async-handler');
                 res.status(400).send('not creat commandes')
         }  
         })
-
-// method : put
-// url : /api/commande/updateCommandes
-// access : private
-    
-    const UpdateCommandes = asyncHandler(async (req, res) => {
-        const {old_code, NewQuantite, NewPriceTotal, NewCode, NewStatus } = req.body;
-       if (!old_code || !NewPriceTotal || !NewCode || !NewStatus) {
-           res.status(400).send('Please fill all fields.')
-       }
-        try{
-            await db.update(
-        
-                {
-                    quantite: NewQuantite,
-                    priceTotal: NewPriceTotal,
-                    code: NewCode,
-                    status: NewStatus,
-                },
-                {
-                    where: { code:old_code},
-                })
-                res.status(400).send('Ubdate commands success')
-        }catch (error) {
-           res.status(400).send('not update commandes')
-        }
-    })
 
 // method : delete
 // url : /api/commande/deleteCommande/:id
@@ -88,7 +62,6 @@ module.exports = {
 
     CreatCommande,
     DeleteCommande,
-    UpdateCommandes,
     GetAllCommands
     
 }

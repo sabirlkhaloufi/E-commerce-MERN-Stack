@@ -4,33 +4,101 @@ import { useState , useEffect } from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import axios from 'axios'
 import { string } from 'yup/lib/locale'
+// import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
 
-// type Props = {
-//   className: string
-// }
+// Import React FilePond
+import { FilePond, File, registerPlugin } from 'react-filepond'
+
+// Import FilePond styles
+import 'filepond/dist/filepond.min.css'
+
+// Import the Image EXIF Orientation and Image Preview plugins
+// Note: These need to be installed separately
+// `npm i filepond-plugin-image-preview filepond-plugin-image-exif-orientation --save`
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
+import { async } from 'q'
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 const TableComment= ({className}) => {
   const [comments, setComments] = useState([])
   const [loading, setLoading] = useState(false)
-  // const [comment, setComment] = React.useState([])
-  // const [isEdit, setIsEdit] = React.useState(false)
-  // const [isDelete, setIsDelete] = React.useState(false)
-  // const [isAdd, setIsAdd] = React.useState(false)
+  const [error, setError] = useState(null)
+  const [image, setImage] = useState([])
+  const [content, setContent] = useState("")
+  const [update , setUpdate] = useState("")
+
+
+  const deleteComment = async (id) => {
+    console.log(id)
+    await axios.delete(`http://localhost:8000/api/comments/${id}`)
+    setUpdate("delete")
+
+
+  }
+
 
   const getComments = async () => {
     const res = await axios.get('http://localhost:8000/api/comments')
     setComments(res.data)
+    setUpdate("selectall")
     setLoading(true)
   }
 
   useEffect(() => {
     getComments()
-  }, [])
-  console.log(comments)
+  }, [ update ])
+
+  const handleAdd = async (e) => {
+    e.preventDefault()
+    let config = {
+      method: 'post',
+      url: 'http://localhost:8000/api/comments',
+      headers: {
+        "content-type": "application/json",
+        'Content-Type': 'multipart/form-data'
+      },
+      data : JSON.stringify({
+        content: content
+      })
+
+    }
+    axios(config)
+    .then((response) => {
+      console.log(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+    alert('Comment added successfully')
+  }
+  const handleEdit = async (e) => {
+    e.preventDefault()
+    let config = {
+      method: 'put',
+      url: 'http://localhost:8000/api/comments/1',
+      headers: {
+        "content-type": "application/json",
+        'Content-Type': 'multipart/form-data'
+      },
+      data : JSON.stringify({
+        content: content
+      })
+
+    }
+    axios(config)
+    .then((response) => {
+      console.log(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+    alert('Comment edited successfully')
+  }
 
 
-
-  // 
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -78,14 +146,92 @@ const TableComment= ({className}) => {
                   </div>
                 </div>
                 <div className="modal-body">
-                  <form className="form">
+                  <form className="form" method='post' encType='multipart/form-data' onSubmit={handleAdd}>
+                      <div className="mb-10">
+                       <FilePond
+                          files={image}
+                          value={image}
+                          allowMultiple={false}
+                          allowReorder={true}
+                          allowRemove={true}
+                          credits={false}
+
+                          name="image"
+                          server={
+                            {
+                              process: (fieldName, file, metadata, load, error, progress, abort) => {
+                                // console.log('file',file)
+                                // console.log('fieldName',fieldName)
+                                // console.log('metadata',metadata)
+                                const formData = new FormData()
+                                formData.append(fieldName, file, file.name)
+                                // with axios
+                                axios.post('http://localhost:8000/api/comments/upload', formData, {
+                                  onUploadProgress: (e) => {
+                                    progress(e.lengthComputable, e.loaded, e.total)
+                                  }
+                                })
+                                  .then(res => {
+                                    console.log('res',res)
+                                    load(res.data)
+                                  })
+                                  .catch(err => {
+                                    console.log('err',err)
+                                    error('oh no')
+                                  })
+
+                                // const request = new XMLHttpRequest()
+                                // request.open('POST', 'http://localhost:8000/api/comments')
+                                // request.upload.onprogress = (e) => {
+                                //   progress(e.lengthComputable, e.loaded, e.total)
+                                // }
+                                // request.onload = function () {
+                                //   if (request.status >= 200 && request.status < 300) {
+                                //     load(request.responseText)
+                                //   } else {
+                                //     error('oh no')
+                                //   }
+                                // }
+                                // request.send(formData)
+                                // return {
+                                //   abort: () => {
+                                //     request.abort()
+                                //     abort()
+                                //   }
+                                // }
+                              }
+
+
+
+                          }
+                          }
+                          
+                          onupdatefiles={
+                            (fileItems) => {
+                              console.log('test',fileItems.map(fileItem => fileItem.file))
+                              setImage(fileItems.map(fileItem => fileItem.file))
+                            }
+                          }
+                          maxFiles={1}
+                          labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+                      />
+                      {/* <label className="form-label">image </label> */}
+                      {/* <input type="file"
+                       name='image'
+                        className="form-control"
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)} 
+                        /> */}
+                    </div>
                   <div className="mb-10">
                       <label className="form-label">Content</label>
                       <input
                         type="text"
-                        name=' content'
+                        name='content'
                         className="form-control"
                         placeholder="bla bla bla"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
                       />
                       </div>
                       <div className="mb-10">
@@ -108,20 +254,164 @@ const TableComment= ({className}) => {
                         <option value="3">Three</option>
                       </select>
                     </div>
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="btn btn-light"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="submit" className="btn btn-primary">
+                        Save changes
+                      </button>
+                    </div>
                   </form>
                  
                 </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-light"
+              </div>
+            </div>
+          </div>
+          {/* form edit */}
+          <div className="modal fade" tabIndex={-1} id="#editcomment">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Modal title</h5>
+                  <div
+                    className="btn btn-icon btn-sm btn-active-light-primary ms-2"
                     data-bs-dismiss="modal"
+                    aria-label="Close"
                   >
-                    Close
-                  </button>
-                  <button type="button" className="btn btn-primary">
-                    Save changes
-                  </button>
+                    <KTSVG
+                      path="/media/icons/duotune/arrows/arr061.svg"
+                      className="svg-icon svg-icon-2x"
+                    />
+                  </div>
+                </div>
+                <div className="modal-body">
+                  <form className="form" method='post' encType='multipart/form-data' onSubmit={handleEdit}>
+                      <div className="mb-10">
+                       <FilePond
+                          files={image}
+                          value={image}
+                          allowMultiple={false}
+                          allowReorder={true}
+                          allowRemove={true}
+                          credits={false}
+
+                          name="image"
+                          server={
+                            {
+                              process: (fieldName, file, metadata, load, error, progress, abort) => {
+                                // console.log('file',file)
+                                // console.log('fieldName',fieldName)
+                                // console.log('metadata',metadata)
+                                const formData = new FormData()
+                                formData.append(fieldName, file, file.name)
+                                // with axios
+                                axios.post('http://localhost:8000/api/comments/upload', formData, {
+                                  onUploadProgress: (e) => {
+                                    progress(e.lengthComputable, e.loaded, e.total)
+                                  }
+                                })
+                                  .then(res => {
+                                    console.log('res',res)
+                                    load(res.data)
+                                  })
+                                  .catch(err => {
+                                    console.log('err',err)
+                                    error('oh no')
+                                  })
+
+                                // const request = new XMLHttpRequest()
+                                // request.open('POST', 'http://localhost:8000/api/comments')
+                                // request.upload.onprogress = (e) => {
+                                //   progress(e.lengthComputable, e.loaded, e.total)
+                                // }
+                                // request.onload = function () {
+                                //   if (request.status >= 200 && request.status < 300) {
+                                //     load(request.responseText)
+                                //   } else {
+                                //     error('oh no')
+                                //   }
+                                // }
+                                // request.send(formData)
+                                // return {
+                                //   abort: () => {
+                                //     request.abort()
+                                //     abort()
+                                //   }
+                                // }
+                              }
+
+
+
+                          }
+                          }
+                          
+                          onupdatefiles={
+                            (fileItems) => {
+                              console.log('test',fileItems.map(fileItem => fileItem.file))
+                              setImage(fileItems.map(fileItem => fileItem.file))
+                            }
+                          }
+                          maxFiles={1}
+                          labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+                      />
+                      {/* <label className="form-label">image </label> */}
+                      {/* <input type="file"
+                       name='image'
+                        className="form-control"
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)} 
+                        /> */}
+                    </div>
+                  <div className="mb-10">
+                      <label className="form-label">Content</label>
+                      <input
+                        type="text"
+                        name='content'
+                        className="form-control"
+                        placeholder="bla bla bla"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                      />
+                      </div>
+                      <div className="mb-10">
+                      <label className="form-label">Produit Related </label>
+                      <select className="form-select" aria-label="Select example">
+                        <option>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+
+                     
+                      <div className="mb-10">
+                      <label className="form-label">User Related </label>
+                      <select className="form-select form-select-solid" aria-label="Select example">
+                        <option>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="btn btn-light"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="submit" className="btn btn-primary">
+                        Save changes
+                      </button>
+                    </div>
+                  </form>
+                 
                 </div>
               </div>
             </div>
@@ -229,9 +519,9 @@ const TableComment= ({className}) => {
             <thead>
               <tr className='fw-bold text-muted bg-light'>
                 <th className='ps-4 min-w-300px rounded-start'>Agent</th>
-                <th className='min-w-125px'>Earnings</th>
+                {/* <th className='min-w-125px'>Earnings</th>
                 <th className='min-w-125px'>Comission</th>
-                <th className='min-w-200px'>Company</th>
+                <th className='min-w-200px'>Company</th> */}
                 <th className='min-w-150px'>Rating</th>
                 <th className='min-w-200px text-end rounded-end'></th>
               </tr>
@@ -263,7 +553,7 @@ const TableComment= ({className}) => {
                     </div>
                   </div>
                 </td>
-                <td>
+                {/* <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'>
                     $8,000,000
                   </a>
@@ -282,7 +572,7 @@ const TableComment= ({className}) => {
                   <span className='text-muted fw-semibold text-muted d-block fs-7'>
                     Web, UI/UX Design
                   </span>
-                </td>
+                </td> */}
                 <td>
                   <div className='rating'>
                     <div className='rating-label me-2 checked'>
@@ -307,17 +597,19 @@ const TableComment= ({className}) => {
                 </td>
                 <td className='text-end'>
                   <a
-                    href='#'
+                    href='#' onClick={() => deleteComment(item.id)}
                     className='btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2'
                   >
-                    View
+                    delete comment
                   </a>
-                  <a
-                    href='#'
+                  {/* <button
+                    // href='#'
                     className='btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4'
+                    data-bs-toggle="modal"
+                    data-bs-target={"#editcomment"}
                   >
                     Edit
-                  </a>
+                  </button> */}
                 </td>
               </tr>
               ))}

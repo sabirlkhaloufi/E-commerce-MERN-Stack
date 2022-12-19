@@ -209,7 +209,7 @@ function PromotionProduct() {
                   </div>{/* End .product-price */}
                 </div>{/* End .product-body */}
                 <div className="product-action">
-                  <a href="#" className="btn-product btn-cart"><span>add to cart</span></a>
+                  <a href="#" className="btn-product btn-cart" ><span>add to cart</span></a>
                 </div>{/* End .product-action */}
               </div>{/* End .product */}
             </div>{/* End .owl-carousel */}
