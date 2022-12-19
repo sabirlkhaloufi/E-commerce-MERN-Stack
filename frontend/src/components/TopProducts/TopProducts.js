@@ -48,7 +48,7 @@ function TopProducts() {
                   </figure>{/* End .product-media */}
                   <div className="product-body">
                     <div className="product-cat">
-                      <a href="#">{product.title}</a>
+                      <a href="#">{product.title} hhh</a>
                     </div>{/* End .product-cat */}
                     <h3 className="product-title"><a href="product.html">{product.description}</a></h3>{/* End .product-title */}
                     <div className="product-price">
