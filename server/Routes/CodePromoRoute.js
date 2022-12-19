@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const {CreatPromoCode,UpdatePromoCode,DeletePromoCode} = require('../Controllers/CodePromoController');
+const {GetAllCodePromo,CreatPromoCode,DeletePromoCode} = require('../Controllers/CodePromoController');
 
 
- 
+router.get('/getAllCodePromo',GetAllCodePromo)
 router.post('/creatPromoCode',CreatPromoCode)
-router.put('/updatePromoCode',UpdatePromoCode)
 router.delete('/deletePromoCode/:id',DeletePromoCode)
 
 module.exports = router 

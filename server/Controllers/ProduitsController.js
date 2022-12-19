@@ -6,8 +6,10 @@ const ProduitSchema = require('../Models/ProduitModel');
 // access : public
 // add produit
 const addProduit = asyncHandler(async (req, res) => {
+    console.log("body",req.body)
+    console.log("req.files",req.files)
 
-    const { image,title, description, price, oldprice, quantite, promotion,categorieId } = req.body
+    const { image,title, description, price, oldprice, quantite, promotion,categorie } = req.body
     // console.log(title)
     // console.log(req.files.image);
 
@@ -20,12 +22,12 @@ const addProduit = asyncHandler(async (req, res) => {
 // console.log(categorieId);
 
         const img = [];
-        req.files.forEach((filePath) => {
+        await req.files.forEach((filePath) => {
         const path = filePath.path.split("\\")
         const imgPath = "/" + path[1] + "/" + path[2];
         img.push(imgPath);
         });
-        console.log(img)
+        console.log("iamge",img)
     
     try{
     // function create newproduit
@@ -37,7 +39,7 @@ const addProduit = asyncHandler(async (req, res) => {
         oldprice,
         quantite,
         promotion,
-        categorieId
+        categorieId:categorie
     })
     
     res.status(200).send('Add produit success')
