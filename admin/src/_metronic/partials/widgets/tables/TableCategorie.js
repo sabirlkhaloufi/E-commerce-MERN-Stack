@@ -14,8 +14,8 @@ const TableCategogie = ({className}) => {
   const [updateInput, setupdateInput] = useState(false)
 
 
-  const showData = async(categorie, id)=>{
-    await setFormData({categorie:categorie,id:id});
+  const showData = async(data, id)=>{
+    await setFormData({data:data,id:id});
     console.log(formData);
   }
 
