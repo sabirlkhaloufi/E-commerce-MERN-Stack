@@ -10,7 +10,6 @@ function NavMobile() {
   const getCategories = async()=>{
     axios.get("http://localhost:8000/api/categories/getall").then((Response)=>{
       setCategories(Response.data);
-      console.log(Response.data);
     }).catch((error)=>{
       console.log(error);
     })

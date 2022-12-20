@@ -122,7 +122,7 @@ const getOneProduit = asyncHandler(async (req, res) => {
 const getAllProduit = asyncHandler(async (req, res) => {
 
     try{
-        const AllProduit = await ProduitSchema.findAll()
+        const AllProduit = await ProduitSchema.findAll({limit: 10})
         res
         .status(200).send({AllProduit})
         .console.log({AllProduit})

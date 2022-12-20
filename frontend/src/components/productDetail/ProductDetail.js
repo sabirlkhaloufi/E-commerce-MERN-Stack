@@ -1,7 +1,27 @@
-import React from 'react'
-// import { Link } from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import { Link, useParams} from 'react-router-dom'
+import axios from 'axios';
 
  function ProductDetail() {
+
+  const url = "http://localhost:8000"
+  let  idProduct = useParams().id;
+
+  const [product, setProduct] = useState({})
+
+  const getProductById = async()=>{
+    await axios.get(`http://localhost:8000/api/produit/getone/${idProduct}`).then((Response)=>{
+      setProduct(Response.data.OneProduit);
+      // console.log();
+    }).catch((error)=>{
+      console.log(error);
+    })
+  }
+
+  useEffect(() => {
+    getProductById();
+  }, [])
+
   return (
   <div>
 
@@ -24,20 +44,20 @@ import React from 'react'
                 <div className="product-gallery product-gallery-vertical">
                   <div className="row">
                     <figure className="product-main-image">
-                      <img id="product-zoom" src="assets/images/products/single/1.jpg" data-zoom-image="assets/images/products/single/1-big.jpg" alt="product image" />
+                      {product.image && <img id="product-zoom" src={url+product.image[0]} alt="product image" />}
                       <a href="#" id="btn-product-gallery" className="btn-product-gallery">
                         <i className="icon-arrows" />
                       </a>
                     </figure>{/* End .product-main-image */}
                     <div id="product-zoom-gallery" className="product-image-gallery">
                       <a className="product-gallery-item active" href="#" data-image="assets/images/products/single/1.jpg" data-zoom-image="assets/images/products/single/1-big.jpg">
-                        <img  src="assets/images/products/single/1-small.jpg" alt="product side" />
+                        {product.image && <img  src={url+product.image[1]} alt="product side" />}
                       </a>
                       <a className="product-gallery-item" href="#" data-image="assets/images/products/single/2.jpg" data-zoom-image="assets/images/products/single/2-big.jpg">
-                        <img src="assets/images/products/single/2-small.jpg" alt="product cross" />
+                      {product.image && <img  src={url+product.image[2]} alt="product side" />}
                       </a>
                       <a className="product-gallery-item" href="#" data-image="assets/images/products/single/3.jpg" data-zoom-image="assets/images/products/single/3-big.jpg">
-                        <img src="assets/images/products/single/3-small.jpg" alt="product with model" />
+                      {product.image && <img  src={url+product.image[3]} alt="product side" />}
                       </a>
                       <a className="product-gallery-item" href="#" data-image="assets/images/products/single/4.jpg" data-zoom-image="assets/images/products/single/4-big.jpg">
                         <img src="assets/images/products/single/4-small.jpg" alt="product back" />
@@ -48,7 +68,7 @@ import React from 'react'
               </div>{/* End .col-md-6 */}
               <div className="col-md-6">
                 <div className="product-details">
-                  <h1 className="product-title">Dark yellow lace cut out swing dress</h1>{/* End .product-title */}
+                  <h1 className="product-title">{product.title}</h1>{/* End .product-title */}
                   <div className="ratings-container">
                     <div className="ratings">
                       <div className="ratings-val" style={{width: '80%'}} />{/* End .ratings-val */}
@@ -56,24 +76,13 @@ import React from 'react'
                     <a className="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
                   </div>{/* End .rating-container */}
                   <div className="product-price">
-                    $84.00
+                   {product.price}
                   </div>{/* End .product-price */}
                   <div className="product-content">
-                    <p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing. Sed lectus. </p>
+                    <p>{product.description} </p>
                   </div>{/* End .product-content */}
                  
-                  <div className="details-filter-row details-row-size">
-                    <label htmlFor="size">Size:</label>
-                    <div className="select-custom">
-                      <select name="size" id="size" className="form-control">
-                        <option value="#" selected="selected">Select a size</option>
-                        <option value="s">Small</option>
-                        <option value="m">Medium</option>
-                        <option value="l">Large</option>
-                        <option value="xl">Extra Large</option>
-                      </select>
-                    </div>{/* End .select-custom */}
-                   
+                  <div className="details-filter-row details-row-size">           
                   </div>{/* End .details-filter-row */}
                   <div className="details-filter-row details-row-size">
                     <label htmlFor="qty">Qty:</label>
@@ -109,12 +118,6 @@ import React from 'react'
               <div className="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
                 <div className="product-desc-content">
                   <h3>Product Information</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. </p>
-                  <ul>
-                    <li>Nunc nec porttitor turpis. In eu risus enim. In vitae mollis elit. </li>
-                    <li>Vivamus finibus vel mauris ut vehicula.</li>
-                    <li>Nullam a magna porttitor, dictum risus nec, faucibus sapien.</li>
-                  </ul>
                   <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. </p>
                 </div>{/* End .product-desc-content */}
               </div>{/* .End .tab-pane */}
