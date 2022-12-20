@@ -8,7 +8,6 @@ function PromotionProduct() {
   const getAllProducts = async()=>{
     axios.get("http://localhost:8000/api/produit/getallPromo").then((Response)=>{
       setPromoProduct(Response.data.AllProduit);
-      console.log(Response.data.AllProduit);
     }).catch((error)=>{
       console.log(error);
     })
