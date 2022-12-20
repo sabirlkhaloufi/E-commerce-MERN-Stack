@@ -9,7 +9,6 @@ function TopProducts() {
   const url = "http://localhost:8000"
   const getAllProducts = async()=>{
     axios.get("http://localhost:8000/api/produit/getall").then((Response)=>{
-      console.log(Response.data.AllProduit);
       setAllProducts(Response.data.AllProduit);
     }).catch((error)=>{
       console.log(error);
@@ -67,9 +66,13 @@ function TopProducts() {
                 
               </div>{/* End .row */}
             </div>{/* End .products */}
+            <div> <Link to={"/shop"} className="btn-product btn-cart">Show All ...</Link> </div>
           </div>{/* .End .tab-pane */} 
           
         </div>{/* End .tab-content */}
+
+
+        
       </div>
   )
 }

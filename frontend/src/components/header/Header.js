@@ -13,7 +13,6 @@ function Header() {
   const getCategories = async()=>{
     axios.get("http://localhost:8000/api/categories/getall").then((Response)=>{
       setCategories(Response.data);
-      console.log(Response.data);
     }).catch((error)=>{
       console.log(error);
     })
@@ -168,7 +167,7 @@ function Header() {
               <ul className="menu sf-arrows">
                 <li className="megamenu-container active">
                   {/* <a href="index.html" className="sf-with-ul">Home</a> */}
-                  <Link to="/" element={Home} className="sf-with-ul">Home</Link>
+                  <a href='http://localhost:3000' className="sf-with-ul">Home</a>
 
                 </li>
                 <li>
