@@ -1,12 +1,32 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import axios from'axios'
+import { useState , useEffect } from 'react'
 import {KTSVG} from '../../../helpers'
 
-type Props = {
-  className: string
-}
 
-const TableCommande: React.FC<Props> = ({className}) => {
+
+
+
+const TableCommande = ({className}) => {
+  const [commande, setCommande]= useState([])
+// const  [ quantite,setQuantite] = useState('')
+// const  [ priceTotal,setpriceTotal] = useState('')
+// const  [ code,setCode] = useState('')
+// const  [ status,setstatus] = useState('')
+const [loading, setLoading] = useState(false)
+ 
+const getAllCommande= async() =>{
+  const result = await axios.get('http://localhost:8000/api/commande/getAllCommands')
+  setCommande(result.data)
+  setLoading(true)
+}
+useEffect(() => {
+  getAllCommande()
+}, [])
+console.log(commande)
+
+
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -16,12 +36,9 @@ const TableCommande: React.FC<Props> = ({className}) => {
           <span className='text-muted mt-1 fw-semibold fs-7'>Over 500 orders</span>
         </h3>
         <div className='card-toolbar'>
-        <div className='card-toolbar'>
-          <a href='#' className='btn btn-sm btn-light-primary'>
-            <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-            New commande
-          </a>
-        </div>
+       
+
+
           {/* begin::Menu */}
           <button
             type='button'
@@ -145,18 +162,19 @@ const TableCommande: React.FC<Props> = ({className}) => {
                   </div>
                 </th>
                 <th className='min-w-150px'>Order Id</th>
-                <th className='min-w-140px'>Country</th>
-                <th className='min-w-120px'>Date</th>
-                <th className='min-w-120px'>Company</th>
-                <th className='min-w-120px'>Total</th>
-                <th className='min-w-120px'>Status</th>
-                <th className='min-w-100px text-end'>Actions</th>
+                <th className='min-w-140px'>quantite</th>
+                <th className='min-w-120px'>priceTotal</th>
+                <th className='min-w-120px'>code</th>
+                <th className='min-w-120px'>status</th>
+               
               </tr>
             </thead>
             {/* end::Table head */}
             {/* begin::Table body */}
             <tbody>
-              <tr>
+            
+           
+              
                 <td>
                   <div className='form-check form-check-sm form-check-custom form-check-solid'>
                     <input className='form-check-input widget-13-check' type='checkbox' value='1' />
@@ -169,7 +187,7 @@ const TableCommande: React.FC<Props> = ({className}) => {
                 </td>
                 <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'>
-                    Brasil
+                  
                   </a>
                   <span className='text-muted fw-semibold text-muted d-block fs-7'>Code: PH</span>
                 </td>
@@ -208,8 +226,11 @@ const TableCommande: React.FC<Props> = ({className}) => {
                     <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
                   </a>
                 </td>
-              </tr>
-              <tr>
+              {/* </tr> */}
+             
+              { commande.map((item  ) => (
+              <tr key={item.id}>
+             
                 <td>
                   <div className='form-check form-check-sm form-check-custom form-check-solid'>
                     <input className='form-check-input widget-13-check' type='checkbox' value='1' />
@@ -222,19 +243,19 @@ const TableCommande: React.FC<Props> = ({className}) => {
                 </td>
                 <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'>
-                    Belarus
+                  {item.quantite}
                   </a>
                   <span className='text-muted fw-semibold text-muted d-block fs-7'>Code: BY</span>
                 </td>
                 <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'>
-                    04/18/2021
+                  {item.priceTotal}
                   </a>
                   <span className='text-muted fw-semibold text-muted d-block fs-7'>Code: Paid</span>
                 </td>
                 <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'>
-                    Agoda
+                  {item.code}
                   </a>
                   <span className='text-muted fw-semibold text-muted d-block fs-7'>
                     Houses &amp; Hotels
@@ -262,6 +283,7 @@ const TableCommande: React.FC<Props> = ({className}) => {
                   </a>
                 </td>
               </tr>
+               ))}
               <tr>
                 <td>
                   <div className='form-check form-check-sm form-check-custom form-check-solid'>

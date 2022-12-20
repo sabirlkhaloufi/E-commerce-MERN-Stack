@@ -10,11 +10,11 @@ const Cammandes = db.define('cammandes', {
         primaryKey: true
     },
     quantite: {
-      type:  DataTypes.STRING,
+      type:  DataTypes.INTEGER,
       allowNull: false
     },
     priceTotal: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     code: {
@@ -22,8 +22,8 @@ const Cammandes = db.define('cammandes', {
         allowNull: false
     },
     status: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.BOOLEAN,
+        default: false
     },
     
     

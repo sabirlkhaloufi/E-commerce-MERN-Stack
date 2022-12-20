@@ -1,4 +1,4 @@
-const db = require('../Models/CommandeModel');
+const commande = require('../Models/CommandeModel');
 const Commande = require('../Models/Command_Produits');
 const asyncHandler = require('express-async-handler');
 
@@ -11,8 +11,8 @@ const asyncHandler = require('express-async-handler');
     const CreatCommande = asyncHandler(async (req, res) => {
        const codeCommands = Math.random().toString(36).slice(-8);
             // console.log("hello api")
-            const { quantite, priceTotal, code,status } = req.body;
-            if (!quantite || !priceTotal || !code || !status ) {
+            const { quantite, priceTotal, code } = req.body;
+            if (!quantite || !priceTotal || !code ) {
                 res.status(400).send('Please fill all fields.')
             }
         try{
@@ -20,9 +20,9 @@ const asyncHandler = require('express-async-handler');
                 quantite: quantite,
                 priceTotal: priceTotal,
                 code: codeCommands,
-                status:status
+                
             }
-            await db.create(data)
+            await commande.create(data)
             res.status(200).send({message:"creat commandes success"})
         }catch (error) {
                 res.status(400).send('not creat commandes')
@@ -36,7 +36,7 @@ const asyncHandler = require('express-async-handler');
    const DeleteCommande = asyncHandler( async(req,res)=>{
         const id =  req.params.id;
         try {
-            const deleteCommandes = await db.destroy({where:{id}})
+            const deleteCommandes = await commande.destroy({where:{id}})
             res.status(200).send({message:"delete code_Promo success"})
         } catch (error) {
             res.status(400)
@@ -50,7 +50,7 @@ const asyncHandler = require('express-async-handler');
 
    const GetAllCommands = asyncHandler( async(req,res)=>{
         try {
-            const allCommands = await Commande.findAll()
+            const allCommands = await commande.findAll()
             res.status(200).send(allCommands)
         } catch (error) {
             res.status(400)

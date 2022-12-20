@@ -4,10 +4,14 @@ import axios from 'axios'
 import { useState , useEffect } from 'react'
 import {useParams } from 'react-router-dom';
 import {KTSVG} from '../../../helpers'
-// import {codeShema} from './validation/validCodePromo'
 
 
+import "bootstrap/dist/css/bootstrap.css";
 
+
+const handleSubmit = (values) => {
+  console.log(values)
+};
 
 const TableCodePromo = ({className}) => {
   
@@ -109,55 +113,57 @@ New Code Promo
         </div>
       </div>
       <div className="modal-body">
-      <form>
-      <div className="mb-10">
-    
-   <label className="form-label">code promo</label>
-  <input
-    type="text"
-    className="form-control"
-    name="code_promo" value={code_promo} onChange={(e) => setCodePromo(e.target.value)} 
-    // placeholder="name@example.com"
-  />
-  </div>
-  <div className="mb-10">
-  <label className="form-label">pourcentage promo</label>
-  <input
-    type="number"
-    className="form-control form-control-solid"
-    name="pourcentage_promo" value={pourcentage_promo} onChange={(e) => setBourcentagePromo(e.target.value)} 
-    // placeholder="name@example.com"
-  />
-  </div>
-  <div className="mb-10">
-  <label className="form-label">date expiratio</label>
-  <input
-    type="date"
-    className="form-control form-control-white"
-    name="date_expiration" value={date_expiration} onChange={(e) => setDateExpiration(e.target.value)} 
-  />
-
-</div>
-</form> 
-      </div>
-      <div className="modal-footer">
-        <button
-          type="button"
-          className="btn btn-light"
-          data-bs-dismiss="modal"
-        >
-          Close
-        </button>
-        <button type="submit" 
-        onClick={CodePromo} 
+     
+        <div className="form-group mb-3">
+            <label htmlFor="code_promo">
+            code_promo:
+            </label>
+        </div>
+        <div className="form-group mb-3">
+            <label htmlFor="pourcentage_promo">
+            pourcentage_promo:
+            </label>
+           
+           
+        </div>
+        <div className="form-group mb-3">
+            <label htmlFor="date_expiration">
+            date_expiration:
+            </label>
+          
+        </div>
+        <div className="form-group form-check mb-5">
+          
+            <label
+                htmlFor="acceptTerms"
+                className="form-check-label"
+            >
+                J'ai lu et j'accepte
+                les conditions
+            </label>
          
-          className="btn btn-light btn btn-primary"
-          data-bs-dismiss="modal"
-        >
-          save
-        </button>
-      
+        </div>
+        <div className="form-group d-flex justify-content-end gap-3">
+            <button
+            type="submit" 
+            onClick={CodePromo} 
+               
+                className="btn btn-primary"
+            >
+               save
+            </button>
+            <button
+                type="button"
+               
+                className="btn btn-danger"
+            >
+                Close
+            </button>
+        </div>
+ 
+
       </div>
+    
     </div>
   </div>
 </div>
@@ -306,7 +312,11 @@ New Code Promo
                  
               { codepromo.map((item  ) => (
                 <tr key={item.id}>
-               
+                {/* <td>
+                  <div className='form-check form-check-sm form-check-custom form-check-solid'>
+                    <input className='form-check-input widget-13-check' type='checkbox' value='1' />
+                  </div>
+                </td> */}
                 <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
                  
