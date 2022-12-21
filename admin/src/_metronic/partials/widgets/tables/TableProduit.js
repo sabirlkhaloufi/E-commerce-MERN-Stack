@@ -3,16 +3,13 @@ import { useState , useEffect } from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import axios from 'axios';
 
-const element = document.querySelector('#delete-request .status');
-
-
+// const element = document.querySelector('#delete-request .status');
 
 const TableProduit= ({className}) => {
 
   const [getproduits, setProduits] = useState([])
   const [getcategories, setcategories] = useState([])
   const [loading, setLoading] = useState(false)
-
   
   // start function get all categorie
   const getAllCategorie = async ()=> {
@@ -23,14 +20,23 @@ const TableProduit= ({className}) => {
     setcategories(categories.data)
     setLoading(true)
   }
- 
-  // console.log(getcategories)
   // end function get all categorie
 
+  // get all produits 
+ const getAllproduits = async ()=> {
+   await axios.get(
+    'http://localhost:8000/api/produit/getall'
+  ).then(({data})=>{
+    setProduits(data.AllProduit)
+    console.log(data.AllProduit);
+    console.log('item.image',data.AllProduit)
+  }).catch((error)=>{
+    console.log(error);
+  })
+}
 
   // delet poduit
   const deletproduit = async (id) =>{
-    // console.log(id)
     await  axios.delete(`http://localhost:8000/api/produit/delete/${id}`)
     .then((response)=>{
       console.log(response.data);
@@ -40,25 +46,21 @@ const TableProduit= ({className}) => {
     })
   }
 
-// get all produits 
- const getAllproduits = async ()=> {
-    const  {data} = await axios.get(
-      'http://localhost:8000/api/produit/getall'
-    ).then(({data})=>{
-      setProduits(data.AllProduit)
-      console.log(data.AllProduit);
-    }).catch((error)=>{
-      console.log(error);
-    })
-  }
+  // const getoneproduit = async (id) =>{
+  //   await  axios.delete(`http://localhost:8000/api/produit/delete/${id}`)
+  //   .then((response)=>{
+  //     console.log(response.data);
+  //     getAllproduits();
+  //   }).catch((error)=>{
+  //     console.log(error);
+  //   })
+  // }
 
   useEffect(() => {
     getAllproduits()
     getAllCategorie()
   } , []);
-  
-
-  // console.log( getproduits)
+ 
   // start function register add produit --------------------------------
   const [ image, setImage ] = useState('');
   const [ title, setTitle ] = useState('');
@@ -80,9 +82,8 @@ const TableProduit= ({className}) => {
         formData.get('quantite');
         formData.get('promotion');
         formData.get('categorie');
-
-        console.log("form data" ,formData)
-        console.log('categorie',categorie)
+        // console.log("form data" ,formData)
+        // console.log('categorie',categorie)
         // if( !image || !title || !description || !price || !oldprice || !quantite || !promotion || !categorie ) {
         // return( alert("fill in alll details"))
         // }
@@ -95,19 +96,19 @@ const TableProduit= ({className}) => {
           "content-type": "multipart/form-data"
         },
         data: formData,
-        
       };
       axios(config)
                 .then((res) => {
                   getAllproduits();
                     console.log(('create produit is valid'))
+                    console.log(formData)
+                    
+
                 })
                 .catch((error) => {
                     console.log(error)
                 })
-            
     }
-
   // end function register add produit --------------------------------
   
   return (
@@ -166,44 +167,45 @@ const TableProduit= ({className}) => {
                       <img   src="https://icons.iconarchive.com/icons/dtafalonso/android-lollipop/128/Downloads-icon.png"/>
                     </label>
 
-                    <input id="file-input" type="file" accept=".png, .jpg, .jpeg" name="image" value={image} onChange={(e) => setImage(e.target.value)}  />
+                    <input id="file-input" type="file" accept=".png, .jpg, .jpeg" name="image" value={image} onChange={(e) => setImage(e.target.value)}  multiple/>
                     </div>
 
                   <div className="mb-10">
                       <label className="form-label">Title</label>
-                      <input type="text" name='title'  className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="title" />
-
+                      <input type="text" name='title'  className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="title" 
+                      />
                       <label className="form-label">Description</label>
-                      <input type="text" name='description' className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="description" />
-
+                      <input type="text" name='description' className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="description" 
+                      />
                       <label className="form-label">Price</label>
-                      <input type="text" name='price' className="form-control" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="price" />
-
+                      <input type="number" name='price' className="form-control" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="price" 
+                      />
                       <label className="form-label">OldPrice</label>
-                      <input type="text" name='oldprice' className="form-control" value={oldprice} onChange={(e) => setOldprice(e.target.value)} placeholder="oldprice" />
-
+                      <input type="number" name='oldprice' className="form-control" value={oldprice} onChange={(e) => setOldprice(e.target.value)} placeholder="oldprice"
+                      />
                       <label className="form-label">Quantite</label>
-                      <input type="text" name='quantite' className="form-control"  value={quantite} onChange={(e) => setQuantite(e.target.value)} placeholder="quantite" />
+                      <input type="number" name='quantite' className="form-control"  value={quantite} onChange={(e) => setQuantite(e.target.value)} placeholder="quantite" 
+                      />
+                      {/* <label className="form-label">Promotion</label>
+                      <input type="text" name='promotion' className="form-control"  value={promotion} onChange={(e) => setPromotion(e.target.value)} placeholder="promotion" 
+                      /> */}
+                      <label className="form-label">Promotion</label><br/>
+                      <select className="form-select" name='promotion' value={promotion}  onChange={(e) => setPromotion(e.target.value) } aria-label="Select example">
+                        <option value='false' >non</option>
+                        <option value='true'  >Oui</option>
+                      </select>
 
-                      <label className="form-label">Promotion</label>
-                      <input type="text" name='promotion' className="form-control"  value={promotion} onChange={(e) => setPromotion(e.target.value)} placeholder="promotion" />
-                    
                       <label className="form-label">Categorie</label>
-                        
                       <select className="form-select" name='categorie' value={categorie}  onChange={(e) => setCategorie(e.target.value) } aria-label="Select example">
                             { getcategories.map((item  ) => (
                         <option value={item.id}  key={item.id}>{item.categorie}</option>
-                      
                         ))}
                       </select>
                       </div> 
-                      
                       <div className="modal-footer ">
                   <button
-                  
                     type="button"
                     className="btn btn-light"
-                    
                     data-bs-dismiss="modal"
                   >
                     Close
@@ -220,7 +222,6 @@ const TableProduit= ({className}) => {
               </div>
             </div>
           </div>
-  
 
         </div>
       </div>
@@ -241,8 +242,6 @@ const TableProduit= ({className}) => {
                 <th className='min-w-150px text-center'>oldprice</th>
                 <th className='min-w-150px text-center'>quantite</th>
                 <th className='min-w-150px text-center'>promotion</th>
-
-
                 <th className='min-w-200px text-end rounded-end'></th>
               </tr>
             </thead>
@@ -252,20 +251,17 @@ const TableProduit= ({className}) => {
             { getproduits.map((item  ) => (
                 <tr key={item.id}>
 
-
-                  {/* <tr> */}
-
-
                 <td>
                   <div className='d-flex align-items-center'>
                     <div className='symbol symbol-50px me-5'>
-                      <img 
-                        // src={`http://localhost:8000/images/1670857435031.png`}
-                        src={`http://localhost:8000${item.image}`}
-
+                    { item.image.map((img) => (
+                      <img
+                        src={`http://localhost:8000${[img]}`}
                         className=''
                         alt=''
                       />
+                      ))}
+
                     </div>
                     
                   </div>
@@ -274,37 +270,31 @@ const TableProduit= ({className}) => {
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6 text-center'>
                   {item.title}
                   </a>
-                  {/* <span className='text-muted fw-semibold text-muted d-block fs-7'>Paid</span> */}
                 </td>
                 <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6 text-center'>
                   {item.description}
                   </a>
-                  {/* <span className='text-muted fw-semibold text-muted d-block fs-7'>Rejected</span> */}
                 </td>
                 <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6 text-center'>
                   {item.price}
                   </a>
-                  {/* <span className='text-muted fw-semibold text-muted d-block fs-7'>Rejected</span> */}
                 </td>
                 <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6 text-center'>
                   {item.oldprice}
                   </a>
-                  {/* <span className='text-muted fw-semibold text-muted d-block fs-7'>Rejected</span> */}
                 </td>
                 <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6 text-center'>
                   {item.quantite}
                   </a>
-                  {/* <span className='text-muted fw-semibold text-muted d-block fs-7'>Insurance</span> */}
                 </td>
                 <td>
                 <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6 text-center'>
                   {item.promotion}
                   </a>
-                  {/* <span className='badge badge-light-primary fs-7 fw-semibold'>Approved</span> */}
                 </td>
                 <td className='text-end'>
                   <a
@@ -330,10 +320,6 @@ const TableProduit= ({className}) => {
                 </td>
               </tr> 
                ))} 
-
-
-
-
 
             </tbody>
             {/* end::Table body */}
