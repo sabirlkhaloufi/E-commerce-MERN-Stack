@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "Develop" ]
+  pull_request:
+    branches: [ "Develop" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image client
+      run: echo "${{ snecrets.DOCKERPW }}" | docker login -u "sabirlkhaloufi" --password-stdi
+            docker build ./frontend -t sabirlkhaloufi/test:latest
+            docker push sabirlkhaloufi/frontend:latest
+    - name: Build the Docker image server
+      run:  docker build ./server -t sabirlkhaloufi/server:latest
+            docker push sabirlkhaloufi/server:latest
+      
+            
