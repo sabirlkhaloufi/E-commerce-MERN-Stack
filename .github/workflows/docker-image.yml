@@ -11,12 +11,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v3
+    
     - name: Build the Docker image client
-      run: echo "${{ secrets.DOCKERPW }}" | docker login -u "sabirlkhaloufi" --password-stdin
+      run:  echo "${{ secrets.DOCKERPW }}" | docker login -u "sabirlkhaloufi" --password-stdin
             docker build ./frontend -t sabirlkhaloufi/frontend:latest
             docker push sabirlkhaloufi/frontend:latest
-      
-            
