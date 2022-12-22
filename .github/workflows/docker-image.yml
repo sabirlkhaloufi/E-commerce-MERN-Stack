@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image client
       run: echo "${{ snecrets.DOCKERPW }}" | docker login -u "sabirlkhaloufi" --password-stdi
-            docker build ./frontend -t sabirlkhaloufi/test:latest
+            docker build ./frontend -t sabirlkhaloufi/frontend:latest
             docker push sabirlkhaloufi/frontend:latest
       
             
