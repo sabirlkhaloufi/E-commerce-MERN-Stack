@@ -1,12 +1,9 @@
 import React , {useState, useEffect} from 'react'
 import BarRechercheShop from './warpers/BarRechercheShop'
-import Pagination from './warpers/Pagination'
+import {Pagination} from '@mui/material'
 import Price from './warpers/Price'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
-
-import ReactPaginate from 'react-paginate'
-
 
 
 function ShopProduit() {
@@ -117,28 +114,7 @@ function ShopProduit() {
           </div>{/* End .row */}
         </div>{/* End .products */}
 
-        <div className='d-flex justify-content-center mt-2'>
-         <ReactPaginate
-        nextLabel="N >"
-        previousLabel="< P"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={9}
-        marginPagesDisplayed={2}
-        pageCount={pageCount}        
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakLabel="..."
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-        containerClassName="pagination"
-        activeClassName="active"
-        renderOnZeroPageCount={null}
-      />
-         </div>
+        <Pagination count={10} color="primary" />
         
       </div>{/* End .col-lg-9 */}
       <aside className="col-lg-3 order-lg-first">
