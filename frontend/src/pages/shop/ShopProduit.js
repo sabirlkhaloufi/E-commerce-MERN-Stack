@@ -2,6 +2,7 @@ import React , {useState, useEffect} from 'react'
 import BarRechercheShop from './warpers/BarRechercheShop'
 import Pagination from './warpers/Pagination'
 import Price from './warpers/Price'
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 
 import ReactPaginate from 'react-paginate'
@@ -70,7 +71,7 @@ function ShopProduit() {
 
           {currentItems.map((product)=>{
             return (
-              <div className="col-6 col-md-4 col-lg-4">
+              <Link to={"/productDetail/"+product.id} className="col-6 col-md-4 col-lg-4">
               <div className="product product-7 text-center">
                 <figure className="product-media">
                   <span className="product-label label-new">New</span>
@@ -103,7 +104,7 @@ function ShopProduit() {
                   
                 </div>{/* End .product-body */}
               </div>{/* End .product */}
-            </div>
+            </Link>
             )
           })}
             
