@@ -166,4 +166,19 @@ const getPromoProduct = asyncHandler(async (req, res) => {
     
 })
 
+
+
+const searchProduct = asyncHandler(async (req, res) => {
+    try{
+        const AllProduit = await ProduitSchema.findAll({where: {promotion:true}})
+        res
+        .status(200).send({AllProduit})
+        .console.log({AllProduit})
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
+    }
+})
+
 module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct,getOneProduitsByIdCategorie}
+
