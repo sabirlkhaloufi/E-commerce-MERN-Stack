@@ -15,4 +15,4 @@ const Categorie = db.define('categorie', {
 
 // Categorie.sync()
 // Produits.sync({ force: true })
-module.exports = Categorie;
+module.exports = Categorie; 

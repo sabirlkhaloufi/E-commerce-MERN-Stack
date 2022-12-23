@@ -7,7 +7,8 @@ const sequelize = new Sequelize(
     process.env.DATABASE_USER,
     process.env.DATABASE_PASSWORD,
     {
-        host:"localhost",
+        host:process.env.DB_HOST,
+        port: process.env.DB_PORT ,
         dialect: 'postgres',
     },
   );
@@ -21,7 +22,7 @@ const sequelize = new Sequelize(
 
 
   // sequelize.sync({force:true});  
-  // sequelize.sync()
+  sequelize.sync()
 
 
   module.exports = sequelize
