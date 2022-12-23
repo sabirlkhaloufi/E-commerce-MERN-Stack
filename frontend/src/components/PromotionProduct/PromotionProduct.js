@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 function PromotionProduct() {
 
   const [promoProduct, setPromoProduct] = useState([])
+
   const url = "http://localhost:8000"
   const getAllProducts = async()=>{
     axios.get("http://localhost:8000/api/produit/getallPromo").then((Response)=>{
@@ -14,9 +15,7 @@ function PromotionProduct() {
     })
   }
 
-  useEffect(() => {
-    getAllProducts();
-  }, [])
+ 
 
   return (
     <div>

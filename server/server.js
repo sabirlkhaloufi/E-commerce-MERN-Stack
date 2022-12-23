@@ -22,13 +22,13 @@ const {errorHandler} = require('./Middlewares/errorMiddleware');
 const connectDB = require('./Config/ConfigDb');
 const app = express();
 
-// const fileUpload = require('express-fileupload')
+// const fileUpload = require('express-fileupload')  
 
 // app.use(fileUpload());
 // const db = require('./config/Db');
 const sequelize = require('./Config/ConfigDb');
 // connectDB();
-app.use(cookieParser());
+app.use(cookieParser()); 
 // use cors
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
