@@ -4,11 +4,61 @@ import ShopProduit from '../../pages/shop/ShopProduit';
 import Home from '../../pages/Home'
 import axios from 'axios';
 
+
   
 
-function Header() {
+function Header({item}) {
 
   const [categories, setCategories] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [panier, setPanier] = useState([])
+  const [itemCount, setItemCount] = useState(0)
+  const [remove, setRemove] = useState(0)
+  console.log('itemmo :>> ', item);
+
+  // const handlePrice = () => {
+
+
+  
+
+
+  useEffect(() => {
+    const getPanier = async() => {
+      const panierData = await localStorage.getItem('panier') ? JSON.parse(localStorage.getItem('panier')) : []
+      await setPanier(panierData)
+      let totalPrice =  0 ;
+      panierData.forEach((item) => {
+        totalPrice += item.price 
+        
+      })
+      setTotalPrice(totalPrice)
+      setItemCount(panierData.length)
+    }
+    getPanier()
+    
+  }, [item , remove])
+
+  const handleRemove = (id) => {
+    const newPanier = panier.filter((item) => item.id !== id)
+    setPanier(newPanier)
+    localStorage.setItem('panier', JSON.stringify(newPanier))
+    setItemCount(newPanier.length)
+    setRemove(remove + 1)
+  }
+  
+  // get product from local storage
+  // getPanier()
+  
+
+
+  // useEffect(() => {
+  //   const panierData = localStorage.getItem('panier') ? JSON.parse(localStorage.getItem('panier')) : []
+  //   setPanier(panierData)
+  //   console.log('panier :>> ', panier);
+  // })
+
+  
+   
 
   const getCategories = async()=>{
     axios.get("http://localhost:8000/api/categories/getall").then((Response)=>{
@@ -87,20 +137,22 @@ function Header() {
               <a href="#" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                 <div className="icon">
                   <i className="icon-shopping-cart" />
-                  <span className="cart-count">2</span>
+                  <span className="cart-count">{itemCount}</span>
                 </div>
                 <p>Cart</p>
               </a>
               <div className="dropdown-menu dropdown-menu-right">
                 <div className="dropdown-cart-products">
-                  <div className="product">
+                  {panier.map((item) => (
+                   
+                      <div className="product">
                     <div className="product-cart-details">
                       <h4 className="product-title">
-                        <a href="product.html">Beige knitted elastic runner shoes</a>
+                        <a href="product.html">{item.title}</a>
                       </h4>
                       <span className="cart-product-info">
-                        <span className="cart-product-qty">1</span>
-                        x $84.00
+                        <span className="cart-product-qty"></span>
+                        {item.price}
                       </span>
                     </div>{/* End .product-cart-details */}
                     <figure className="product-image-container">
@@ -108,29 +160,18 @@ function Header() {
                         <img src="assets/images/products/cart/product-1.jpg" alt="product" />
                       </a>
                     </figure>
-                    <a href="#" className="btn-remove" title="Remove Product"><i className="icon-close" /></a>
-                  </div>{/* End .product */}
-                  <div className="product">
-                    <div className="product-cart-details">
-                      <h4 className="product-title">
-                        <a href="product.html">Blue utility pinafore denim dress</a>
-                      </h4>
-                      <span className="cart-product-info">
-                        <span className="cart-product-qty">1</span>
-                        x $76.00
-                      </span>
-                    </div>{/* End .product-cart-details */}
-                    <figure className="product-image-container">
-                      <a href="product.html" className="product-image">
-                        <img src="assets/images/products/cart/product-2.jpg" alt="product" />
-                      </a>
-                    </figure>
-                    <a href="#" className="btn-remove" title="Remove Product"><i className="icon-close" /></a>
-                  </div>{/* End .product */}
+                    <button  className="btn-remove" title="Remove Product" onClick={
+                      () => {
+                        handleRemove(item.id);
+                      }
+                    }><i className="icon-close" /></button>
+                   </div>
+                    )
+                  )}
                 </div>{/* End .cart-product */}
                 <div className="dropdown-cart-total">
                   <span>Total</span>
-                  <span className="cart-total-price">$160.00</span>
+                  <span className="cart-total-price">${totalPrice}</span>
                 </div>{/* End .dropdown-cart-total */}
                 <div className="dropdown-cart-action">
                   <a href="cart.html" className="btn btn-primary">View Cart</a>

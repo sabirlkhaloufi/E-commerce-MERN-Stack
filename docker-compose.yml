@@ -4,7 +4,7 @@ services:
     image: postgres
     restart: always
     ports:
-     - "5432:5432"
+     - "5431:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: ecommerce
@@ -13,33 +13,33 @@ services:
      - pgdata:/data/postgres
     networks:
      - ecommerce-mern
-  frontend:
+  # frontend:
+  #   #here we've to specify the location of our Makefile
+  #   build: ./frontend/
+  #   stdin_open: true
+  #   #here we're mapping the exposed port i.e, 3000 to our machine port 3000.
+  #   # so that we can test the application on our port 3000.
+  #   ports: 
+  #     - "3000:3000"
+  #   networks:
+  #     - ecommerce-mern
+  #   volumes:
+  #     - ./frontend/:/frontend
+  #     - /app/node_modules
+  # server:
     #here we've to specify the location of our Makefile
-    build: ./frontend/
-    stdin_open: true
-    #here we're mapping the exposed port i.e, 3000 to our machine port 3000.
-    # so that we can test the application on our port 3000.
-    ports: 
-      - "3000:3000"
-    networks:
-      - ecommerce-mern
-    volumes:
-      - ./frontend/:/frontend
-      - /app/node_modules
-  server:
-    #here we've to specify the location of our Makefile
-    build: ./server/
-    ports:
+    # build: ./server/
+    # ports:
     #here we're mapping the exposed port i.e, 5000 to our machine port 5000.
     # so that we can test the application on our port 5000.
-      - "4000:8000"
-    networks:
-      - ecommerce-mern
-    volumes:
-      - ./server/:/app
-      - /app/node_modules
-    depends_on:
-      - db
+    #   - "4000:8000"
+    # networks:
+    #   - ecommerce-mern
+    # volumes:
+    #   - ./server/:/app
+    #   - /app/node_modules
+    # depends_on:
+    #   - db
   
   adminer:
     image: adminer

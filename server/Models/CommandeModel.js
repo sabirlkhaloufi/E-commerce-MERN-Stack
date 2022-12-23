@@ -11,7 +11,7 @@ const Cammandes = db.define('cammandes', {
     },
     quantite: {
       type:  DataTypes.STRING,
-      allowNull: false
+      allowNull: false 
     },
     priceTotal: {
       type: DataTypes.STRING,
