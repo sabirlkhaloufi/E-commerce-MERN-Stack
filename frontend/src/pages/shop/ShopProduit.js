@@ -19,18 +19,21 @@ function ShopProduit() {
     })
   }
 
-  const filterByCategorie = async(id)=>{
+  const filterByCategorie = async(id)=>{ 
+    
     console.log(id);
-  //   const [AllProducts, setAllProducts] = useState([])
-  // const url = "http://localhost:8000"
-  // const getAllProducts = async()=>{
-  //   axios.get("http://localhost:8000/api/produit/getall").then((Response)=>{
-  //     console.log(Response.data.AllProduit);
-  //     setAllProducts(Response.data.AllProduit);
-  //   }).catch((error)=>{
-  //     console.log(error);
-  //   })
-  }
+    // const getAllProduitByCategorie = async (id) =>{
+      await  axios.get(`http://localhost:8000/api/produit/getallproduitsidcategorie/${id}`)
+      .then((response)=>{
+        // console.log('allProduitByCategorie',response.data.allProduitByCategorie);
+        setAllProducts(response.data.allProduitByCategorie);
+        console.log('all prduits categorie ',AllProducts);
+        // getAllproduits();
+      }).catch((error)=>{
+        console.log(error);
+      })
+    }
+  
 
   const [AllProducts, setAllProducts] = useState([])
   const url = "http://localhost:8000"
@@ -59,6 +62,7 @@ function ShopProduit() {
   useEffect(() => {
     getCategories();
     getAllProducts();
+    filterByCategorie()
   }, [])
 
 
@@ -151,7 +155,7 @@ function ShopProduit() {
                   {/* <input type="checkbox" className="custom-control-input" id={"cat-"+categorie.id} onChange={()=>filterByCategorie(categorie.id)} /> */}
                   {/* <input type="checkbox" className="custom-control-input"  /> */}
 
-                  <a className=''  onClick={()=>filterByCategorie(categorie.id)}
+                  <a href='#' className=''  onClick={()=>filterByCategorie(categorie.id)}
                   >{categorie.categorie}</a>
                   {/* <label className="custom-control-label" htmlFor={"cat-"+categorie.id}>{categorie.categorie}</label> */}
                 </div>{/* End .custom-checkbox */}
