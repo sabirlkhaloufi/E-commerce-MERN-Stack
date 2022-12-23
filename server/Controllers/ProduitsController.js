@@ -114,6 +114,19 @@ const getOneProduit = asyncHandler(async (req, res) => {
     
 })
 
+const getOneProduitsByIdCategorie = asyncHandler(async (req, res) => {
+    const id = req.params.id
+
+    try{
+        const allProduitByCategorie = await ProduitSchema.findAll({where:{categorieId:id}})
+        res.status(200).send({allProduitByCategorie})
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
+    }
+    
+})
+
 
 // method : get
 // url : /api/produit/getall
@@ -153,4 +166,4 @@ const getPromoProduct = asyncHandler(async (req, res) => {
     
 })
 
-module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct}
+module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct,getOneProduitsByIdCategorie}
