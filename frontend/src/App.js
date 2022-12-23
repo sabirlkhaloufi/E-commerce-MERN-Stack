@@ -35,7 +35,7 @@ function App() {
            <Route exact path="/shop" element={<ShopProduit/>} />
           <Route exact path="/login-register" element={<LoginRegister/>} />
           <Route exact path="/forget-password" element={<ForgetPassword/>} />
-          <Route exact path="/productDetail" element={<ProductDetail/>} />
+          <Route exact path="/productDetail/:id" element={<ProductDetail/>} />
 
 
 

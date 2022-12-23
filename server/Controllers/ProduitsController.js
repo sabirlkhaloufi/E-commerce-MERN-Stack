@@ -122,7 +122,7 @@ const getOneProduit = asyncHandler(async (req, res) => {
 const getAllProduit = asyncHandler(async (req, res) => {
 
     try{
-        const AllProduit = await ProduitSchema.findAll()
+        const AllProduit = await ProduitSchema.findAll({limit: 10})
         res
         .status(200).send({AllProduit})
         .console.log({AllProduit})
@@ -151,6 +151,20 @@ const getPromoProduct = asyncHandler(async (req, res) => {
         throw new Error(error)
     }
     
+})
+
+
+
+const searchProduct = asyncHandler(async (req, res) => {
+    try{
+        const AllProduit = await ProduitSchema.findAll({where: {promotion:true}})
+        res
+        .status(200).send({AllProduit})
+        .console.log({AllProduit})
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
+    }
 })
 
 module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct}

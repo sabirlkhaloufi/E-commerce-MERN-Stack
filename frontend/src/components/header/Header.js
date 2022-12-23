@@ -63,7 +63,6 @@ function Header({item}) {
   const getCategories = async()=>{
     axios.get("http://localhost:8000/api/categories/getall").then((Response)=>{
       setCategories(Response.data);
-      console.log(Response.data);
     }).catch((error)=>{
       console.log(error);
     })
@@ -192,10 +191,12 @@ function Header({item}) {
               <div className="dropdown-menu">
                 <nav className="side-nav">
                   <ul className="menu-vertical sf-arrows">
-                    <li className="item-lead"><a href="#">Daily offers</a></li>
-                    <li className="item-lead"><a href="#">Gift Ideas</a></li>
-                    <li><a href="#">Beds</a></li>
-                    <li><a href="#">Lighting</a></li>
+
+                    {categories.map((categorie)=>{
+                      return(
+                        <li  className="item-lead"><Link to={"/categorie/"+categorie.id}>{categorie.categorie}</Link></li>
+                      )
+                    })}
                     
                   </ul>{/* End .menu-vertical */}
                 </nav>{/* End .side-nav */}
@@ -207,7 +208,7 @@ function Header({item}) {
               <ul className="menu sf-arrows">
                 <li className="megamenu-container active">
                   {/* <a href="index.html" className="sf-with-ul">Home</a> */}
-                  <Link to="/" element={Home} className="sf-with-ul">Home</Link>
+                  <a href='http://localhost:3000' className="sf-with-ul">Home</a>
 
                 </li>
                 <li>
