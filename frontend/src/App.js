@@ -1,4 +1,6 @@
 import react from "react";
+import {Routes, Route} from "react-router-dom";
+import { useState , useEffect } from "react";
 import Home from "./pages/Home";
 import ProductDetail from "./components/productDetail/ProductDetail";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -10,10 +12,7 @@ import ForgetPassword from "./pages/auth/ForgetPassword";
 import ConfirmEmail from "./pages/auth/ConfirmEmail";
 import ResetPassword from "./pages/auth/ResetPassword";
 
-import {Routes, Route} from "react-router-dom";
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
-import NavMobile from "./components/header/NavMobile";
+
 import Dash from "./admin/Dash";
 import ShopProduit from "./pages/shop/ShopProduit";
 
@@ -21,11 +20,13 @@ import Dashboard from './pages/Dashboard/dashborad'
 
 
 function App() {
+  
+  
   return ( 
     <>
   
         
-      <Header/>
+     
         <Routes>
         {/* public routes */}
           <Route exact path="/dashboard" element={<Dash/>} />
@@ -39,7 +40,7 @@ function App() {
 
 
           <Route exact path="/dashboard" element={<Dashboard/>} />
-          <Route exact path="/logout" element={<Home/>} />
+          <Route exact path="/logout" element={<Home   />} />
           {/* <Route exact path="/login-register" element={<LoginRegister/>} > */}
             {/* <Route exact path="register" element={<Register/>} /> */}
             {/* <Route exact path="forgetpassword" element={<ForgetPassword/>} /> */}
@@ -55,8 +56,7 @@ function App() {
           {/* unfound */}
           <Route exact path="*" element={<NotFoundPage/>} />
         </Routes>
-        <NavMobile/>
-        <Footer/>
+        
         
      </> 
   ); 

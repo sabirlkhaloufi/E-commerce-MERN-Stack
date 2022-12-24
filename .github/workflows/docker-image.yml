@@ -2,24 +2,20 @@ name: Docker Image
 
 on:
   push:
-    branches: [ "Develop" ]
+    branches: [ Develop ]
   pull_request:
-    branches: [ "Develop" ]
+    branches: [ Develop ]
 
 jobs:
-
   build:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image client
-      run: echo "${{ secrets.DOCKERPW }}" | docker login -u "sabirlkhaloufi" --password-stdin
-
-            docker build ./frontend -t sabirlkhaloufi/frontend:latest
-
-            docker push sabirlkhaloufi/frontend:latest
-
-      
-            
+    - name: Build && push Image
+      run: |
+        echo "${{ secrets.DOCKERPW }}" | docker login -u "sabirlkhaloufi" --password-stdin
+        docker image build ./frontend -t sabirlkhaloufi/frontend:latest
+        docker push sabirlkhaloufi/frontend:latest
+        
