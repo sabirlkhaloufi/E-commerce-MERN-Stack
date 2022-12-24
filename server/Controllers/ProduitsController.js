@@ -56,26 +56,27 @@ const addProduit = asyncHandler(async (req, res) => {
 const updateProduit = asyncHandler(async (req, res) => {
     const {title, description, price, oldprice, quantite, promotion } = req.body
     const id =  req.params.id;
+    // console.log(req)
+    console.log('req.body', req.body)
 
-    try {
-        // functin update produit
-        const updateproduit = await ProduitSchema.findOne({where:{id:id}})
+    // try {
+    //     // functin update produit
+    //     const updateproduit = await ProduitSchema.findOne({where:{id:id}})
 
-        if(updateProduit){
-            updateproduit.title = title
-            updateproduit.description = description
-            updateproduit.price = price
-            updateproduit.oldprice = oldprice
-            updateproduit.quantite = quantite
-            updateproduit.promotion = promotion
-            updateproduit.save()
+    //     if(updateProduit){
+    //         updateproduit.title = title
+    //         updateproduit.description = description
+    //         updateproduit.price = price
+    //         updateproduit.oldprice = oldprice
+    //         updateproduit.quantite = quantite
+    //         updateproduit.promotion = promotion
+    //         updateproduit.save()
             
-            res.status(200).send('update produit success')
-        }
-    } catch (error) {
-            res.status(400)
-            throw new Error(error)
-        }
+    //         res.status(200).send('update produit success')
+    //     }
+    // } catch (error) {
+    //         res.status(400).json({ error })
+    //     }
 })
 
 
@@ -103,7 +104,6 @@ const deleteProduit = asyncHandler(async (req, res) => {
 // get one produit
 const getOneProduit = asyncHandler(async (req, res) => {
     const id = req.params.id
-
     try{
         const OneProduit = await ProduitSchema.findOne({where:{id}})
         res.status(200).send({OneProduit})
