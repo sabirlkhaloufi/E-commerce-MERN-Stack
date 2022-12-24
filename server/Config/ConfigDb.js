@@ -22,7 +22,7 @@ const sequelize = new Sequelize(
 
 
   // sequelize.sync({force:true});  
-  sequelize.sync()
+  // sequelize.sync()
 
 
   module.exports = sequelize

@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react'
+import React , {useEffect, useState} from 'react'
 import BarRechercheShop from './warpers/BarRechercheShop'
 import {Pagination} from '@mui/material'
 import Price from './warpers/Price'
@@ -36,27 +36,21 @@ function ShopProduit() {
   
 
   const [AllProducts, setAllProducts] = useState([])
+  const [paginate, setPaginate] = useState({limit:6,offset:0});
   const url = "http://localhost:8000"
   const getAllProducts = async()=>{
-    axios.get("http://localhost:8000/api/produit/getall").then((Response)=>{
-      console.log(Response.data.AllProduit);
-      setAllProducts(Response.data.AllProduit);
+    axios.get(`http://localhost:8000/api/produit/getallPagination?limit=${paginate.limit}&offset=${paginate.offset+paginate.limit}`).then((Response)=>{
+      console.log(Response.data);
+      setAllProducts(Response.data);
     }).catch((error)=>{
       console.log(error);
     })
   }
 
+  const handlPagination = async(event, value)=>{
+    await setPaginate({limit:6,offset:value})
+  }
 
-  const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 6;
-  const endOffset = itemOffset + itemsPerPage;
-  const currentItems = AllProducts.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(AllProducts.length / itemsPerPage);
-
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % AllProducts.length;
-    setItemOffset(newOffset);
-  };
 
 
   useEffect(() => {
@@ -64,6 +58,12 @@ function ShopProduit() {
     getAllProducts();
     filterByCategorie()
   }, [])
+
+  useEffect(() => {
+    getCategories();
+    getAllProducts();
+    filterByCategorie()
+  }, [paginate])
 
 
   return (
@@ -79,7 +79,7 @@ function ShopProduit() {
 
 
 
-          {currentItems.map((product)=>{
+          {AllProducts.map((product)=>{
             return (
               <Link to={"/productDetail/"+product.id} className="col-6 col-md-4 col-lg-4">
               <div className="product product-7 text-center">
@@ -127,8 +127,9 @@ function ShopProduit() {
           </div>{/* End .row */}
         </div>{/* End .products */}
 
-        <Pagination count={10} color="primary" />
+        <Pagination count={10} color="primary" onChange={handlPagination}/>
         
+
       </div>{/* End .col-lg-9 */}
       <aside className="col-lg-3 order-lg-first">
         <div className="sidebar sidebar-shop">

@@ -135,7 +135,7 @@ const getOneProduitsByIdCategorie = asyncHandler(async (req, res) => {
 const getAllProduit = asyncHandler(async (req, res) => {
 
     try{
-        const AllProduit = await ProduitSchema.findAll({limit: 10})
+        const AllProduit = await ProduitSchema.findAll()
         res
         .status(200).send({AllProduit})
         .console.log({AllProduit})
@@ -180,5 +180,26 @@ const searchProduct = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct,getOneProduitsByIdCategorie}
+
+
+const getProductPaginatin = asyncHandler(async (req, res) => {
+    const limit = req.query.limit || 6
+    const offset = req.query.offset ||  0;
+    
+    // const searchN = req.body.nameFilter;
+    // const categoryCondition = Category_id ? { categoryCategoryId: Category_id}:null;
+    // const filterByName = searchN ? { name: { [Op.like]: %${searchN}% } }:null;
+    try {
+        const allProduct = await ProduitSchema.findAll({
+        limit: limit,
+        offset: offset
+      });
+      return res.status(200).json(allProduct);
+  
+    } catch (e) {
+      return res.status(500).json(e);
+    }
+})
+
+module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct,getOneProduitsByIdCategorie, getProductPaginatin}
 
