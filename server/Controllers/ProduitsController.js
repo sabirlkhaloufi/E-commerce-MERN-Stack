@@ -6,8 +6,8 @@ const ProduitSchema = require('../Models/ProduitModel');
 // access : public
 // add produit
 const addProduit = asyncHandler(async (req, res) => {
-    console.log("body",req.body)
-    console.log("req.files",req.files)
+    // console.log("body",req.body)
+    // console.log("req.files",req.files)
 
     const { image,title, description, price, oldprice, quantite, promotion,categorie } = req.body
     // console.log(title)
@@ -88,7 +88,7 @@ const deleteProduit = asyncHandler(async (req, res) => {
     const id = req.params.id
 
     try{
-        const deleteProduit = await ProduitSchema.destroy({where:{id}})
+        await ProduitSchema.destroy({where:{id}})
         res.status(200).send({message:"delete produit success"})
     } catch (error) {
         res.status(400)
@@ -113,7 +113,10 @@ const getOneProduit = asyncHandler(async (req, res) => {
     }
     
 })
-
+// method : get
+// url : /api/categorie/getall
+// access : public
+// get all categories
 const getOneProduitsByIdCategorie = asyncHandler(async (req, res) => {
     const id = req.params.id
 
@@ -131,7 +134,7 @@ const getOneProduitsByIdCategorie = asyncHandler(async (req, res) => {
 // method : get
 // url : /api/produit/getall
 // access : public
-// get all produit
+// get all produits
 const getAllProduit = asyncHandler(async (req, res) => {
 
     try{
@@ -151,7 +154,7 @@ const getAllProduit = asyncHandler(async (req, res) => {
 // method : get
 // url : /api/produit/getallPromo
 // access : public
-// get all produit
+// get all produit by promotion
 const getPromoProduct = asyncHandler(async (req, res) => {
 
     try{
@@ -180,5 +183,18 @@ const searchProduct = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct,getOneProduitsByIdCategorie}
+const counts = asyncHandler(async (req, res) => {
+    try{
+const count = await ProduitSchema.count({
+    where: { title: "korssi" },
+  });
+  console.log(count); // 2
+
+} catch (error) {
+    res.status(400)
+    throw new Error(error)
+}
+})
+
+module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct,getOneProduitsByIdCategorie,counts}
 

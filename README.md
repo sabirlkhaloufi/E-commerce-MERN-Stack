@@ -48,3 +48,13 @@ project E-commerce with technology :
 | `DELETE` | `/api/commande/deleteCommande/:id` | **DeleteCommande**|
 | `GET` | `/api/commande/getAllCommands` | **GetAllCommands**|
 
+### Produit
+
+| Method | Api     | Description                |
+| :-------- | :------- | :------------------------- |
+| `POST` | `/api/produit/add` | **CreatProduit**|
+| `PUT` | `/api/produit/update` | **UpdateProduit**|
+| `DELETE` | `/api/produit/delete/:id` | **DeleteProduit**|
+| `GET` | `/api/produit/getAll` | **GetAllProduits**|
+| `GET` | `/api/produit/getone/:id` | **GetOneProduit**|
+

@@ -69,12 +69,11 @@ const TableProduit= ({className}) => {
   
 
   useEffect(() => {
-    getAllproduits()
     getAllproduits();
     getAllCategorie()
   } , [oneproduit]);
  
-  // start function register add produit --------------------------------
+  // start function add produit --------------------------------
   const [ image, setImage ] = useState('');
   const [ title, setTitle ] = useState('');
   const [ description, setDescription ] = useState('');
@@ -171,7 +170,7 @@ const TableProduit= ({className}) => {
                     console.log(error)
                 })
     }
-  // end function register add produit --------------------------------
+  // end function add produit --------------------------------
   
   return (
     <div className={`card ${className}`}>
