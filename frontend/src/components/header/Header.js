@@ -84,7 +84,7 @@ function Header({item}) {
               <li>
                 <a href="#">Links</a>
                 <ul>
-                  <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
+                  <li><Link to={"/login-register"} data-toggle="modal">Sign in / Sign up</Link></li>
                 </ul>
               </li>
             </ul>{/* End .top-menu */}
