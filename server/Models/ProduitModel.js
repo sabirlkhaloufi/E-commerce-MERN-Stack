@@ -38,7 +38,6 @@ const Produits = db.define('produits', {
         allowNull: false
     },
     
-   
 });
 
 Categorie.hasMany(Produits);

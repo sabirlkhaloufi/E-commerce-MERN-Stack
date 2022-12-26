@@ -17,6 +17,7 @@ import Dash from "./admin/Dash";
 import ShopProduit from "./pages/shop/ShopProduit";
 
 import Dashboard from './pages/Dashboard/dashborad'
+import Cart from "./pages/Cart";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route exact path="/" element={<Home/>} />
 
            <Route exact path="/shop" element={<ShopProduit/>} />
+           <Route exact path="/cart" element={<Cart/>} />
           <Route exact path="/login-register" element={<LoginRegister/>} />
           <Route exact path="/forget-password" element={<ForgetPassword/>} />
           <Route exact path="/productDetail/:id" element={<ProductDetail/>} />

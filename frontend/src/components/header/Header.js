@@ -46,18 +46,7 @@ function Header({item}) {
     setRemove(remove + 1)
   }
   
-  // get product from local storage
-  // getPanier()
-  
-
-
-  // useEffect(() => {
-  //   const panierData = localStorage.getItem('panier') ? JSON.parse(localStorage.getItem('panier')) : []
-  //   setPanier(panierData)
-  //   console.log('panier :>> ', panier);
-  // })
-
-  
+ 
    
 
   const getCategories = async()=>{
@@ -173,7 +162,7 @@ function Header({item}) {
                   <span className="cart-total-price">${totalPrice}</span>
                 </div>{/* End .dropdown-cart-total */}
                 <div className="dropdown-cart-action">
-                  <a href="cart.html" className="btn btn-primary">View Cart</a>
+                  <Link to={"/cart"} className="btn btn-primary">View Cart</Link>
                   <a href="checkout.html" className="btn btn-outline-primary-2"><span>Checkout</span><i className="icon-long-arrow-right" /></a>
                 </div>{/* End .dropdown-cart-total */}
               </div>{/* End .dropdown-menu */}
