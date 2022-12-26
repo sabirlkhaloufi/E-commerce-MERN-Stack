@@ -4,8 +4,8 @@ const CommentValidation = (req, res, next) => {
     const schema = Joi.object({
         content: Joi.string().required().min(10).max(255),
         // image: Joi.string().required(),
-        // produitId: Joi.string().required(),
-        // userId: Joi.string().required(),
+        produitId: Joi.number().required(),
+        userId: Joi.number().required(),
     });
     const { error, value } = schema.validate(req.body);
     if (error) {

@@ -19,7 +19,7 @@ const Login = asyncHandler (async (req, res) => {
     console.log(req.body)          
     const {email, password} = req.body
     const user = await User.findOne({where:{email:email}})
-    console.log(user)
+    // console.log(user)
     if(user  && (await bcrypt.compare(password, user.password)) ){
         const token = generateToken(user._id)
         storage('token', token);
@@ -28,18 +28,22 @@ const Login = asyncHandler (async (req, res) => {
             httpOnly: true
         })
 
-        const role = await Role.findByPk(user.roles[0])
+        // const role = await Role.findByPk(user.roles[0])
 
         if (user.verified == true) {
-            res.json({
-                _id: user._id,
-                name: user.name,
-                email: user.email ,
+            res.status(200).json({
+                id: user.id,
+                // name: user.name,
+                // email: user.email ,
                 token: generateToken(user._id),
-                role: role.name ,
+                api_token:  user.token,
+                email: user.email,
+                first_name: user.name,
+                // last_name: user.name,
+                // role: role.name ,
                 verified: user.verified ,
-                password: user.password ,
-                storage: storage('token')
+                // password: user.password ,
+                // storage: storage('token')
             })
         } else {
             res.status(401)
@@ -160,6 +164,35 @@ const ResetPassword = asyncHandler(async (req,res) => {
     }  
 }) 
 
+// method : post
+// url : /api/auth/login
+// access : public
+const VerifyToken = asyncHandler(async (req,res) => {
+    const token = req.body.api_token
+    const user = await User.findOne(
+        {where: {
+            token: token
+        }}
+    )  
+    if(user){
+
+        res.status(200).json({
+            success: true,
+            message: "token is valid" ,
+            api_token: user.token ,
+            email: user.email ,
+            // email_verified_at: user.verified ,
+            first_name: user.name,
+            id: user.id,
+            last_name: "Stark",
+            updated_at: user.updatedAt,
+        })
+    } else {
+        res.status(401)
+        throw new Error("Invalid token")
+    }
+})
+
 const Verify = asyncHandler( async  (req,res) => {
     let token = req.params.token
     
@@ -225,6 +258,7 @@ module.exports = {
     Manager,
     Livreur,
     Verify ,
-    Logout
+    Logout ,
+    VerifyToken
 }
     
