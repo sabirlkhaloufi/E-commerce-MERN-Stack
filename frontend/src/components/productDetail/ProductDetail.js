@@ -1,9 +1,27 @@
 import React, {useEffect, useState} from 'react'
 import { Link, useParams} from 'react-router-dom'
 import axios from 'axios';
+import Header from '../header/Header';
 
  function ProductDetail() {
 
+  const [panier , setPanier] = useState([])
+  const [show, setShow] = useState(true);
+  const [item, setItem] = useState([]);
+  console.log("show: ", show);
+  console.log("panier: ", panier);
+  const handleClick = (item) => {
+    setItem(item);
+    console.log("item: ", item);
+    if (panier.indexOf(item) !== -1) return;
+    setPanier([...panier, item]);
+    // save to local storage
+
+    localStorage.setItem("panier", JSON.stringify([...panier, item]));
+
+    // setCart([...cart, item]);
+  };
+  
   const url = "http://localhost:8000"
   let  idProduct = useParams().id;
 
@@ -23,8 +41,10 @@ import axios from 'axios';
   }, [])
 
   return (
-  <div>
+    <>
+    <Header  item={item} />
 
+  <div>
   <div className="page-wrapper">
     <main className="main">
       <nav aria-label="breadcrumb" className="breadcrumb-nav border-0 mb-0">
@@ -50,18 +70,14 @@ import axios from 'axios';
                       </a>
                     </figure>{/* End .product-main-image */}
                     <div id="product-zoom-gallery" className="product-image-gallery">
-                      <a className="product-gallery-item active" href="#" data-image="assets/images/products/single/1.jpg" data-zoom-image="assets/images/products/single/1-big.jpg">
-                        {product.image && <img  src={url+product.image[1]} alt="product side" />}
+
+                      {product.image && product.image.map((item)=>{
+                        return(
+                          <a className="product-gallery-item active h-auto" href="#" data-image="assets/images/products/single/1.jpg" data-zoom-image="assets/images/products/single/1-big.jpg">
+                        <img  src={url+item} alt="product side" />
                       </a>
-                      <a className="product-gallery-item" href="#" data-image="assets/images/products/single/2.jpg" data-zoom-image="assets/images/products/single/2-big.jpg">
-                      {product.image && <img  src={url+product.image[2]} alt="product side" />}
-                      </a>
-                      <a className="product-gallery-item" href="#" data-image="assets/images/products/single/3.jpg" data-zoom-image="assets/images/products/single/3-big.jpg">
-                      {product.image && <img  src={url+product.image[3]} alt="product side" />}
-                      </a>
-                      <a className="product-gallery-item" href="#" data-image="assets/images/products/single/4.jpg" data-zoom-image="assets/images/products/single/4-big.jpg">
-                        <img src="assets/images/products/single/4-small.jpg" alt="product back" />
-                      </a>
+                        )
+                      })}
                     </div>{/* End .product-image-gallery */}
                   </div>{/* End .row */}
                 </div>{/* End .product-gallery */}
@@ -194,7 +210,7 @@ import axios from 'axios';
 
  
 </div>
-
+</>
   )
 }
 export default ProductDetail

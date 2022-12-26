@@ -30,7 +30,7 @@ const Login = asyncHandler (async (req, res) => {
 
         // const role = await Role.findByPk(user.roles[0])
 
-        if (user.verified == true) {
+        if (user.verified) {
             res.status(200).json({
                 id: user.id,
                 // name: user.name,

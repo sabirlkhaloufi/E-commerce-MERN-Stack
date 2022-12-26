@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState , createContext } from 'react'
 import {render} from 'react-dom'
+import { Link } from 'react-router-dom'
 import PromotionProduct from '../components/PromotionProduct/PromotionProduct'
 import TopProducts from '../components/TopProducts/TopProducts'
 // import Header from '../components/header/Header'
@@ -38,20 +39,20 @@ const Home = () => {
                   <div className="container intro-content">
                     <h3 className="intro-subtitle">Bedroom Furniture</h3>{/* End .h3 intro-subtitle */}
                     <h1 className="intro-title">Find Comfort <br />That Suits You.</h1>{/* End .intro-title */}
-                    <a href="category.html" className="btn btn-primary">
+                    <Link to={"/shop"} className="btn btn-primary">
                       <span>Shop Now</span>
                       <i className="icon-long-arrow-right" />
-                    </a>
+                    </Link>
                   </div>{/* End .container intro-content */}
                 </div>{/* End .intro-slide */}
                 <div className="intro-slide" style={{backgroundImage: 'url(assets/images/demos/demo-2/slider/slide-2.jpg)'}}>
                   <div className="container intro-content">
                     <h3 className="intro-subtitle">Deals and Promotions</h3>{/* End .h3 intro-subtitle */}
                     <h1 className="intro-title">Ypperlig <br />Coffee Table <br /><span className="text-primary"><sup>$</sup>49,99</span></h1>{/* End .intro-title */}
-                    <a href="category.html" className="btn btn-primary">
+                    <Link to={"/shop"} className="btn btn-primary">
                       <span>Shop Now</span>
                       <i className="icon-long-arrow-right" />
-                    </a>
+                    </Link>
                   </div>{/* End .container intro-content */}
                 </div>{/* End .intro-slide */}
                 <div className="intro-slide" style={{backgroundImage: 'url(assets/images/demos/demo-2/slider/slide-3.jpg)'}}>
@@ -63,10 +64,10 @@ const Home = () => {
                         <sup className="text-white font-weight-light">from</sup><sup>$</sup>9,99
                       </span>
                     </h1>{/* End .intro-title */}
-                    <a href="category.html" className="btn btn-primary">
+                    <Link to={"/shop"} className="btn btn-primary">
                       <span>Shop Now</span>
                       <i className="icon-long-arrow-right" />
-                    </a>
+                    </Link>
                   </div>{/* End .container intro-content */}
                 </div>{/* End .intro-slide */}
               </div>{/* End .owl-carousel owl-simple */}
