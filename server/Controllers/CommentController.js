@@ -41,8 +41,8 @@ const create = (req, res) => {
 	Comment.create({
 		content: content,
 		image: localStorage.getItem('imageName'),
-		// produitId: "1" ,
-		// userId: "1"
+		produitId: req.body.produitId ,
+		userId: req.body.userId
 	})
 	.then((comments) => {
 		res.status(200).json(comments);
@@ -56,8 +56,14 @@ const create = (req, res) => {
 
 // Show a particular CRUD Detail by Id
 const show = (req, res) => {
-	Comment.findByPk(req.params.id)
+	Comment.findByPk(
+		req.params.id ,
+		{
+			include: ['produit', 'user']
+		}
+	)
 	.then((comments) => {
+		
 		res.json(comments);
 	  }
 	)

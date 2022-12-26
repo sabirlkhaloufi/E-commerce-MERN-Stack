@@ -10,6 +10,7 @@ const TableProduit= ({className}) => {
   const [oneproduit,setoneproduit] = useState({})
   const [loading, setLoading] = useState(false)
   const [updateImage, setUpdateImage] = useState('')
+  const [alert, setAlert] = useState("")
 
   const handleChangeOnUpdate = (e) => {
     setoneproduit({
@@ -70,9 +71,9 @@ const TableProduit= ({className}) => {
 
   useEffect(() => {
     getAllproduits()
-    getAllproduits();
+    // getAllproduits();
     getAllCategorie()
-  } , [oneproduit]);
+  } , [oneproduit , alert]);
  
   // start function register add produit --------------------------------
   const [ image, setImage ] = useState('');
@@ -84,26 +85,26 @@ const TableProduit= ({className}) => {
   const [ promotion, setPromotion ] = useState('');
   const [ categorie, setCategorie ] = useState('');
 
-  const handleUpdate = (e, id) => {
+  const handleUpdate = async (e, id) => {
     e.preventDefault()
     console.log("test",oneproduit)
     const formData = new FormData();
-    formData.append('image',updateImage);
-        formData.get('title');
-        formData.get('description');
-        formData.get('price');
-        formData.get('oldprice');
-        formData.get('quantite');
-        formData.get('promotion');
-        formData.get('categorie');
-    // formData.append('title', oneproduit.title);
-    // formData.append('description', oneproduit.description);
-    // formData.append('price', oneproduit.price);
-    // formData.append('oldprice', oneproduit.oldprice);
-    // formData.append('quantite', oneproduit.quantite);
-    // formData.append('promotion', oneproduit.promotion);
-    // formData.append('categorie', oneproduit.categorie);
-    console.log("form data" ,formData)
+    // formData.append('image',updateImage);
+    //     formData.get('title');
+    //     formData.get('description');
+    //     formData.get('price');
+    //     formData.get('oldprice');
+    //     formData.get('quantite');
+    //     formData.get('promotion');
+    //     formData.get('categorie');
+    formData.append('title', oneproduit.title);
+    formData.append('description', oneproduit.description);
+    formData.append('price', oneproduit.price);
+    formData.append('oldprice', oneproduit.oldprice);
+    formData.append('quantite', oneproduit.quantite);
+    formData.append('promotion', oneproduit.promotion);
+    formData.append('categorie', oneproduit.categorie);
+    // console.log("form data" ,formData)
     // console.log('categorie',categorie)
     // if( !image || !title || !description || !price || !oldprice || !quantite || !promotion || !categorie ) {
     // return( alert("fill in alll details"))
@@ -119,12 +120,13 @@ const TableProduit= ({className}) => {
     },
     data: formData,
   };
-  axios(config)
+ await axios(config)
     .then((res) => {
-      getAllproduits();
-        console.log(('create produit is valid'))
-        // console.log(formData)
-        
+      // getAllproduits();
+        console.log(('update produit is valid'))
+        console.log(res.data)
+        setAlert(res.data.title,"is updated ")
+        console.log(alert)
 
     })
     .catch((error) => {
@@ -162,6 +164,7 @@ const TableProduit= ({className}) => {
       axios(config)
                 .then((res) => {
                   getAllproduits();
+                  setAlert("produit added")
                     console.log(('create produit is valid'))
                     // console.log(formData)
                     

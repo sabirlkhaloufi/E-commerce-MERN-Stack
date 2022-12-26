@@ -21,20 +21,22 @@ const Commentairs = db.define('commentairs', {
     },
     produitId: {
       type:  DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true ,
+      references: {
+        model: Produits,
+        key: 'id'
+      }
     },
     userId: {
       type:  DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true ,
+      references: {
+        model: User,
+        key: 'id'
+      }
     },
 
-    // Idproduit: {
-    //     type: Sequelize.DataTypes.INTEGER,
-    //     references: {
-    //       model: 'produits',
-    //       key: 'id'
-    //     }
-    // }
+    
   }, {
     
   });
