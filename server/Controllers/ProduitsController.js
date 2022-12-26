@@ -6,16 +6,19 @@ const ProduitSchema = require('../Models/ProduitModel');
 // access : public
 // add produit
 const addProduit = asyncHandler(async (req, res) => {
+    // console.log("body",req.body)
+    // console.log("req.files",req.files)
 
-    const {image, title, description, price, oldprice, quantite, promotion,categorie } = req.body
+    const { title, description, price, oldprice, quantite, promotion,categorie } = req.body
     // console.log(title)
     // console.log(req.files.image);
 
     // condition add les inputs
-    if(image || !title || !description || !price|| !oldprice|| !quantite || !promotion){
-        res.status(400)
-        throw new Error("Please add a text field")
-    }
+    // if(!image || !title || !description || !price|| !oldprice|| !quantite || !promotion){
+    //     res.status(400)
+    //     throw new Error("Please add a text field")
+
+    // }
 // console.log(categorieId);
 
         const img = [];
@@ -25,6 +28,7 @@ const addProduit = asyncHandler(async (req, res) => {
         img.push(imgPath);
         });
         console.log("iamge",img)
+    
     try{
     // function create newproduit
        const produit = await ProduitSchema.create({
@@ -56,21 +60,19 @@ const updateProduit = asyncHandler(async (req, res) => {
     const {title, description, price, oldprice, quantite, promotion } = req.body
     const id =  req.params.id;
     // console.log(req)
-    // console.log('req.body', req.body)
+    console.log('req.body', req.body)
  
     try {
-        // functin update produit
-        const updateproduit = await ProduitSchema.findOne({where:{id:id}})
         const img = [];
         await req.files.forEach((filePath) => {
         const path = filePath.path.split("\\")
         const imgPath = "/" + path[1] + "/" + path[2];
         img.push(imgPath);
         });
-        // console.log("iamge",img)
-
+        console.log("iamge",img)
+        // functin update produit
+        const updateproduit = await ProduitSchema.findOne({where:{id:id}})
         if(updateProduit){
-            updateproduit.image = img
             updateproduit.title = title
             updateproduit.description = description
             updateproduit.price = price
@@ -87,12 +89,14 @@ const updateProduit = asyncHandler(async (req, res) => {
         }
 })
 
+
 // method : delete
 // url : /api/produit
 // access : public
 // delete produit
 const deleteProduit = asyncHandler(async (req, res) => {
     const id = req.params.id
+
     try{
         await ProduitSchema.destroy({where:{id}})
         res.status(200).send({message:"delete produit success"})
@@ -102,6 +106,7 @@ const deleteProduit = asyncHandler(async (req, res) => {
     }
     
 })
+
 
 // method : get
 // url : /api/produit
@@ -116,6 +121,7 @@ const getOneProduit = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error(error)
     }
+    
 })
 // method : get
 // url : /api/categorie/getall
@@ -123,6 +129,7 @@ const getOneProduit = asyncHandler(async (req, res) => {
 // get all categories
 const getOneProduitsByIdCategorie = asyncHandler(async (req, res) => {
     const id = req.params.id
+
     try{
         const allProduitByCategorie = await ProduitSchema.findAll({where:{categorieId:id}})
         res.status(200).send({allProduitByCategorie})
@@ -133,11 +140,13 @@ const getOneProduitsByIdCategorie = asyncHandler(async (req, res) => {
     
 })
 
+
 // method : get
 // url : /api/produit/getall
 // access : public
 // get all produits
 const getAllProduit = asyncHandler(async (req, res) => {
+
     try{
         const AllProduit = await ProduitSchema.findAll({limit:10})
         res
@@ -150,11 +159,14 @@ const getAllProduit = asyncHandler(async (req, res) => {
     
 })
 
+
+
 // method : get
 // url : /api/produit/getallPromo
 // access : public
 // get all produit by promotion
 const getPromoProduct = asyncHandler(async (req, res) => {
+
     try{
         const AllProduit = await ProduitSchema.findAll({where: {promotion:true}})
         res
@@ -166,6 +178,8 @@ const getPromoProduct = asyncHandler(async (req, res) => {
     }
     
 })
+
+
 
 const searchProduct = asyncHandler(async (req, res) => {
     try{
@@ -182,15 +196,22 @@ const searchProduct = asyncHandler(async (req, res) => {
 const counts = asyncHandler(async (req, res) => {
     try{
 const count = await ProduitSchema.count({
-    where: { title: "korssi" },
-  });
-  console.log(count); // 2
+    // where: { title: "korssi" },
+    col: 'title',
+  })
+  res
+  .status(200).send({count})
+  console.log(count); // 
 
 } catch (error) {
     res.status(400)
     throw new Error(error)
 }
 })
+
+
+
+
 
 const getProductPaginatin = asyncHandler(async (req, res) => {
     const limit = req.query.limit || 6

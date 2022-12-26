@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {FC} from 'react'
+
 import {useIntl} from 'react-intl'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
 import {PageTitle} from '../../../_metronic/layout/core'
@@ -18,8 +19,11 @@ import {
   EngageWidget10,
 } from '../../../_metronic/partials/widgets'
 
-const DashboardPage: FC = () => (
+const DashboardPage = ({className}) => (
+  
   <>
+
+  
     {/* begin::Row */}
     <div className='row g-5 g-xl-10 mb-5 mb-xl-10'>
       {/* begin::Col */}
@@ -38,6 +42,7 @@ const DashboardPage: FC = () => (
           labelColor='dark'
           textColor='gray-300'
         />
+
       </div>
       {/* end::Col */}
 
@@ -113,7 +118,7 @@ const DashboardPage: FC = () => (
   </>
 )
 
-const DashboardWrapper: FC = () => {
+const DashboardWrapper = () => {
   const intl = useIntl()
   return (
     <>
