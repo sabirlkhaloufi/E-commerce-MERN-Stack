@@ -4,7 +4,8 @@ const app = require("../server");
 
 
 
-describe("POST /api/produit/add  // add", () => {
+describe("test produits ", () => {
+
   it("should add a prodact", async () => {
     const res = await request(app).post("/api/produit/add").send({
       image: "pabluc/image/a.png",
@@ -15,16 +16,13 @@ describe("POST /api/produit/add  // add", () => {
       quantite: 12,
       promotion: true,
       categorie: "cate",
-
     });
-    // console.log("res.body :>> ", res.body);
-
     expect(res.statusCode).toBe(200);
   });
-});
 
-describe("POST /api/produit/add  // add", () => {
-  it("should add a prodact", async () => {
+
+
+  it("should add a prodact return status 400 ", async () => {
     const res = await request(app).post("/api/produit/add").send({
       image: "",
       title: "",
@@ -34,10 +32,22 @@ describe("POST /api/produit/add  // add", () => {
       quantite: "",
       promotion: "",
       categorie: "",
-
     });
-    // console.log("res.body :>> ", res.body);
-
     expect(res.statusCode).toBe(400);
-  });
+    });
+
+  
+//   it("should add a prodact", async () => {
+//     const res = await request(app).post(`/api/produit/delete/${6}`).send({
+//       image: "public/image/table.png",
+//       title: "table",
+//       description: "table",
+//       price: 3,
+//       oldprice: 3,
+//       quantite: 3,
+//       promotion: false,
+//       categorie: "cate",
+//     });
+//     expect(res.statusCode).toBe(200);
+//   });
 });

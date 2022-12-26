@@ -1,12 +1,36 @@
-type Props = {
-  className: string
-  description: string
-  color: string
-  img: string
-}
+import { useState , useEffect } from 'react'
+import axios from 'axios';
 
-const CardsWidget20 = ({className, description, color, img}: Props) => (
+
+
+
+
+
+const CardsWidget20 = ({className, description, color, img})=> {
+
+  const [count , setCont]= useState()
+  const counts = async ()=> {
+      await axios.get(
+      'http://localhost:8000/api/produit/count'
+    ).then(({data})=>{
+      console.log('gggggg',data.count)
+
+      setCont(data.count)
+    }).catch((error)=>{
+      console.log(error);
+    })
+  }
+  
+  
+  
+    useEffect(() => {
+    counts()
+  } , []);
+
+  return (
+
   <div
+  
     className={`card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end ${className}`}
     style={{
       backgroundColor: color,
@@ -15,9 +39,10 @@ const CardsWidget20 = ({className, description, color, img}: Props) => (
   >
     <div className='card-header pt-5'>
       <div className='card-title d-flex flex-column'>
-        <span className='fs-2hx fw-bold text-white me-2 lh-1 ls-n2'>69</span>
+        <span className='fs-2hx fw-bold text-white me-2 lh-1 ls-n2'>Produits: {count}</span>
+        
 
-        <span className='text-white opacity-75 pt-1 fw-semibold fs-6'>{description}</span>
+      <span className='text-white opacity-75 pt-1 fw-semibold fs-6'></span>
       </div>
     </div>
     <div className='card-body d-flex align-items-end pt-0'>
@@ -40,5 +65,5 @@ const CardsWidget20 = ({className, description, color, img}: Props) => (
       </div>
     </div>
   </div>
-)
+)}
 export {CardsWidget20}

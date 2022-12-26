@@ -71,7 +71,7 @@ const TableProduit= ({className}) => {
 
   useEffect(() => {
     getAllproduits()
-    // getAllproduits();
+    getoneproduit();
     getAllCategorie()
   } , [oneproduit , alert]);
  
@@ -90,6 +90,7 @@ const TableProduit= ({className}) => {
     console.log("test",oneproduit)
     const formData = new FormData();
     formData.append('image',updateImage);
+    
     formData.append('title', oneproduit.title);
     formData.append('description', oneproduit.description);
     formData.append('price', oneproduit.price);
@@ -169,13 +170,13 @@ const TableProduit= ({className}) => {
     <div className={`card ${className}`}>
       {/* begin::Header */}
 
-      <div>
+      {/* <div>
         id : {oneproduit.id} 
         <br/>
 
         title : {oneproduit.title}
 
-      </div>
+      </div> */}
       <div className='card-header border-0 pt-5'>
         <h3 className='card-title align-items-start flex-column'>
           <span className='card-label fw-bold fs-3 mb-1'>New Arrivals</span>
