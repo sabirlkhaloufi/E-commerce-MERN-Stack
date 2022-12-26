@@ -31,20 +31,23 @@ const addProduit = asyncHandler(async (req, res) => {
     
     try{
     // function create newproduit
-        await ProduitSchema.create({
+       const produit = await ProduitSchema.create({
         image:img,
-        title,
-        description,
-        price,
-        oldprice,
-        quantite,
-        promotion,
+        title: title,
+        description: description,
+        price: price,
+        oldprice: oldprice,
+        quantite: quantite,
+        promotion: promotion,
         categorieId:categorie
     })
     
-    res.status(200).send('Add produit success')
+    res.status(200).json(
+        produit
+    )
     }catch(error){
         res.status(400)
+        console.log(error)
         throw new Error(error)
     }
 })
@@ -58,25 +61,27 @@ const updateProduit = asyncHandler(async (req, res) => {
     const id =  req.params.id;
     // console.log(req)
     console.log('req.body', req.body)
+ 
+    try {
+        // functin update produit
+        const updateproduit = await ProduitSchema.findOne({where:{id:id}})
 
-    // try {
-    //     // functin update produit
-    //     const updateproduit = await ProduitSchema.findOne({where:{id:id}})
-
-    //     if(updateProduit){
-    //         updateproduit.title = title
-    //         updateproduit.description = description
-    //         updateproduit.price = price
-    //         updateproduit.oldprice = oldprice
-    //         updateproduit.quantite = quantite
-    //         updateproduit.promotion = promotion
-    //         updateproduit.save()
+        if(updateProduit){
+            updateproduit.title = title
+            updateproduit.description = description
+            updateproduit.price = price
+            updateproduit.oldprice = oldprice
+            updateproduit.quantite = quantite
+            updateproduit.promotion = promotion
+            updateproduit.save()
             
-    //         res.status(200).send('update produit success')
-    //     }
-    // } catch (error) {
-    //         res.status(400).json({ error })
-    //     }
+            res.status(200).json(
+                updateproduit
+            )
+        }
+    } catch (error) {
+            res.status(400).json({ error })
+        }
 })
 
 

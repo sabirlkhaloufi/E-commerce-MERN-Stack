@@ -24,6 +24,24 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 const TableComment= ({className}) => {
   const [comments, setComments] = useState([])
+  const [produits, setProduits] = useState([])
+  const [users, setUsers] = useState([
+    {
+      id: 1,
+      name: 'Anna Strong',
+      email: 'abdo@gmail.com'
+    },
+    {
+      id: 2,
+      name: 'Katarina Smith',
+      email: 'anna@gmail.com'
+    },
+    {
+      id: 3,
+      name: 'Emma Smith',
+      email: 'abdessamad@gmail.com'
+    }      
+  ])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [image, setImage] = useState([])
@@ -38,6 +56,18 @@ const TableComment= ({className}) => {
 
 
   }
+  const getAllproduits = async ()=> {
+    await axios.get(
+     'http://localhost:8000/api/produit/getall'
+   ).then(({data})=>{
+     setProduits(data.AllProduit)
+     // console.log(data.AllProduit);
+     // console.log('item.image',data.AllProduit)
+   }).catch((error)=>{
+     console.log(error);
+   })
+ }
+
 
 
   const getComments = async () => {
@@ -49,6 +79,7 @@ const TableComment= ({className}) => {
 
   useEffect(() => {
     getComments()
+    getAllproduits()
   }, [ update ])
 
   const handleAdd = async (e) => {
@@ -215,13 +246,6 @@ const TableComment= ({className}) => {
                           maxFiles={1}
                           labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
                       />
-                      {/* <label className="form-label">image </label> */}
-                      {/* <input type="file"
-                       name='image'
-                        className="form-control"
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)} 
-                        /> */}
                     </div>
                   <div className="mb-10">
                       <label className="form-label">Content</label>
@@ -236,11 +260,11 @@ const TableComment= ({className}) => {
                       </div>
                       <div className="mb-10">
                       <label className="form-label">Produit Related </label>
-                      <select className="form-select" aria-label="Select example">
-                        <option>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <select className="form-select" name='produitId' aria-label="Select example">
+                        <option>Select product</option>
+                        {produits.map((produit) => (
+                        <option value={produit.id} key={produit.id}>{ produit.title }</option>
+                        ))}
                       </select>
                     </div>
 
@@ -249,9 +273,9 @@ const TableComment= ({className}) => {
                       <label className="form-label">User Related </label>
                       <select className="form-select form-select-solid" aria-label="Select example">
                         <option>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {users.map((user) => (
+                        <option value={user.id} key={user.id}>{user.name}</option>
+                        ))}
                       </select>
                     </div>
                     <div className="modal-footer">
