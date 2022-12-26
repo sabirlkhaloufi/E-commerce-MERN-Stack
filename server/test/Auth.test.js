@@ -35,6 +35,41 @@
 //   });
 // });
 
+/* Testing the API endpoints. */
+// describe("GET /api/products", () => {
+//   it("should return all products", async () => {
+//     const res = await request(app).get("/api/products");
+//     expect(res.statusCode).toBe(200);
+//     expect(res.body.length).toBeGreaterThan(0);
+//   });
+// });
+
+// /* Dropping the database and closing connection after each test. */
+// afterEach(async () => {
+//     // await mongoose.connection.dropDatabase();
+//     await mongoose.connection.close();
+// });
+// describe("POST /api/auth/register // REGISTER", () => {
+//   it("should create a user", async () => {
+//     const res = await request(app).post("/api/auth/register").send({
+//       name: "aesdjdmaado",
+//       email: "abedkkdkrk@gmail.com",
+//       password: "azertoyui",
+//     });
+//     // console.log("res.body :>> ", res.body);
+
+//     expect(res.statusCode).toBe(201);
+//     // expect(res.body.name).toBe("abdessamad");
+//   });
+// });
+// describe("GET /api/auth/confirm/sjsjs", () => {
+//   it("should verify email", async () => {
+//     const res = await request(app).get("/api/auth/confirm/dnfsdjnfkdslf");
+//     expect(res.statusCode).toBe(200);
+//     // expect(res.body.name).toBe("abdessamad");
+//   });
+// });
+
 // /* Testing the API endpoints. */
 // // describe("GET /api/products", () => {
 // //   it("should return all products", async () => {

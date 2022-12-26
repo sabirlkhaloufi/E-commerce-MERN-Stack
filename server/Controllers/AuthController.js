@@ -29,7 +29,11 @@ const Login = asyncHandler (async (req, res) => {
         })
 
         // const role = await Role.findByPk(user.roles[0])
+<<<<<<< HEAD
+console.log('user.verified', user.verified)
+=======
 
+>>>>>>> Develop
         if (user.verified) {
             res.status(200).json({
                 id: user.id,
