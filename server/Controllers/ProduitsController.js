@@ -31,20 +31,23 @@ const addProduit = asyncHandler(async (req, res) => {
     
     try{
     // function create newproduit
-        await ProduitSchema.create({
+       const produit = await ProduitSchema.create({
         image:img,
-        title,
-        description,
-        price,
-        oldprice,
-        quantite,
-        promotion,
+        title: title,
+        description: description,
+        price: price,
+        oldprice: oldprice,
+        quantite: quantite,
+        promotion: promotion,
         categorieId:categorie
     })
     
-    res.status(200).send('Add produit success')
+    res.status(200).json(
+        produit
+    )
     }catch(error){
         res.status(400)
+        console.log(error)
         throw new Error(error)
     }
 })
@@ -58,25 +61,27 @@ const updateProduit = asyncHandler(async (req, res) => {
     const id =  req.params.id;
     // console.log(req)
     console.log('req.body', req.body)
+ 
+    try {
+        // functin update produit
+        const updateproduit = await ProduitSchema.findOne({where:{id:id}})
 
-    // try {
-    //     // functin update produit
-    //     const updateproduit = await ProduitSchema.findOne({where:{id:id}})
-
-    //     if(updateProduit){
-    //         updateproduit.title = title
-    //         updateproduit.description = description
-    //         updateproduit.price = price
-    //         updateproduit.oldprice = oldprice
-    //         updateproduit.quantite = quantite
-    //         updateproduit.promotion = promotion
-    //         updateproduit.save()
+        if(updateProduit){
+            updateproduit.title = title
+            updateproduit.description = description
+            updateproduit.price = price
+            updateproduit.oldprice = oldprice
+            updateproduit.quantite = quantite
+            updateproduit.promotion = promotion
+            updateproduit.save()
             
-    //         res.status(200).send('update produit success')
-    //     }
-    // } catch (error) {
-    //         res.status(400).json({ error })
-    //     }
+            res.status(200).json(
+                updateproduit
+            )
+        }
+    } catch (error) {
+            res.status(400).json({ error })
+        }
 })
 
 
@@ -138,7 +143,7 @@ const getOneProduitsByIdCategorie = asyncHandler(async (req, res) => {
 const getAllProduit = asyncHandler(async (req, res) => {
 
     try{
-        const AllProduit = await ProduitSchema.findAll({limit: 10})
+        const AllProduit = await ProduitSchema.findAll()
         res
         .status(200).send({AllProduit})
         .console.log({AllProduit})
@@ -196,5 +201,26 @@ const count = await ProduitSchema.count({
 }
 })
 
-module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct,getOneProduitsByIdCategorie,counts}
 
+
+
+const getProductPaginatin = asyncHandler(async (req, res) => {
+    const limit = req.query.limit || 6
+    const offset = req.query.offset ||  0;
+    
+    // const searchN = req.body.nameFilter;
+    // const categoryCondition = Category_id ? { categoryCategoryId: Category_id}:null;
+    // const filterByName = searchN ? { name: { [Op.like]: %${searchN}% } }:null;
+    try {
+        const allProduct = await ProduitSchema.findAll({
+        limit: limit,
+        offset: offset
+      });
+      return res.status(200).json(allProduct);
+  
+    } catch (e) {
+      return res.status(500).json(e);
+    }
+})
+
+module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct,getOneProduitsByIdCategorie, getProductPaginatin,counts}
