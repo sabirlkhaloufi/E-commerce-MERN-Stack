@@ -4,9 +4,26 @@ import {Pagination} from '@mui/material'
 import Price from './warpers/Price'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
-
+import Header from '../../components/header/Header'
 
 function ShopProduit() {
+
+  const [panier , setPanier] = useState([])
+  const [show, setShow] = useState(true);
+  const [item, setItem] = useState([]);
+  console.log("show: ", show);
+  console.log("panier: ", panier);
+  const handleClick = (item) => {
+    setItem(item);
+    console.log("item: ", item);
+    if (panier.indexOf(item) !== -1) return;
+    setPanier([...panier, item]);
+    // save to local storage
+
+    localStorage.setItem("panier", JSON.stringify([...panier, item]));
+
+    // setCart([...cart, item]);
+  };
 
   const [categories, setCategories] = useState([])
 
@@ -68,6 +85,8 @@ function ShopProduit() {
 
   return (
     <>
+      <Header  item={item} />
+
     <div className="page-content">
   <div className="container">
     <div className="row">
