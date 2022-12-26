@@ -46,6 +46,8 @@ const TableComment= ({className}) => {
   const [error, setError] = useState(null)
   const [image, setImage] = useState([])
   const [content, setContent] = useState("")
+  const [produit, setProduit] = useState("")
+  const [user, setUser] = useState("")
   const [update , setUpdate] = useState("")
 
 
@@ -67,6 +69,8 @@ const TableComment= ({className}) => {
      console.log(error);
    })
  }
+
+ console.log(comments)
 
 
 
@@ -92,7 +96,9 @@ const TableComment= ({className}) => {
         'Content-Type': 'multipart/form-data'
       },
       data : JSON.stringify({
-        content: content
+        content: content ,
+        produitId: produit,
+        userId: user
       })
 
     }
@@ -115,7 +121,10 @@ const TableComment= ({className}) => {
         'Content-Type': 'multipart/form-data'
       },
       data : JSON.stringify({
-        content: content
+        content: content ,
+        produitId: produit,
+        userId: user
+
       })
 
     }
@@ -260,7 +269,8 @@ const TableComment= ({className}) => {
                       </div>
                       <div className="mb-10">
                       <label className="form-label">Produit Related </label>
-                      <select className="form-select" name='produitId' aria-label="Select example">
+                      <select className="form-select" name='produitId' value={produit} onChange={(e) => setProduit(e.target.value)}
+                       aria-label="Select example">
                         <option>Select product</option>
                         {produits.map((produit) => (
                         <option value={produit.id} key={produit.id}>{ produit.title }</option>
@@ -271,7 +281,8 @@ const TableComment= ({className}) => {
                      
                       <div className="mb-10">
                       <label className="form-label">User Related </label>
-                      <select className="form-select form-select-solid" aria-label="Select example">
+                      <select className="form-select form-select-solid" value={user} onChange={(e) => setUser(e.target.value)}
+                       aria-label="Select example">
                         <option>Open this select menu</option>
                         {users.map((user) => (
                         <option value={user.id} key={user.id}>{user.name}</option>
@@ -569,10 +580,10 @@ const TableComment= ({className}) => {
                     </div>
                     <div className='d-flex justify-content-start flex-column'>
                       <a href='#' className='text-dark fw-bold text-hover-primary mb-1 fs-6'>
-                        {item.id}
+                        {item.user.name}
                       </a>
                       <span className='text-muted fw-semibold text-muted d-block fs-7'>
-                       {item.content}
+                       {item.user.email}
                       </span>
                     </div>
                   </div>
@@ -616,7 +627,7 @@ const TableComment= ({className}) => {
                     </div>
                   </div>
                   <span className='text-muted fw-semibold text-muted d-block fs-7 mt-1'>
-                    Best Rated
+                    {item.content}
                   </span>
                 </td>
                 <td className='text-end'>

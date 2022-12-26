@@ -1,4 +1,6 @@
 const Comment = require("../Models/CommentairModel");
+const User = require("../Models/UsersModel");
+const Produit = require("../Models/ProduitModel");
 const colors = require('colors');
 const multer = require('multer');
 const path = require('path');
@@ -11,7 +13,23 @@ const localStorage = require('localStorage');
 const index = (req, res) => {
 	console.log("Commentaire".america.bold);
 	// get all comments
-	Comment.findAll()
+	Comment.findAll(
+		{
+			include: [
+				{
+					model: User,
+					attributes: ['name', 'email', 'id'],
+				},
+				{
+					model: Produit,
+					attributes: ['title', 'image'],
+				},
+			],
+		} ,
+
+
+
+	)
 	.then((comments) => {
 		res.json(comments);
 	}
