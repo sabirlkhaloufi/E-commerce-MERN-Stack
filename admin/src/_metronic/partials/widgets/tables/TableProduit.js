@@ -89,14 +89,7 @@ const TableProduit= ({className}) => {
     e.preventDefault()
     console.log("test",oneproduit)
     const formData = new FormData();
-    // formData.append('image',updateImage);
-    //     formData.get('title');
-    //     formData.get('description');
-    //     formData.get('price');
-    //     formData.get('oldprice');
-    //     formData.get('quantite');
-    //     formData.get('promotion');
-    //     formData.get('categorie');
+    formData.append('image',updateImage);
     formData.append('title', oneproduit.title);
     formData.append('description', oneproduit.description);
     formData.append('price', oneproduit.price);
@@ -104,11 +97,7 @@ const TableProduit= ({className}) => {
     formData.append('quantite', oneproduit.quantite);
     formData.append('promotion', oneproduit.promotion);
     formData.append('categorie', oneproduit.categorie);
-    // console.log("form data" ,formData)
-    // console.log('categorie',categorie)
-    // if( !image || !title || !description || !price || !oldprice || !quantite || !promotion || !categorie ) {
-    // return( alert("fill in alll details"))
-    // }
+    
     
 
     let config = {

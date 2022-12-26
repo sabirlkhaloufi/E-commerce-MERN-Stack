@@ -1,39 +1,39 @@
-const mongoose = require("mongoose");
-const request = require("supertest");
-const app = require("../server");
+// const mongoose = require("mongoose");
+// const request = require("supertest");
+// const app = require("../server");
 
-// require("dotenv").config();
+// // require("dotenv").config();
 
-/* Connecting to the database before each test. */
-beforeEach(async () => {
-  await mongoose.connect(process.env.MONGO_URI);
-});
+// /* Connecting to the database before each test. */
+// beforeEach(async () => {
+//   await mongoose.connect(process.env.MONGO_URI);
+// });
 
-/* Dropping the database and closing connection after each test. */
-afterEach(async () => {
-    // await mongoose.connection.dropDatabase();
-    await mongoose.connection.close();
-});
-describe("POST /api/auth/register // REGISTER", () => {
-  it("should create a user", async () => {
-    const res = await request(app).post("/api/auth/register").send({
-      name: "aesdjdmaado",
-      email: "abedkkdkrk@gmail.com",
-      password: "azertoyui",
-    });
-    // console.log("res.body :>> ", res.body);
+// /* Dropping the database and closing connection after each test. */
+// afterEach(async () => {
+//     // await mongoose.connection.dropDatabase();
+//     await mongoose.connection.close();
+// });
+// describe("POST /api/auth/register // REGISTER", () => {
+//   it("should create a user", async () => {
+//     const res = await request(app).post("/api/auth/register").send({
+//       name: "aesdjdmaado",
+//       email: "abedkkdkrk@gmail.com",
+//       password: "azertoyui",
+//     });
+//     // console.log("res.body :>> ", res.body);
 
-    expect(res.statusCode).toBe(201);
-    // expect(res.body.name).toBe("abdessamad");
-  });
-});
-describe("GET /api/auth/confirm/sjsjs", () => {
-  it("should verify email", async () => {
-    const res = await request(app).get("/api/auth/confirm/dnfsdjnfkdslf");
-    expect(res.statusCode).toBe(200);
-    // expect(res.body.name).toBe("abdessamad");
-  });
-});
+//     expect(res.statusCode).toBe(201);
+//     // expect(res.body.name).toBe("abdessamad");
+//   });
+// });
+// describe("GET /api/auth/confirm/sjsjs", () => {
+//   it("should verify email", async () => {
+//     const res = await request(app).get("/api/auth/confirm/dnfsdjnfkdslf");
+//     expect(res.statusCode).toBe(200);
+//     // expect(res.body.name).toBe("abdessamad");
+//   });
+// });
 
 /* Testing the API endpoints. */
 // describe("GET /api/products", () => {
