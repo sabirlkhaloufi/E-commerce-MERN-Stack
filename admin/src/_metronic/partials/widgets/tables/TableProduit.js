@@ -62,6 +62,8 @@ const TableProduit= ({className}) => {
     console.log(id)
      await  axios.get(`http://localhost:8000/api/produit/getone/${id}`)
     .then((response)=>{
+      console.log('lllll')
+      getoneproduit()
       setoneproduit(response.data.OneProduit)
     }).catch((error)=>{
       console.log(error);
@@ -71,7 +73,7 @@ const TableProduit= ({className}) => {
 
   useEffect(() => {
     getAllproduits()
-    getoneproduit();
+    getoneproduit()
     getAllCategorie()
   } , [oneproduit , alert]);
  
