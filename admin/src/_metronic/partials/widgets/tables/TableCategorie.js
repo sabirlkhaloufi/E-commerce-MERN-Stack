@@ -15,7 +15,7 @@ const TableCategogie = ({className}) => {
 
 
   const showData = async(data, id)=>{
-    await setFormData({data:data,id:id});
+    await setFormData({categorie:data,id:id});
     console.log(formData);
   }
 
