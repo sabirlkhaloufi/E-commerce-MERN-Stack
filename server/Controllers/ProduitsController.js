@@ -157,13 +157,33 @@ const getAllProduit = asyncHandler(async (req, res) => {
 
 
 // method : get
+// url : /api/produit/getallHome
+// access : public
+// get all produits
+const getallHome = asyncHandler(async (req, res) => {
+
+    try{
+        const AllProduit = await ProduitSchema.findAll({ where: {promotion:!true}, limit:10})
+        res
+        .status(200).send({AllProduit})
+        .console.log({AllProduit})
+    } catch (error) {
+        res.status(400)
+        throw new Error(error)
+    }
+    
+})
+
+
+
+// method : get
 // url : /api/produit/getallPromo
 // access : public
 // get all produit by promotion
 const getPromoProduct = asyncHandler(async (req, res) => {
 
     try{
-        const AllProduit = await ProduitSchema.findAll({where: {promotion:true}})
+        const AllProduit = await ProduitSchema.findAll({where: {promotion:true},limit:10})
         res
         .status(200).send({AllProduit})
         .console.log({AllProduit})
@@ -178,7 +198,7 @@ const getPromoProduct = asyncHandler(async (req, res) => {
 
 const searchProduct = asyncHandler(async (req, res) => {
     try{
-        const AllProduit = await ProduitSchema.findAll({where: {promotion:true}})
+        const AllProduit = await ProduitSchema.findAll({})
         res
         .status(200).send({AllProduit})
         .console.log({AllProduit})
@@ -223,4 +243,4 @@ const getProductPaginatin = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct,getOneProduitsByIdCategorie, getProductPaginatin,counts}
+module.exports  = {addProduit,updateProduit,deleteProduit,getOneProduit,getAllProduit, getPromoProduct,getOneProduitsByIdCategorie, getProductPaginatin,counts,getallHome}

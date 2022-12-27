@@ -14,7 +14,7 @@ function Header({item}) {
   const [panier, setPanier] = useState([])
   const [itemCount, setItemCount] = useState(0)
   const [remove, setRemove] = useState(0)
-  console.log('itemmo :>> ', item);
+  // console.log('itemmo :>> ', item);
 
   // const handlePrice = () => {
 
