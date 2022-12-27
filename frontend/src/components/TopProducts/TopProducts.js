@@ -9,7 +9,7 @@ function TopProducts({ handleClick }) {
   const [AllProducts, setAllProducts] = useState([])
   
   const getAllProducts = async()=>{
-    axios.get("http://localhost:8000/api/produit/getall").then((Response)=>{
+    axios.get("http://localhost:8000/api/produit/getallHome").then((Response)=>{
       setAllProducts(Response.data.AllProduit);
     }).catch((error)=>{
       console.log(error);

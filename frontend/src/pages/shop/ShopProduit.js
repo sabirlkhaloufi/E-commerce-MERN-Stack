@@ -100,10 +100,13 @@ function ShopProduit() {
 
           {AllProducts.map((product)=>{
             return (
+              
               <Link to={"/productDetail/"+product.id} className="col-6 col-md-4 col-lg-4">
               <div className="product product-7 text-center">
                 <figure className="product-media">
-                  <span className="product-label label-new">New</span>
+                  
+                  {product.promotion === true ? <span className="product-label label-promo">Promo</span> : <span className="product-label label-new">New</span>}
+                  
                   <a href="product.html">
                     <img src={url+product.image[0]} alt="Product image" className="product-image" />
                   </a>
