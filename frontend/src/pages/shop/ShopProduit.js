@@ -39,7 +39,6 @@ function ShopProduit() {
   const filterByCategorie = async(id)=>{ 
     
     console.log(id);
-    // const getAllProduitByCategorie = async (id) =>{
       await  axios.get(`http://localhost:8000/api/produit/getallproduitsidcategorie/${id}`)
       .then((response)=>{
         // console.log('allProduitByCategorie',response.data.allProduitByCategorie);
