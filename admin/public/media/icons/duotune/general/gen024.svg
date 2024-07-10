@@ -1,8 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-     <rect x="5" y="5" width="5" height="5" rx="1" fill="currentColor"/>
-        <rect x="14" y="5" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"/>
-        <rect x="5" y="14" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"/>
-        <rect x="14" y="14" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"/>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1"><rect width="5" height="5" x="5" y="5" fill="currentColor" rx="1"/><rect width="5" height="5" x="14" y="5" fill="currentColor" opacity=".3" rx="1"/><rect width="5" height="5" x="5" y="14" fill="currentColor" opacity=".3" rx="1"/><rect width="5" height="5" x="14" y="14" fill="currentColor" opacity=".3" rx="1"/></g></svg>
